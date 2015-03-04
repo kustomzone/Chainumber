@@ -10,8 +10,8 @@ var env = require('../util/env');
 gulp.task('less', function() {
     return gulp.src(config.less.src)
         .pipe(gulpif(env.debug, sourcemaps.init()))
-        .pipe(concat(config.less.name))
         .pipe(less())
-        .pipe(gulpif(env.debug, sourcemaps.write('./')))
+        .pipe(concat(config.less.name))
+        .pipe(gulpif(env.debug, sourcemaps.write()))
         .pipe(gulp.dest(config.less.dist));
 });
