@@ -1,10 +1,11 @@
-function Block(options) {
-    options = options || {};
+var config = require('./config');
 
+function Block(options) {
     this._value = options.value || null;
     this._element = null;
 
     this._createElement();
+    this.setPosition(options.x, options.y);
 }
 
 Block.prototype._createElement = function() {
@@ -33,6 +34,13 @@ Block.prototype.getValue = function() {
 
 Block.prototype.getElement = function() {
     return this._element;
+};
+
+Block.prototype.setPosition = function(x, y) {
+    this.x = x;
+    this.y = y;
+    this._element.style.top = y * config.block.height + 'px';
+    this._element.style.left = x * config.block.width + 'px';
 };
 
 module.exports = Block;
