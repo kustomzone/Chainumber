@@ -1,4 +1,5 @@
 var ViewBlock = require('./block');
+var util = require('../util.js');
 
 function ViewField(field) {
     this.model = field;
@@ -18,7 +19,7 @@ ViewField.prototype._createField = function() {
     Object.keys(this.model.blocks).forEach(this._createBlock, this);
 };
 
-ViewField.prototype._createBlock = function(id) {
+ViewField.prototype._createBlock = function(id, animate) {
     var viewBlock = new ViewBlock(this.model.blocks[id]);
 
     this.viewBlocks[id] = viewBlock;
@@ -36,10 +37,18 @@ ViewField.prototype._createBlock = function(id) {
     }).bind(this));
 
     this.fragment.appendChild(viewBlock.element);
+
+    if (animate === true) {
+        util.addClass(viewBlock.element, '_blink');
+
+        setTimeout(function() {
+            util.removeClass(viewBlock.element, '_blink');
+        }, 0);
+    }
 };
 
 ViewField.prototype.blockCreate = function(id) {
-    //this._createBlock(id);
+    this._createBlock(id, true);
 };
 
 ViewField.prototype._bindEvents = function() {

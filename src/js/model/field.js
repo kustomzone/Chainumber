@@ -20,6 +20,38 @@ function Field() {
 Field.prototype = Object.create(EventEmitter.prototype);
 Field.prototype.constructor = Field;
 
+Field.prototype._getBlockValue = function() {
+    var summRation = 0;
+    var possibleValues = config.numbers.possibleValues;
+
+    possibleValues.forEach(function(el) {
+        summRation += el[1];
+    });
+
+    var summ = 0;
+
+    var chanceArray = possibleValues.map(function(el) {
+        var val = el[1] / summRation + summ;
+
+        summ += val;
+
+        return val;
+    });
+
+    var roll = Math.random();
+
+    var value = 0;
+
+    for (var i = 0; i < chanceArray.length; i++) {
+        if (roll <= chanceArray[i]) {
+            value = possibleValues[i][0];
+            break;
+        }
+    }
+
+    return value;
+};
+
 Field.prototype._init = function() {
     var _blocksXY = this._blocksXY;
 
@@ -38,7 +70,7 @@ Field.prototype._init = function() {
 Field.prototype.createBlock = function(options) {
     var block = {
         id: ++this._blockIdCounter,
-        value: 1,
+        value: this._getBlockValue(),
         x: options.x,
         y: options.y
     };
@@ -100,6 +132,8 @@ Field.prototype.blockMouseOut = function(id) {
 };
 
 Field.prototype._runSelected = function() {
+    if (this.selectedBlocks.length < config.chain.minLength) { return; }
+
     var lastBl = this.blocks[this.selectedBlocks.pop()];
 
     var value = lastBl.value;
@@ -139,10 +173,29 @@ Field.prototype._checkPositions = function() {
 
 
         arr.forEach(function(block, i) {
-var oldY = block.y;
             if (block.y != i) {
+                this._blocksXY[block.x][block.y] = null;
+
                 block.y = i;
+
+                this._blocksXY[block.x][block.y] = block;
+
                 this.emit('blockPositionChanged', block.id);
+            }
+        }, this);
+    }, this);
+
+    this._addNewBlocks();
+};
+
+Field.prototype._addNewBlocks = function() {
+    Object.keys(this._blocksXY).forEach(function(hKey) {
+        Object.keys(this._blocksXY[hKey]).forEach(function(vKey) {
+            if (!this._blocksXY[hKey][vKey]) {
+                this.createBlock({
+                    x: hKey,
+                    y: vKey
+                });
             }
         }, this);
     }, this);
