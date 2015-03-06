@@ -10,8 +10,12 @@ html, body {
     position: relative;
 }
 
+.field {
+    width: 216px;
+    height: 216px;
+}
+
 .block {
-	display: inline-block;
 	position: absolute;
 	border: 2px solid #fff;
 	width: 50px;
@@ -22,6 +26,7 @@ html, body {
 	text-align: center;
 	line-height: 50px;
 	cursor: pointer;
+    transition: bottom 0.3s ease-out;
 
 	&:hover {
 		background: #535353;

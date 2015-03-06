@@ -5,13 +5,16 @@ function ViewField(field) {
 
     this.viewBlocks = {};
 
-    this.fragment = document.createDocumentFragment();
+    this.fragment = null;
 
     this._createField();
     this._bindEvents();
 }
 
 ViewField.prototype._createField = function() {
+    this.fragment = document.createElement('div');
+    this.fragment.className = 'field';
+
     Object.keys(this.model.blocks).forEach(this._createBlock, this);
 };
 
@@ -35,12 +38,19 @@ ViewField.prototype._createBlock = function(id) {
     this.fragment.appendChild(viewBlock.element);
 };
 
+ViewField.prototype.blockCreate = function(id) {
+    //this._createBlock(id);
+};
+
 ViewField.prototype._bindEvents = function() {
     document.body.addEventListener('mouseup', (function() {
         this.model.blockMouseUp();
     }).bind(this));
 
     // model -> view
+    this.model.on('blockCreated', this.blockCreate.bind(this));
+    this.model.on('blockRemoved', this.blockRemoved.bind(this));
+
     this.model.on('blockPositionChanged', this.updateBlockPosition.bind(this));
     this.model.on('blockValueChanged', this.updateBlockValue.bind(this));
 
@@ -84,8 +94,17 @@ ViewField.prototype.unselect = function() {
 
 ViewField.prototype.selectFinished = function() {
     this.selectedBlocks.forEach(function(id) {
-        this.viewBlocks[id].unselect();
+        if (this.viewBlocks[id]) {
+            this.viewBlocks[id].unselect();
+        }
     }, this);
+};
+
+ViewField.prototype.blockRemoved = function(id) {
+    var htmlBlock = this.viewBlocks[id].element;
+    this.fragment.removeChild(htmlBlock);
+
+    delete this.viewBlocks[id];
 };
 
 module.exports = ViewField;

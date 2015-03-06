@@ -28,10 +28,8 @@ Field.prototype._init = function() {
 
         for (var j = 0; j < this.size[1]; j++) {
             this.createBlock({
-                id: ++this._blockIdCounter,
                 x: i,
-                y: j,
-                value: 1
+                y: j
             });
         }
     }
@@ -39,14 +37,14 @@ Field.prototype._init = function() {
 
 Field.prototype.createBlock = function(options) {
     var block = {
-        id: options.id,
-        value: options.value,
+        id: ++this._blockIdCounter,
+        value: 1,
         x: options.x,
         y: options.y
     };
 
     this._blocksXY[options.x][options.y] = block;
-    this.blocks[options.id] = block;
+    this.blocks[block.id] = block;
 
     this.emit('blockCreated', block.id);
 };
@@ -59,6 +57,8 @@ Field.prototype.blockMouseDown = function(id) {
 };
 
 Field.prototype.blockMouseUp = function() {
+    if (!this.selectedMode) { return; }
+
     this.selectedMode = false;
 
     this._runSelected();
@@ -100,15 +100,52 @@ Field.prototype.blockMouseOut = function(id) {
 };
 
 Field.prototype._runSelected = function() {
-    //this.selectedBlocks;
-
-    var lastBl = this.blocks[this.selectedBlocks[this.selectedBlocks.length - 1]];
+    var lastBl = this.blocks[this.selectedBlocks.pop()];
 
     var value = lastBl.value;
 
-    lastBl.value = value * this.selectedBlocks.length;
+    lastBl.value = value * (this.selectedBlocks.length + 1); // +1 because pop above
 
     this.emit('blockValueChanged', lastBl.id);
+
+    this.selectedBlocks.forEach(function(selId) {
+        var block = this.blocks[selId];
+
+        this._blocksXY[block.x][block.y] = null;
+
+        delete this.blocks[selId];
+
+        this.emit('blockRemoved', selId);
+    }, this);
+
+    this._checkPositions();
+};
+
+Field.prototype._checkPositions = function() {
+    Object.keys(this._blocksXY).forEach(function(hKey) {
+        var arr = [];
+
+        Object.keys(this._blocksXY[hKey]).forEach(function(vKey) {
+            var block = this._blocksXY[hKey][vKey];
+
+            if (block) {
+                arr.push(block);
+            }
+        }, this);
+
+        arr.sort(function(a, b) {
+            return a.y > b.y;
+        });
+
+
+        arr.forEach(function(block, i) {
+var oldY = block.y;
+            if (block.y != i) {
+                block.y = i;
+                this.emit('blockPositionChanged', block.id);
+            }
+        }, this);
+    }, this);
 };
 
 module.exports = Field;

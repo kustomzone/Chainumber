@@ -13,7 +13,7 @@ ViewBlock.prototype._createElement = function(block) {
     var element = document.createElement('div');
     element.className = 'block _' + block.value;
 
-    element.style.top = block.y * config.block.height + 'px';
+    element.style.bottom = block.y * config.block.height + 'px';
     element.style.left = block.x * config.block.width + 'px';
 
     var active = document.createElement('div');
@@ -32,7 +32,7 @@ ViewBlock.prototype._createElement = function(block) {
 
 ViewBlock.prototype.changePosition = function(x, y) {
     this.element.style.left = x * config.block.width + 'px';
-    this.element.style.top = y * config.block.height + 'px';
+    this.element.style.bottom = y * config.block.height + 'px';
 };
 
 ViewBlock.prototype.changeValue = function(value) {
