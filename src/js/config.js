@@ -1,6 +1,6 @@
 module.exports = {
     field: {
-        size: [4, 4]
+        size: [5, 5]
     },
     block: {
         width: 54,
