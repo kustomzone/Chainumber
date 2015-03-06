@@ -61,18 +61,18 @@ Field.prototype.blockMouseDown = function(id) {
 Field.prototype.blockMouseUp = function() {
     this.selectedMode = false;
 
-    console.log('вычисляю');
-
-
+    this._runSelected();
 
     this.emit('blockSelectFinished');
 };
 
-Field.prototype._checkNearWithLast = function(id) {
+Field.prototype._checkWithLast = function(id) {
     var lastBl = this.blocks[this.selectedBlocks[this.selectedBlocks.length - 1]];
     var newBl = this.blocks[id];
 
-    return Math.abs(lastBl.x - newBl.x) <= 1 && Math.abs(lastBl.y - newBl.y) <= 1;
+    return lastBl.value == newBl.value &&
+        Math.abs(lastBl.x - newBl.x) <= 1 &&
+        Math.abs(lastBl.y - newBl.y) <= 1;
 };
 
 Field.prototype.blockMouseOver = function(id) {
@@ -81,7 +81,7 @@ Field.prototype.blockMouseOver = function(id) {
     var selBlocks = this.selectedBlocks;
 
     if (selBlocks.indexOf(id) == -1) {
-        if (this._checkNearWithLast(id)) {
+        if (this._checkWithLast(id)) {
             selBlocks.push(id);
 
 
@@ -97,6 +97,18 @@ Field.prototype.blockMouseOver = function(id) {
 
 Field.prototype.blockMouseOut = function(id) {
 
+};
+
+Field.prototype._runSelected = function() {
+    //this.selectedBlocks;
+
+    var lastBl = this.blocks[this.selectedBlocks[this.selectedBlocks.length - 1]];
+
+    var value = lastBl.value;
+
+    lastBl.value = value * this.selectedBlocks.length;
+
+    this.emit('blockValueChanged', lastBl.id);
 };
 
 module.exports = Field;
