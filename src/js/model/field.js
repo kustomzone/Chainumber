@@ -7,7 +7,12 @@ function Field() {
 
     this._blockIdCounter = 0;
     this.blocks = {};
+    this._blocksXY = {};
     this.size = config.field.size;
+
+    this.selectedBlocks = [];
+
+    this.selectedMode = false;
 
     this._init();
 }
@@ -16,10 +21,10 @@ Field.prototype = Object.create(EventEmitter.prototype);
 Field.prototype.constructor = Field;
 
 Field.prototype._init = function() {
-    var blocks = this.blocks;
+    var _blocksXY = this._blocksXY;
 
     for (var i = 0; i < this.size[0]; i++) {
-        blocks[i] = {};
+        _blocksXY[i] = {};
 
         for (var j = 0; j < this.size[1]; j++) {
             this.createBlock({
@@ -33,13 +38,65 @@ Field.prototype._init = function() {
 };
 
 Field.prototype.createBlock = function(options) {
-    var block = this.blocks[options.x][options.y] = {
+    var block = {
+        id: options.id,
         value: options.value,
         x: options.x,
         y: options.y
     };
 
-    this.emit('blockCreated', block);
+    this._blocksXY[options.x][options.y] = block;
+    this.blocks[options.id] = block;
+
+    this.emit('blockCreated', block.id);
+};
+
+Field.prototype.blockMouseDown = function(id) {
+    this.selectedMode = true;
+    this.selectedBlocks = [id];
+
+    this.emit('blockSelectStart');
+};
+
+Field.prototype.blockMouseUp = function() {
+    this.selectedMode = false;
+
+    console.log('вычисляю');
+
+
+
+    this.emit('blockSelectFinished');
+};
+
+Field.prototype._checkNearWithLast = function(id) {
+    var lastBl = this.blocks[this.selectedBlocks[this.selectedBlocks.length - 1]];
+    var newBl = this.blocks[id];
+
+    return Math.abs(lastBl.x - newBl.x) <= 1 && Math.abs(lastBl.y - newBl.y) <= 1;
+};
+
+Field.prototype.blockMouseOver = function(id) {
+    if (!this.selectedMode) { return; }
+
+    var selBlocks = this.selectedBlocks;
+
+    if (selBlocks.indexOf(id) == -1) {
+        if (this._checkNearWithLast(id)) {
+            selBlocks.push(id);
+
+
+            this.emit('blockSelect');
+        }
+    } else {
+        if (selBlocks[selBlocks.length - 2] == id) {
+            selBlocks.pop();
+            this.emit('blockUnselect');
+        }
+    }
+};
+
+Field.prototype.blockMouseOut = function(id) {
+
 };
 
 module.exports = Field;

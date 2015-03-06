@@ -1,4 +1,5 @@
 var config = require('./../config');
+var util = require('../util');
 
 function ViewBlock(block) {
     this.element = null;
@@ -21,6 +22,7 @@ ViewBlock.prototype._createElement = function(block) {
 
     element.appendChild(active);
 
+    this.activeElement = active;
     this.element = element;
 };
 
@@ -31,6 +33,14 @@ ViewBlock.prototype.changePosition = function(x, y) {
 
 ViewBlock.prototype.changeValue = function(value) {
     this.element.innerHTML = value;
+};
+
+ViewBlock.prototype.select = function(value) {
+    util.addClass(this.element, '_selected');
+};
+
+ViewBlock.prototype.unselect = function(value) {
+    util.removeClass(this.element, '_selected');
 };
 
 module.exports = ViewBlock;

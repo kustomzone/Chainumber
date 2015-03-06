@@ -1,4 +1,6 @@
-function addClass(el, name) {
+var util = {};
+
+util.addClass = function(el, name) {
     var classNames = el.className.split(' ');
     var index = classNames.indexOf(name);
 
@@ -8,9 +10,9 @@ function addClass(el, name) {
     }
 
     return el;
-}
+};
 
-function removeClass(el, name) {
+util.removeClass = function(el, name) {
     var classNames = el.className.split(' ');
     var index = classNames.indexOf(name);
 
@@ -20,10 +22,12 @@ function removeClass(el, name) {
     }
 
     return el;
-}
+};
 
-function hasClass(el, name) {
+util.hasClass = function(el, name) {
     var classNames = el.className.split(' ');
 
     return classNames.indexOf(name) != -1;
-}
+};
+
+module.exports = util;
