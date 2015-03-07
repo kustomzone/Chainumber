@@ -6,7 +6,8 @@ config = {
         // [number, ration or %]
         possibleValues: [
             [1, 1],
-            [2, 1]
+            [2, 1],
+            [3, 1]
         ]
     },
     chain: {
