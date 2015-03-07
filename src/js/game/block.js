@@ -27,8 +27,8 @@ Block.prototype._createElement = function() {
     var element = document.createElement('div');
     element.className = 'block _value_' + this.value;
 
-    element.style.left = this.x * this.width + 'px';
-    element.style.bottom = this.y * this.height + 'px';
+    element.style.left = Math.floor(this.x * this.width) + 'px';
+    element.style.bottom = Math.floor(this.y * this.height) + 'px';
 
     var inner = document.createElement('div');
     inner.className = 'block__inner';
@@ -104,8 +104,8 @@ Block.prototype.changePosition = function(x, y) {
     this.x = x;
     this.y = y;
 
-    this.element.style.left = x * this.width + 'px';
-    this.element.style.bottom = y * this.height + 'px';
+    this.element.style.left = Math.floor(x * this.width) + 'px';
+    this.element.style.bottom = Math.floor(y * this.height) + 'px';
 };
 
 Block.prototype.changeValue = function(value) {
