@@ -4,6 +4,9 @@ var util = require('../util');
 function ViewBlock(block) {
     this.element = null;
 
+    this.blockWidth = config.field.sizePx[0] / config.field.size[0];
+    this.blockHeight = config.field.sizePx[1] / config.field.size[1];
+
     this._createElement(block);
 }
 
@@ -11,10 +14,14 @@ ViewBlock.prototype._createElement = function(block) {
     // TODO: включить простой шаблонизатор
 
     var element = document.createElement('div');
-    element.className = 'block _' + block.value;
+    element.className = 'block _value_' + block.value;
 
-    element.style.bottom = block.y * config.block.height + 'px';
-    element.style.left = block.x * config.block.width + 'px';
+    element.style.left = block.x * this.blockWidth + 'px';
+    element.style.bottom = block.y * this.blockHeight + 'px';
+
+    var inner = document.createElement('div');
+    inner.className = 'block__inner';
+    element.appendChild(inner);
 
     var active = document.createElement('div');
     active.className = 'block__active';
@@ -23,7 +30,7 @@ ViewBlock.prototype._createElement = function(block) {
     var text = document.createElement('div');
     text.className = 'block__text';
     text.innerHTML = block.value;
-    element.appendChild(text);
+    inner.appendChild(text);
 
     this.textElement = text;
     this.activeElement = active;
@@ -31,8 +38,8 @@ ViewBlock.prototype._createElement = function(block) {
 };
 
 ViewBlock.prototype.changePosition = function(x, y) {
-    this.element.style.left = x * config.block.width + 'px';
-    this.element.style.bottom = y * config.block.height + 'px';
+    this.element.style.left = x * this.blockWidth + 'px';
+    this.element.style.bottom = y * this.blockHeight + 'px';
 };
 
 ViewBlock.prototype.changeValue = function(value) {

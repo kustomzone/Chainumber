@@ -1,10 +1,7 @@
 module.exports = {
     field: {
-        size: [5, 5]
-    },
-    block: {
-        width: 54,
-        height: 54
+        size: [5, 5],
+        sizePx: [500, 500]
     },
     numbers: {
         // [number, ration or %]

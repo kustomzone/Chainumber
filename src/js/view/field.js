@@ -14,7 +14,9 @@ function ViewField(field) {
 
 ViewField.prototype._createField = function() {
     this.fragment = document.createElement('div');
-    this.fragment.className = 'field';
+    this.fragment.className = 'field' +
+        ' _width_' + this.model.size[0] +
+        ' _height_' + this.model.size[1];
 
     Object.keys(this.model.blocks).forEach(this._createBlock, this);
 };

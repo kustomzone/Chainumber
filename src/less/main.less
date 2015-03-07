@@ -1,51 +1,93 @@
+@width: 500px;
+@height: 500px;
+
 html, body {
     margin: 0;
     width: 100%;
     height: 100%;
+    font-family: Arial, sans-serif;
 }
 
 #game {
+    margin: 0 auto;
+    width: @width;
     user-select: none;
     position: relative;
 }
 
 .field {
-    width: 270px;
-    height: 270px;
+    width: @width;
+    height: @height;
+}
+
+.block-size(@x, @y) {
+    @padding: @x * 1px;
+    @blockWidth: floor(@width / @x - @padding * 2);
+    @blockHeight: floor(@height / @y - @padding * 2);
+
+    padding: @padding;
+    width: @blockWidth;
+    height: @blockHeight;
+    line-height: @blockHeight;
+}
+
+.block__inner-size(@x, @y) {
+    @padding: @x * 1px;
+    @blockWidth: floor(@width / @x - @padding * 2);
+    @innerWidth: ceil(@blockWidth / 2 + @padding);
+
+    border: @innerWidth solid transparent;
+    border-radius: @innerWidth;
 }
 
 .block {
 	position: absolute;
-	border: 2px solid #fff;
-	width: 50px;
-	height: 50px;
-	background: #7C7C7C;
 	font-weight: 700;
 	font-size: 30px;
 	text-align: center;
-	line-height: 50px;
 	cursor: pointer;
-    transition: bottom 0.3s ease-out, opacity 0.3s ease-out 0.15s;
+    transition: bottom 0.3s ease-out;
 
-	&:hover {
-		background: #535353;
-	}
-
-    &._selected {
-        background: #c35000;
+    .field._width_4._height_4 & {
+        .block-size(4, 4);
     }
 
-    &._blink {
+    .field._width_5._height_5 & {
+        .block-size(5, 5);
+    }
+}
+
+.block__inner {
+    width: 100%;
+    height: 100%;
+    background: #99b433;
+    transition: opacity 0.3s ease-out 0.15s;
+
+    .block:hover & {
+        background: #1e7145;
+    }
+
+    .block._selected & {
+        background: #da532c;
+    }
+
+    .block._blink & {
         opacity: 0;
     }
 }
 
 .block__active {
     position: absolute;
-    top: -2px;
-    left: -2px;
-    border: 27px solid transparent;
-    border-radius: 27px;
+    top: 0;
+    left: 0;
     width: 0;
     height: 0;
+
+    .field._width_4._height_4 & {
+        .block__inner-size(4, 4);
+    }
+
+    .field._width_5._height_5 & {
+        .block__inner-size(5, 5);
+    }
 }
