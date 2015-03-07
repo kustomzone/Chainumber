@@ -30,4 +30,22 @@ util.hasClass = function(el, name) {
     return classNames.indexOf(name) != -1;
 };
 
+util.forEach = function(obj, iterator, context) {
+    if (obj.length) {
+        obj.forEach(iterator, context);
+    } else {
+        Object.keys(obj).forEach(function(key) {
+            iterator(obj[key], key, context);
+        });
+    }
+};
+
+util.on = function(node, type, callback) {
+    node.addEventListener(type, callback);
+};
+
+util.off = function(node, type, callback) {
+    node.removeEventListener(type, callback);
+};
+
 module.exports = util;

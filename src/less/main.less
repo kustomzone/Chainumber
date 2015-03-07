@@ -21,7 +21,7 @@ html, body {
 }
 
 .block-size(@x, @y) {
-    @padding: @x * 1px;
+    @padding: 10 - @x * 1px;
     @blockWidth: floor(@width / @x - @padding * 2);
     @blockHeight: floor(@height / @y - @padding * 2);
 
@@ -32,7 +32,7 @@ html, body {
 }
 
 .block__inner-size(@x, @y) {
-    @padding: @x * 1px;
+    @padding: 10 - @x * 1px;
     @blockWidth: floor(@width / @x - @padding * 2);
     @innerWidth: ceil(@blockWidth / 2 + @padding);
 
@@ -54,6 +54,10 @@ html, body {
 
     .field._width_5._height_5 & {
         .block-size(5, 5);
+    }
+
+    .field._width_6._height_6 & {
+        .block-size(6, 6);
     }
 }
 
@@ -89,5 +93,9 @@ html, body {
 
     .field._width_5._height_5 & {
         .block__inner-size(5, 5);
+    }
+
+    .field._width_6._height_6 & {
+        .block__inner-size(6, 6);
     }
 }

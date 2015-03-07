@@ -1,4 +1,4 @@
-module.exports = {
+config = {
     field: {
         size: [5, 5],
         sizePx: [500, 500]
