@@ -35,7 +35,7 @@ util.forEach = function(obj, iterator, context) {
         obj.forEach(iterator, context);
     } else {
         Object.keys(obj).forEach(function(key) {
-            iterator(obj[key], key, context);
+            iterator.call(context, obj[key], key);
         });
     }
 };
@@ -47,5 +47,15 @@ util.on = function(node, type, callback) {
 util.off = function(node, type, callback) {
     node.removeEventListener(type, callback);
 };
+
+
+// Seem legit
+var isMobile = ('DeviceOrientationEvent' in window || 'orientation' in window);
+// But with my Chrome on windows, DeviceOrientationEvent == fct()
+if (/Windows NT|Macintosh|Mac OS X|Linux/i.test(navigator.userAgent)) isMobile = false;
+// My android have "linux" too
+if (/Mobile/i.test(navigator.userAgent)) isMobile = true;
+
+util.isMobile = isMobile;
 
 module.exports = util;

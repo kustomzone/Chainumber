@@ -57,7 +57,41 @@ Field.prototype._createElement = function() {
 };
 
 Field.prototype._bindEvents = function() {
-    util.on(document.body, 'mouseup', this._mouseUpHandler.bind(this));
+    if (util.isMobile) {
+        util.on(document.body, 'touchend', this._mouseUpHandler.bind(this));
+        util.on(document.body, 'touchmove', this._touchMoveHandler.bind(this));
+    } else {
+        util.on(document.body, 'mouseup', this._mouseUpHandler.bind(this));
+    }
+};
+
+Field.prototype._touchMoveHandler = function(ev) {
+    var isBreak, block, keys,touch, target, i, j;
+    var blocks = this.blocks;
+
+    for (i = 0; i < ev.changedTouches.length; i++) {
+        touch = ev.changedTouches[i];
+        target = document.elementFromPoint(touch.clientX, touch.clientY);
+
+        if (target.className.indexOf('block__active') == -1) { continue; }
+
+        // делаем for, а не forEach, чтобы можно было стопнуть
+        keys = Object.keys(blocks);
+
+        for (j = 0; j < keys.length; j++) {
+            block = blocks[keys[j]];
+
+            if (block.activeElement === target) {
+                this.blockMouseOver(block.id);
+                isBreak = true;
+                break;
+            }
+        }
+
+        if (isBreak) {
+            break;
+        }
+    }
 };
 
 Field.prototype._mouseUpHandler = function() {

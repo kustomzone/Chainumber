@@ -1,4 +1,7 @@
-var util = require('../util');
+var colors = require('./colors.js');
+var util = require('../util.js');
+
+var primeNumbers = [1, 2, 3, 5, 7, 11, 13];
 
 var idCounter = 0;
 
@@ -25,7 +28,8 @@ Block.prototype._createElement = function() {
     // TODO: включить простой шаблонизатор
 
     var element = document.createElement('div');
-    element.className = 'block _value_' + this.value;
+    element.className = 'block';
+    element.setAttribute('data-id', this.id);
 
     element.style.left = Math.floor(this.x * this.width) + 'px';
     element.style.bottom = Math.floor(this.y * this.height) + 'px';
@@ -43,9 +47,12 @@ Block.prototype._createElement = function() {
     text.innerHTML = this.value;
     inner.appendChild(text);
 
+    this.innerElement = inner;
     this.textElement = text;
     this.activeElement = active;
     this.element = element;
+
+    this._updateColors();
 };
 
 Block.prototype._setRandomValue = function() {
@@ -81,9 +88,24 @@ Block.prototype._setRandomValue = function() {
 };
 
 Block.prototype._bindEvents = function() {
-    util.on(this.element, 'mousedown', this._mouseDownHandler.bind(this));
-    util.on(this.activeElement, 'mouseover', this._mouseOverHandler.bind(this));
-    util.on(this.activeElement, 'mouseout', this._mouseOutHandler.bind(this));
+    if (util.isMobile) {
+        util.on(this.element, 'touchstart', this._mouseDownHandler.bind(this));
+    } else {
+        util.on(this.element, 'mousedown', this._mouseDownHandler.bind(this));
+        util.on(this.activeElement, 'mouseover', this._mouseOverHandler.bind(this));
+        //util.on(this.activeElement, 'mouseout', this._mouseOutHandler.bind(this));
+    }
+};
+
+Block.prototype._touchMoveHandler = function(ev) {
+    for (var i = 0; i < ev.changedTouches.length; i++) {
+        var touch = ev.changedTouches[i];
+        var target = document.elementFromPoint(touch.clientX, touch.clientY);
+
+        if (this.activeElement === target) {
+            this.field.blockMouseDown(this.id);
+        }
+    }
 };
 
 Block.prototype._mouseDownHandler = function() {
@@ -108,9 +130,21 @@ Block.prototype.changePosition = function(x, y) {
     this.element.style.bottom = Math.floor(y * this.height) + 'px';
 };
 
+Block.prototype._updateColors = function() {
+
+    for (var i = primeNumbers.length - 1; i >=0; i--) {
+        if (this.value % primeNumbers[i] === 0) {
+            this.innerElement.style.backgroundColor = 'rgb(' + colors[i].rgb.join(',') + ')';
+            break;
+        }
+    }
+};
+
 Block.prototype.changeValue = function(value) {
     this.value = value;
     this.textElement.innerHTML = value;
+
+    this._updateColors();
 };
 
 Block.prototype.select = function() {
