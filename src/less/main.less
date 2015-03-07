@@ -8,11 +8,39 @@ html, body {
     font-family: Arial, sans-serif;
 }
 
-#game {
+.game {
     margin: 0 auto;
     width: @width;
     user-select: none;
     position: relative;
+}
+
+.game__header {
+    position: relative;
+    height: 100px;
+}
+
+.game__score {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    color: #99b433;
+    font-weight: 700;
+    font-size: 80px;
+}
+
+.game__chainSumm {
+    display: none;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    color: #99b433;
+    font-weight: 700;
+    font-size: 50px;
+
+    &._showed {
+        display: block;
+    }
 }
 
 .field {

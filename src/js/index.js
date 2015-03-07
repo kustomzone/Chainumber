@@ -1,7 +1,7 @@
-var Field = require('./game/field.js');
+var Game = require('./game/game.js');
 
-var field = new Field();
+var game = new Game();
 
 var html = document.getElementById('game');
 
-html.appendChild(field.element);
+html.appendChild(game.element);

@@ -1,7 +1,6 @@
 config = {
     field: {
-        size: [5, 5],
-        sizePx: [500, 500]
+        size: [5, 5]
     },
     numbers: {
         // [number, ration or %]

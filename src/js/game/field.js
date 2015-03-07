@@ -1,7 +1,9 @@
 var Block = require('./block.js');
 var util = require('../util');
 
-function Field() {
+function Field(game) {
+    this.game = game;
+
     this.blocks = {};
     this._blocksXY = {};
     this.size = config.field.size;
@@ -68,6 +70,8 @@ Field.prototype._mouseUpHandler = function() {
     util.forEach(this.blocks, function(block) {
         block.unselect();
     });
+
+    this.game.updateChainSumm(0);
 };
 
 Field.prototype.blockMouseDown = function(id) {
@@ -75,6 +79,8 @@ Field.prototype.blockMouseDown = function(id) {
     this.selectedBlocks = [id];
 
     this.blocks[id].select();
+
+    this.game.updateChainSumm(this._calcChainSumm());
 };
 
 Field.prototype._checkWithLast = function(id) {
@@ -95,17 +101,35 @@ Field.prototype.blockMouseOver = function(id) {
         if (this._checkWithLast(id)) {
             selBlocks.push(id);
             this.blocks[id].select();
+
+            this.game.updateChainSumm(this._calcChainSumm());
         }
     } else {
         if (selBlocks[selBlocks.length - 2] == id) {
             var lastBlId = selBlocks.pop();
             this.blocks[lastBlId].unselect();
+
+            this.game.updateChainSumm(this._calcChainSumm());
         }
     }
 };
 
 Field.prototype.blockMouseOut = function(id) {
 
+};
+
+Field.prototype._calcChainSumm = function() {
+    var value = this.blocks[this.selectedBlocks[0]].value || 0;
+
+    return value * this.selectedBlocks.length;
+};
+
+Field.prototype._calcUpdateScore = function() {
+    var value = this.blocks[this.selectedBlocks[0]].value;
+
+    var k = 1 + 0.2 * (this.selectedBlocks.length - 3);
+
+    return Math.round(value * this.selectedBlocks.length * k);
 };
 
 Field.prototype._blockRemove = function(id) {
@@ -119,6 +143,8 @@ Field.prototype._blockRemove = function(id) {
 
 Field.prototype._runSelected = function() {
     if (this.selectedBlocks.length < config.chain.minLength) { return; }
+
+    this.game.updateScore(this._calcUpdateScore());
 
     var lastBlId = this.selectedBlocks.pop();
     var lastBl = this.blocks[lastBlId];

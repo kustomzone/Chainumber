@@ -13,8 +13,8 @@ function Block(x, y, field) {
     this.value = null;
     this.element = null;
 
-    this.width = config.field.sizePx[0] / config.field.size[0];
-    this.height = config.field.sizePx[1] / config.field.size[1];
+    this.width = 500 / config.field.size[0];
+    this.height = 500 / config.field.size[1];
 
     this._setRandomValue();
     this._createElement();
