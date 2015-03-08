@@ -116,6 +116,8 @@ Field.prototype._mouseUpHandler = function() {
     });
 
     this.game.updateChainSum(0);
+
+    this._clearPath();
 };
 
 Field.prototype.blockMouseDown = function(id) {
@@ -166,9 +168,9 @@ Field.prototype._updatePath = function() {
     this._clearPath();
 
     ctx.beginPath();
-    ctx.strokeStyle = 'blue';
 
-    console.log('start');
+    ctx.strokeStyle = gameConfig.path.color;
+    ctx.lineWidth = gameConfig.path.width;
 
     this.selectedBlocks.forEach(function(id, i) {
         var block = this.blocks[id];
@@ -223,7 +225,6 @@ Field.prototype._runSelected = function() {
     if (this.selectedBlocks.length < config.chain.minLength) { return; }
 
     this.game.updateScore(this._calcUpdateScore());
-    this._clearPath();
 
     var lastBlId = this.selectedBlocks.pop();
     var lastBl = this.blocks[lastBlId];
