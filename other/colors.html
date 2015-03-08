@@ -51,6 +51,11 @@
             line-height: 50px;
         }
 
+        #saveText {
+            margin: 10px 0 0 0;
+            width: 500px;
+            height: 150px;
+        }
     </style>
 </head>
 <body>
@@ -58,6 +63,7 @@
         <div id="prime" class="allPrime"></div>
         <div id="complex" class="allComplex"></div>
     </div>
+    <textarea id="saveText"></textarea>
     <script>
         var colors = [
             {
@@ -116,6 +122,8 @@
         var colorsHtml = document.getElementById('colors');
         var complexHtml = document.getElementById('complex');
         var primeHtml = document.getElementById('prime');
+
+        var saveText = document.getElementById('saveText');
 
         var primeNumbers = [1, 2, 3, 5, 7, 11, 13];
         var primeElements = {};
@@ -197,8 +205,9 @@
 
                 el.element.style.backgroundColor = 'rgb(' + color.join(',') + ')';
             });
-        }
 
+            saveText.innerHTML = JSON.stringify(colors);
+        }
     </script>
 </body>
 </html>
