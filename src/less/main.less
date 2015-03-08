@@ -44,8 +44,19 @@ html, body {
 }
 
 .field {
+    position: relative;
     width: @width;
     height: @height;
+}
+
+.field__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    pointer-events: none;
+    width: 500px;
+    height: 500px;
 }
 
 .block-size(@x, @y) {

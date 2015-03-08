@@ -1,5 +1,6 @@
 var Block = require('./block.js');
 var util = require('../util');
+var gameConfig = require('../gameConfig');
 
 function Field(game) {
     this.game = game;
@@ -43,6 +44,15 @@ Field.prototype.createBlock = function(x, y, isInit) {
 
 Field.prototype._createElement = function() {
     var fragment = document.createDocumentFragment();
+
+    this.canvas = document.createElement('canvas');
+    this.canvas.className = 'field__canvas';
+
+    this.ctx = this.canvas.getContext('2d');
+
+    this.canvas.width = gameConfig.field.width;
+    this.canvas.height = gameConfig.field.height;
+    fragment.appendChild(this.canvas);
 
     util.forEach(this.blocks, function(bl) {
         fragment.appendChild(bl.element);
@@ -137,6 +147,7 @@ Field.prototype.blockMouseOver = function(id) {
             this.blocks[id].select();
 
             this.game.updateChainSum(this._calcChainSum());
+            this._updatePath();
         }
     } else {
         if (selBlocks[selBlocks.length - 2] == id) {
@@ -144,8 +155,41 @@ Field.prototype.blockMouseOver = function(id) {
             this.blocks[lastBlId].unselect();
 
             this.game.updateChainSum(this._calcChainSum());
+            this._updatePath();
         }
     }
+};
+
+Field.prototype._updatePath = function() {
+    var ctx = this.ctx;
+
+    this._clearPath();
+
+    ctx.beginPath();
+    ctx.strokeStyle = 'blue';
+
+    console.log('start');
+
+    this.selectedBlocks.forEach(function(id, i) {
+        var block = this.blocks[id];
+        var x = (block.x + 0.5) * block.width;
+        var y = gameConfig.field.height - (block.y + 0.5) * block.height;
+
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+
+        console.log(x, y);
+
+    }, this);
+
+    ctx.stroke();
+};
+
+Field.prototype._clearPath = function() {
+    this.ctx.clearRect(0, 0, gameConfig.field.width, gameConfig.field.height);
 };
 
 Field.prototype.blockMouseOut = function(id) {
@@ -179,6 +223,7 @@ Field.prototype._runSelected = function() {
     if (this.selectedBlocks.length < config.chain.minLength) { return; }
 
     this.game.updateScore(this._calcUpdateScore());
+    this._clearPath();
 
     var lastBlId = this.selectedBlocks.pop();
     var lastBl = this.blocks[lastBlId];
