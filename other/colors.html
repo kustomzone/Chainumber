@@ -144,7 +144,7 @@
                 input.setAttribute('type', 'text');
                 input.value = colors[i].rgb.join(',');
                 input.onchange = function() {
-                    var value = input.value;
+                    var value = input.value.replace(' ', '').trim();
 
                     colors[i].rgb = value.split(',');
                     block.style.backgroundColor = 'rgb(' + colors[i].rgb.join(',') + ')';
