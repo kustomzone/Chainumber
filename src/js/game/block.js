@@ -131,6 +131,32 @@ Block.prototype.changePosition = function(x, y) {
 };
 
 Block.prototype._updateColors = function() {
+    // 7 -> 3 (primeNumber -> ratio)
+    var primeArray = [];
+    var i;
+
+    for (i = primeNumbers.length - 1; i > 0; i--) {
+        if (this.value % primeNumbers[i] === 0) {
+            primeArray.push({
+                value: primeNumbers[i],
+                rgb: colors[i].rgb,
+                ratio: this.value / primeNumbers[i]
+            });
+        }
+    }
+
+    var color;
+
+    if (primeArray.length) {
+        color = util.rgbSum(primeArray);
+    } else {
+        color = colors[0].rgb;
+    }
+
+    this.innerElement.style.backgroundColor = 'rgb(' + color.join(',') + ')';
+};
+
+/*Block.prototype._updateColors = function() {
 
     for (var i = primeNumbers.length - 1; i >=0; i--) {
         if (this.value % primeNumbers[i] === 0) {
@@ -138,7 +164,7 @@ Block.prototype._updateColors = function() {
             break;
         }
     }
-};
+};*/
 
 Block.prototype.changeValue = function(value) {
     this.value = value;

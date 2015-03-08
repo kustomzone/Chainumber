@@ -58,4 +58,28 @@ if (/Mobile/i.test(navigator.userAgent)) isMobile = true;
 
 util.isMobile = isMobile;
 
+util.rgbSum = function(arr) {
+    //[{rgb, ratio}, ...]
+
+    var sum = [0, 0, 0];
+    var n = 0;
+    var el, i, j;
+
+    for (i = 0; i < arr.length; i++) {
+        el = arr[i];
+
+        for (j = 0; j < 3; j++) {
+            sum[j] += el.rgb[j] * el.ratio;
+        }
+
+        n += el.ratio;
+    }
+
+    for (j = 0; j < 3; j++) {
+        sum[j] = Math.floor(sum[j] / n);
+    }
+
+    return sum;
+};
+
 module.exports = util;
