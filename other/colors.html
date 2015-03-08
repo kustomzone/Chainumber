@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Colors</title>
+
+    <style>
+        .allPrime {
+            display: inline-block;
+            width: 350px;
+
+            vertical-align: middle;
+        }
+
+        .prime {
+            width: 350px;
+            margin: 0 0 10px 0;
+        }
+
+        .prime__block {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+            font-size: 30px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .prime__input {
+            display: inline-block;
+            margin: 0 0 0 10px;
+        }
+
+        .allComplex {
+            display: inline-block;
+            width: 500px;
+        }
+
+        .complex {
+            margin: 0 10px 10px 0;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+            font-size: 30px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="colors">
+        <div id="prime" class="allPrime"></div>
+        <div id="complex" class="allComplex"></div>
+    </div>
+    <script>
+        var colors = [
+            {
+                web: '#99b433',
+                rgb: [154, 180, 51]
+            }, {
+                web: '#DA532C',
+                rgb: [218, 83, 44]
+            }, {
+                web: '#1e7145',
+                rgb: [30, 113, 69]
+            }, {
+                web: '#2C89A0',
+                rgb: [44, 137, 160]
+            }, {
+                web: '#00AA88',
+                rgb: [0, 170, 136]
+            }, {
+                web: '#00d455',
+                rgb: [0, 212, 85]
+            }, {
+                web: '#ff2a2a',
+                rgb: [255, 42, 42]
+            }, {
+                web: '#CB5000',
+                rgb: [203, 80, 0]
+            }
+        ];
+
+        var util = {};
+
+        util.rgbSum = function(arr) {
+            //[{rgb, ratio}, ...]
+
+            var sum = [0, 0, 0];
+            var n = 0;
+            var el, i, j;
+
+            for (i = 0; i < arr.length; i++) {
+                el = arr[i];
+
+                for (j = 0; j < 3; j++) {
+                    sum[j] += el.rgb[j] * el.ratio;
+                }
+
+                n += el.ratio;
+            }
+
+            for (j = 0; j < 3; j++) {
+                sum[j] = Math.floor(sum[j] / n);
+            }
+
+            return sum;
+        };
+
+        var colorsHtml = document.getElementById('colors');
+        var complexHtml = document.getElementById('complex');
+        var primeHtml = document.getElementById('prime');
+
+        var primeNumbers = [1, 2, 3, 5, 7, 11, 13];
+        var primeElements = {};
+
+        function createAllPrime() {
+            primeNumbers.forEach(function(number, i) {
+                var element = document.createElement('div');
+                element.className = 'prime';
+
+                var block = document.createElement('div');
+                block.className = 'prime__block';
+                block.style.backgroundColor = 'rgb(' + colors[i].rgb.join(',') + ')';
+                block.innerHTML = number;
+                element.appendChild(block);
+
+                var input = document.createElement('input');
+                input.className = 'prime__input';
+                input.setAttribute('type', 'text');
+                input.value = colors[i].rgb.join(',');
+                input.onchange = function() {
+                    var value = input.value;
+
+                    colors[i].rgb = value.split(',');
+                    block.style.backgroundColor = 'rgb(' + colors[i].rgb.join(',') + ')';
+
+                    updateColors();
+                };
+                element.appendChild(input);
+
+                primeHtml.appendChild(element);
+            });
+        }
+
+        createAllPrime();
+
+        var complexNubmers = [];
+
+        var drawPrime = primeNumbers.slice(1);
+
+        function createAllComplex() {
+            for (var i = 0; i < drawPrime.length - 1; i++) {
+                for (var j = i + 1; j < drawPrime.length; j++) {
+                    createComplex(i, j);
+                }
+            }
+        }
+
+        function createComplex(i, j) {
+            var element = document.createElement('div');
+            element.className = 'complex';
+            element.innerHTML = drawPrime[i] * drawPrime[j];
+
+            complexHtml.appendChild(element);
+
+            complexNubmers.push({
+                a: i,
+                b: j,
+                element: element
+            });
+        }
+
+        createAllComplex();
+        updateColors();
+
+
+        function updateColors() {
+            complexNubmers.forEach(function(el) {
+                var a = {
+                    rgb: colors[el.a + 1].rgb,
+                    ratio: 1
+                };
+
+                var b = {
+                    rgb: colors[el.b + 1].rgb,
+                    ratio: 1
+                };
+
+                var color = util.rgbSum([a, b]);
+
+                el.element.style.backgroundColor = 'rgb(' + color.join(',') + ')';
+            });
+        }
+
+    </script>
+</body>
+</html>
