@@ -32,7 +32,7 @@ Game.prototype._createElement = function() {
     this.element = element;
 };
 
-Game.prototype.updateChainSumm = function(value) {
+Game.prototype.updateChainSum = function(value) {
     if (value) {
         this.chainSummElement.innerHTML = value;
         util.addClass(this.chainSummElement, '_showed');

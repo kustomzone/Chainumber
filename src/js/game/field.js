@@ -105,7 +105,7 @@ Field.prototype._mouseUpHandler = function() {
         block.unselect();
     });
 
-    this.game.updateChainSumm(0);
+    this.game.updateChainSum(0);
 };
 
 Field.prototype.blockMouseDown = function(id) {
@@ -114,7 +114,7 @@ Field.prototype.blockMouseDown = function(id) {
 
     this.blocks[id].select();
 
-    this.game.updateChainSumm(this._calcChainSumm());
+    this.game.updateChainSum(this._calcChainSum());
 };
 
 Field.prototype._checkWithLast = function(id) {
@@ -136,14 +136,14 @@ Field.prototype.blockMouseOver = function(id) {
             selBlocks.push(id);
             this.blocks[id].select();
 
-            this.game.updateChainSumm(this._calcChainSumm());
+            this.game.updateChainSum(this._calcChainSum());
         }
     } else {
         if (selBlocks[selBlocks.length - 2] == id) {
             var lastBlId = selBlocks.pop();
             this.blocks[lastBlId].unselect();
 
-            this.game.updateChainSumm(this._calcChainSumm());
+            this.game.updateChainSum(this._calcChainSum());
         }
     }
 };
@@ -152,7 +152,7 @@ Field.prototype.blockMouseOut = function(id) {
 
 };
 
-Field.prototype._calcChainSumm = function() {
+Field.prototype._calcChainSum = function() {
     var value = this.blocks[this.selectedBlocks[0]].value || 0;
 
     return value * this.selectedBlocks.length;
