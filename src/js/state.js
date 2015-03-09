@@ -9,7 +9,8 @@ function State() {
     this._activeElement = null;
     this._activeLevel = null;
     this.winLevels = [];
-    this.openLevels = [gameConfig.levels[0]];
+
+    this.openLevels = gameConfig.levels.slice(0, gameConfig.openLevelsLength);
 
     this.levelMenu = new LevelMenu(this);
     this.mainMenu = new MainMenu(this);
