@@ -1,13 +1,15 @@
 var Field = require('./field.js');
 var util = require('../util');
 
-function Game(name, levelMenu) {
+function Game(name, state) {
     this.name = name;
-    this.levelMenu = levelMenu;
+    this.state = state;
     this.config = config.levels[name];
     this.score = 0;
+    this._isWin = Boolean(state.winLevels.indexOf(name) !== -1);
 
     this.field = new Field(this);
+
     this._createElement();
     this._bindEvents();
 }
@@ -29,8 +31,13 @@ Game.prototype._createElement = function() {
     chainSum.className = 'game__chainSum';
     gameHeader.appendChild(chainSum);
 
+    var goal = document.createElement('div');
+    goal.className = 'game__goal';
+    gameHeader.appendChild(goal);
+
     var gameBody = document.createElement('div');
     gameBody.className = 'game__body';
+    goal.innerHTML = 'Goal: ' + this.config.goal;
     element.appendChild(gameBody);
 
     gameBody.appendChild(this.field.element);
@@ -49,8 +56,18 @@ Game.prototype._createElement = function() {
     restartButton.innerHTML = 'Restart';
     gameFooter.appendChild(restartButton);
 
+    var nextButton = document.createElement('div');
+    nextButton.className = 'game__nextButton';
+    nextButton.innerHTML = 'Next';
+    gameFooter.appendChild(nextButton);
+
+    if (this._isWin) {
+        util.addClass(element, '_win');
+    }
+
     this.backButton = backButton;
     this.restartButton = restartButton;
+    this.nextButton = nextButton;
 
     this.scoreElement = score;
     this.chainSumElement = chainSum;
@@ -62,6 +79,11 @@ Game.prototype._createElement = function() {
 Game.prototype._bindEvents = function() {
     util.on(this.restartButton, 'click', this.restart.bind(this));
     util.on(this.backButton, 'click', this._backToMenu.bind(this));
+    util.on(this.nextButton, 'click', this._nextLevel.bind(this));
+};
+
+Game.prototype._nextLevel = function() {
+    this.state.nextFromLevel();
 };
 
 Game.prototype.restart = function() {
@@ -76,7 +98,7 @@ Game.prototype.restart = function() {
 };
 
 Game.prototype._backToMenu = function() {
-    this.levelMenu.show();
+    this.state.backFromLevel();
 };
 
 Game.prototype.updateChainSum = function(value) {
@@ -96,13 +118,11 @@ Game.prototype.updateScore = function(value) {
 };
 
 Game.prototype._checkWin = function() {
-    if (this.score > this.config.winCondition.score) {
-        this.win();
+    if (!this._isWin && this.score >= this.config.winCondition.score) {
+        this._isWin = true;
+        this.state.levelWin(this.name);
+        util.addClass(this.element, '_win');
     }
-};
-
-Game.prototype.win = function() {
-    this.levelMenu.levelWin(this.name);
 };
 
 module.exports = Game;

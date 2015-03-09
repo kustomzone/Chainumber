@@ -1,18 +1,4 @@
 config = {
-    field: {
-        size: [5, 5]
-    },
-    numbers: {
-        // [number, ration or %]
-        possibleValues: [
-            [1, 1],
-            [2, 1],
-            [3, 1]
-        ]
-    },
-    chain: {
-        minLength: 3
-    },
     levels: {
         1: {
             field: {
@@ -28,8 +14,9 @@ config = {
                 minLength: 3
             },
             winCondition: {
-                score: 5000
-            }
+                score: 50
+            },
+            goal: '50'
         },
         2: {
             field: {
@@ -46,8 +33,9 @@ config = {
                 minLength: 3
             },
             winCondition: {
-                score: 5000
-            }
+                score: 1000
+            },
+            goal: '1000'
         }
     }
 };

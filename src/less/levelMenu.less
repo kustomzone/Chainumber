@@ -16,17 +16,23 @@
     font-size: 30px;
     text-align: center;
     font-weight: 700;
-    cursor: pointer;
+    background: #a0a0a0;
+    color: #585858;
 
-    &._level_0 {
-        background: #b4b100;
+    &._open {
+        color: #000;
+        cursor: pointer;
     }
 
-    &._level_1 {
+    &._open._level_0 {
+        background: #dfbb00;
+    }
+
+    &._open._level_1 {
         background: #007cb4;
     }
 
-    .no-touch &:hover {
+    .no-touch &._open:hover {
         opacity: 0.8;
     }
 }
@@ -39,14 +45,32 @@
 .levelMenu__headerLevels {
     position: absolute;
     bottom: 0;
-    left: 10px;
+    left: 17px;
     color: #99b433;
     font-weight: 700;
-    font-size: 50px;
+    font-size: 65px;
 }
 
-.levelMenu__levelContainer {
-    &._hidden {
-        display: none;
+.levelMenu__footer {
+    margin: 15px 0 0 0;
+}
+
+.levelMenu__backButton {
+    display: inline-block;
+    margin: 0 0 5px 5px;
+    user-select: none;
+    border: 4px solid #99b433;
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+    color: #99b433;
+    cursor: pointer;
+
+    .no-touch &:hover {
+        background: #99b433;
+        color: #fff;
     }
 }

@@ -30,7 +30,6 @@ Block.prototype._createElement = function() {
 
     var element = document.createElement('div');
     element.className = 'block';
-    element.setAttribute('data-id', this.id);
 
     element.style.left = Math.floor(this.x * this.width) + 'px';
     element.style.bottom = Math.floor(this.y * this.height) + 'px';

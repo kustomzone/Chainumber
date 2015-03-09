@@ -1,4 +1,4 @@
-var LevelMenu = require('./levelMenu/levelMenu.js');
+var State = require('./state.js');
 var util = require('./util.js');
 
 if (!util.isMobile) {
@@ -7,6 +7,8 @@ if (!util.isMobile) {
 
 var html = document.getElementById('game');
 
-var levelMenu = new LevelMenu();
+var state = new State();
 
-html.appendChild(levelMenu.element);
+html.appendChild(state.element);
+
+state.runMainMenu();

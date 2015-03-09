@@ -1,14 +1,13 @@
 var gameConfig = require('../gameConfig.js');
 var util = require('../util.js');
 
-var levelModules = require('./levelModules.js');
+function LevelMenu(state) {
+    this.state = state;
 
-function LevelMenu() {
     this._levelBlocks = {};
 
-    this._activeLevel = null;
-
     this._createElement();
+    this._bindEvents();
 }
 
 LevelMenu.prototype._createElement = function() {
@@ -30,7 +29,7 @@ LevelMenu.prototype._createElement = function() {
     levels.innerHTML = 'Levels:';
     header.appendChild(levels);
 
-    var body  = document.createElement('div');
+    var body = document.createElement('div');
     body.className = 'levelMenu__body';
     container.appendChild(body);
 
@@ -42,7 +41,7 @@ LevelMenu.prototype._createElement = function() {
         levelBlock.innerHTML = name;
 
         util.on(levelBlock, 'click', function() {
-            self.levelActivate(name);
+            self.state.runLevel(name);
         });
 
         self._levelBlocks[name] = levelBlock;
@@ -52,37 +51,29 @@ LevelMenu.prototype._createElement = function() {
 
     body.appendChild(fragment);
 
-    var levelContainer = document.createElement('div');
-    levelContainer.className = 'levelMenu__levelContainer';
-    element.appendChild(levelContainer);
+    var footer = document.createElement('div');
+    footer.className = 'levelMenu__footer';
+    container.appendChild(footer);
 
-    this.container = container;
-    this.levelContainer = levelContainer;
+    var backButton = document.createElement('div');
+    backButton.className = 'levelMenu__backButton';
+    backButton.innerHTML = 'Back';
+    footer.appendChild(backButton);
+
+    this.backButton = backButton;
     this.element = element;
 };
 
-LevelMenu.prototype.levelWin = function(name) {
-    console.log('levelWin', name);
+LevelMenu.prototype._bindEvents = function() {
+    util.on(this.backButton, 'click', function() {
+        this.state.runMainMenu();
+    }.bind(this));
 };
 
-LevelMenu.prototype.levelActivate = function(name) {
-    var newLevel = new levelModules[name](name, this);
-
-    if (this._activeLevel) {
-        this.levelContainer.replaceChild(newLevel.element, this._activeLevel.element);
-    } else {
-        this.levelContainer.appendChild(newLevel.element);
-    }
-
-    this._activeLevel = newLevel;
-
-    util.addClass(this.container, '_hidden');
-    util.removeClass(this.levelContainer, '_hidden');
-};
-
-LevelMenu.prototype.show = function() {
-    util.removeClass(this.container, '_hidden');
-    util.addClass(this.levelContainer, '_hidden');
+LevelMenu.prototype.updateOpenLevels = function() {
+    this.state.openLevels.forEach(function(name) {
+        util.addClass(this._levelBlocks[name], '_open');
+    }, this);
 };
 
 module.exports = LevelMenu;

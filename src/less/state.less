@@ -1,0 +1,23 @@
+.state {
+
+}
+
+.state__menu {
+    display: none;
+
+    &._showed {
+        display: block;
+    }
+}
+
+.state__mainMenu {
+    .state__menu();
+}
+
+.state__levelMenu {
+    .state__menu();
+}
+
+.state__activeLevel {
+    .state__menu();
+}
