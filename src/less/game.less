@@ -1,0 +1,162 @@
+@width: 500px;
+@height: 500px;
+
+.game {
+    user-select: none;
+    position: relative;
+}
+
+.game__header {
+    position: relative;
+    height: 100px;
+}
+
+.game__score {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    color: #99b433;
+    font-weight: 700;
+    font-size: 80px;
+}
+
+.game__chainSum {
+    display: none;
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    color: #99b433;
+    font-weight: 700;
+    font-size: 50px;
+
+    &._showed {
+        display: block;
+    }
+}
+
+.game__footer {
+    margin: 15px 0 0 0;
+}
+
+.game__button {
+    display: inline-block;
+    margin: 0 0 5px 5px;
+    user-select: none;
+    border: 4px solid #99b433;
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+    color: #99b433;
+    cursor: pointer;
+
+    .no-touch &:hover {
+        background: #99b433;
+        color: #fff;
+    }
+}
+
+.game__restartButton {
+    .game__button();
+}
+
+.game__backButton {
+    .game__button();
+}
+
+.field {
+    position: relative;
+    width: @width;
+    height: @height;
+}
+
+.field__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    pointer-events: none;
+    width: @width;
+    height: @height;
+}
+
+.block-size(@x, @y) {
+    @padding: 10 - @x * 1px;
+    @blockWidth: floor(@width / @x - @padding * 2);
+    @blockHeight: floor(@height / @y - @padding * 2);
+
+    padding: @padding;
+    width: @blockWidth;
+    height: @blockHeight;
+    line-height: @blockHeight;
+}
+
+.block__inner-size(@x, @y) {
+    @padding: 10 - @x * 1px;
+    @blockWidth: floor(@width / @x - @padding * 2);
+    @innerWidth: ceil(@blockWidth / 2 + @padding);
+
+    border: @innerWidth solid transparent;
+    border-radius: @innerWidth;
+}
+
+.block {
+    position: absolute;
+    font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: bottom 0.3s ease-out;
+
+    .field._width_4._height_4 & {
+        .block-size(4, 4);
+    }
+
+    .field._width_5._height_5 & {
+        .block-size(5, 5);
+    }
+
+    .field._width_6._height_6 & {
+        .block-size(6, 6);
+    }
+
+    .no-touch &:hover {
+        opacity: 0.95;
+    }
+
+    &._selected {
+        opacity: 0.8;
+    }
+}
+
+.block__inner {
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease-out 0.15s;
+
+    .block._blink & {
+        opacity: 0;
+    }
+}
+
+.block__active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+
+    .field._width_4._height_4 & {
+        .block__inner-size(4, 4);
+    }
+
+    .field._width_5._height_5 & {
+        .block__inner-size(5, 5);
+    }
+
+    .field._width_6._height_6 & {
+        .block__inner-size(6, 6);
+    }
+}

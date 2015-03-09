@@ -9,6 +9,7 @@ function Block(x, y, field) {
     this.id = ++idCounter;
 
     this.field = field;
+    this.config = field.config;
 
     this.x = x;
     this.y = y;
@@ -16,8 +17,8 @@ function Block(x, y, field) {
     this.value = null;
     this.element = null;
 
-    this.width = 500 / config.field.size[0];
-    this.height = 500 / config.field.size[1];
+    this.width = 500 / this.config.field.size[0];
+    this.height = 500 / this.config.field.size[1];
 
     this._setRandomValue();
     this._createElement();
@@ -57,7 +58,7 @@ Block.prototype._createElement = function() {
 
 Block.prototype._setRandomValue = function() {
     var summRation = 0;
-    var possibleValues = config.numbers.possibleValues;
+    var possibleValues = this.config.numbers.possibleValues;
 
     possibleValues.forEach(function(el) {
         summRation += el[1];

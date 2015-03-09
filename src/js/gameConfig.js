@@ -6,5 +6,6 @@ module.exports = {
     path: {
         color: 'rgba(255, 255, 255, 0.25)',
         width: 10
-    }
+    },
+    levels: [1, 2]
 };

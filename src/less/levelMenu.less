@@ -1,0 +1,52 @@
+.levelMenu {
+}
+
+.levelMenu__container {
+    &._hidden {
+        display: none;
+    }
+}
+
+.levelMenu__levelBlock {
+    display: inline-block;
+    margin: 5px;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+
+    &._level_0 {
+        background: #b4b100;
+    }
+
+    &._level_1 {
+        background: #007cb4;
+    }
+
+    .no-touch &:hover {
+        opacity: 0.8;
+    }
+}
+
+.levelMenu__header {
+    position: relative;
+    height: 100px;
+}
+
+.levelMenu__headerLevels {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    color: #99b433;
+    font-weight: 700;
+    font-size: 50px;
+}
+
+.levelMenu__levelContainer {
+    &._hidden {
+        display: none;
+    }
+}

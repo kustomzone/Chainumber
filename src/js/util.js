@@ -82,4 +82,6 @@ util.rgbSum = function(arr) {
     return sum;
 };
 
+util.nullFn = function() {};
+
 module.exports = util;

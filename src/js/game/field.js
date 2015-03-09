@@ -4,10 +4,11 @@ var gameConfig = require('../gameConfig');
 
 function Field(game) {
     this.game = game;
+    this.config = game.config;
 
     this.blocks = {};
     this._blocksXY = {};
-    this.size = config.field.size;
+    this.size = this.config.field.size;
 
     this.selectedBlocks = [];
     this.selectedMode = false;
@@ -219,7 +220,7 @@ Field.prototype._blockRemove = function(id) {
 };
 
 Field.prototype._runSelected = function() {
-    if (this.selectedBlocks.length < config.chain.minLength) { return; }
+    if (this.selectedBlocks.length < this.config.chain.minLength) { return; }
 
     this.game.updateScore(this._calcUpdateScore());
 
