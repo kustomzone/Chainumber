@@ -97,18 +97,9 @@ Block.prototype._bindEvents = function() {
     }
 };
 
-Block.prototype._touchMoveHandler = function(ev) {
-    for (var i = 0; i < ev.changedTouches.length; i++) {
-        var touch = ev.changedTouches[i];
-        var target = document.elementFromPoint(touch.clientX, touch.clientY);
+Block.prototype._mouseDownHandler = function(ev) {
+    ev.preventDefault();
 
-        if (this.activeElement === target) {
-            this.field.blockMouseDown(this.id);
-        }
-    }
-};
-
-Block.prototype._mouseDownHandler = function() {
     this.field.blockMouseDown(this.id);
 };
 

@@ -83,7 +83,7 @@ Field.prototype._touchMoveHandler = function(ev) {
         touch = ev.changedTouches[i];
         target = document.elementFromPoint(touch.clientX, touch.clientY);
 
-        if (target.className.indexOf('block__active') == -1) { continue; }
+        if (!target || target.className.indexOf('block__active') == -1) { continue; }
 
         // делаем for, а не forEach, чтобы можно было стопнуть
         keys = Object.keys(blocks);
@@ -182,9 +182,6 @@ Field.prototype._updatePath = function() {
         } else {
             ctx.lineTo(x, y);
         }
-
-        console.log(x, y);
-
     }, this);
 
     ctx.stroke();

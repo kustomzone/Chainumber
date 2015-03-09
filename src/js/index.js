@@ -5,8 +5,27 @@ if (!util.isMobile) {
     util.addClass(document.body, 'no-touch');
 }
 
-var game = new Game();
-
 var html = document.getElementById('game');
 
-html.appendChild(game.element);
+var game;
+
+function createNewGame() {
+    var newGame = new Game();
+
+    if (game) {
+        html.replaceChild(newGame.element, game.element);
+    } else {
+        html.appendChild(newGame.element);
+    }
+
+    game = newGame;
+}
+
+createNewGame();
+
+var restartButton = document.createElement('div');
+restartButton.className = 'restartButton';
+restartButton.innerHTML = 'Restart';
+util.on(restartButton, 'click', createNewGame);
+html.appendChild(restartButton);
+

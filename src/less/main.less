@@ -8,9 +8,12 @@ html, body {
     font-family: Arial, sans-serif;
 }
 
-.game {
+.inner {
     margin: 0 auto;
     width: @width;
+}
+
+.game {
     user-select: none;
     position: relative;
 }
@@ -29,7 +32,7 @@ html, body {
     font-size: 80px;
 }
 
-.game__chainSumm {
+.game__chainSum {
     display: none;
     position: absolute;
     bottom: 5px;
@@ -57,7 +60,6 @@ html, body {
     pointer-events: none;
     width: @width;
     height: @height;
-    opacity: 0.5;
 }
 
 .block-size(@x, @y) {
@@ -137,4 +139,17 @@ html, body {
     .field._width_6._height_6 & {
         .block__inner-size(6, 6);
     }
+}
+
+.restartButton {
+    margin: 15px 0 0 0;
+    border: 4px solid #99b433;
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+    color: #99b433;
+    cursor: pointer;
 }

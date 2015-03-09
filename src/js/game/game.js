@@ -21,23 +21,23 @@ Game.prototype._createElement = function() {
     score.innerHTML = '0';
     gameHeader.appendChild(score);
 
-    var chainSumm = document.createElement('div');
-    chainSumm.className = 'game__chainSumm';
-    gameHeader.appendChild(chainSumm);
+    var chainSum = document.createElement('div');
+    chainSum.className = 'game__chainSum';
+    gameHeader.appendChild(chainSum);
 
     element.appendChild(this.field.element);
 
     this.scoreElement = score;
-    this.chainSummElement = chainSumm;
+    this.chainSumElement = chainSum;
     this.element = element;
 };
 
 Game.prototype.updateChainSum = function(value) {
     if (value) {
-        this.chainSummElement.innerHTML = value;
-        util.addClass(this.chainSummElement, '_showed');
+        this.chainSumElement.innerHTML = value;
+        util.addClass(this.chainSumElement, '_showed');
     } else {
-        util.removeClass(this.chainSummElement, '_showed');
+        util.removeClass(this.chainSumElement, '_showed');
     }
 };
 
