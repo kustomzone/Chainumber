@@ -165,6 +165,7 @@ Field.prototype.blockMouseOver = function(id) {
 
 Field.prototype._updatePath = function() {
     var ctx = this.ctx;
+    var fieldHeight = gameConfig.field.height;
 
     this._clearPath();
 
@@ -176,7 +177,7 @@ Field.prototype._updatePath = function() {
     this.selectedBlocks.forEach(function(id, i) {
         var block = this.blocks[id];
         var x = (block.x + 0.5) * block.width;
-        var y = gameConfig.field.height - (block.y + 0.5) * block.height;
+        var y = fieldHeight - (block.y + 0.5) * block.height;
 
         if (i === 0) {
             ctx.moveTo(x, y);

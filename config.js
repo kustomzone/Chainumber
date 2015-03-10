@@ -16,7 +16,7 @@ config = {
             winCondition: {
                 score: 50
             },
-            goal: '50'
+            goal: 'Goal: 50'
         },
         2: {
             field: {
@@ -35,7 +35,7 @@ config = {
             winCondition: {
                 score: 50
             },
-            goal: '50'
+            goal: 'Goal: 50'
         },
         3: {
             field: {
@@ -55,7 +55,7 @@ config = {
             winCondition: {
                 score: 50
             },
-            goal: '50'
+            goal: 'Goal: 50'
         },
         4: {
             field: {
@@ -75,7 +75,7 @@ config = {
             winCondition: {
                 score: 50
             },
-            goal: '50'
+            goal: 'Goal: 50'
         },
         5: {
             field: {
@@ -94,7 +94,7 @@ config = {
             winCondition: {
                 score: 50
             },
-            goal: '50'
+            goal: 'Goal: 50'
         },
         6: {
             field: {
@@ -113,7 +113,7 @@ config = {
             winCondition: {
                 score: 50
             },
-            goal: '50'
+            goal: 'Goal: 50'
         },
         7: {
             field: {
@@ -133,7 +133,7 @@ config = {
             winCondition: {
                 score: 50
             },
-            goal: '50'
+            goal: 'Goal: 50'
         },
         8: {
             field: {
@@ -151,7 +151,7 @@ config = {
             winCondition: {
                 score: 50
             },
-            goal: '50'
+            goal: 'Goal: 50'
         }
     }
 };

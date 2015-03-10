@@ -5,6 +5,9 @@ var primeNumbers = [1, 2, 3, 5, 7, 11, 13];
 
 var idCounter = 0;
 
+// cashe of colors, value -> rgb(..,..,..)
+var colorsCache = {};
+
 function Block(x, y, field) {
     this.id = ++idCounter;
 
@@ -26,8 +29,6 @@ function Block(x, y, field) {
 }
 
 Block.prototype._createElement = function() {
-    // TODO: включить простой шаблонизатор
-
     var element = document.createElement('div');
     element.className = 'block';
 
@@ -68,7 +69,7 @@ Block.prototype._setRandomValue = function() {
     var chanceArray = possibleValues.map(function(el) {
         var val = el[1] / summRation + summ;
 
-        summ += val;
+        summ = val;
 
         return val;
     });
@@ -122,40 +123,34 @@ Block.prototype.changePosition = function(x, y) {
 };
 
 Block.prototype._updateColors = function() {
-    // 7 -> 3 (primeNumber -> ratio)
-    var primeArray = [];
-    var i;
+    if (!colorsCache[this.value]) {
+        // 7 -> 3 (primeNumber -> ratio)
+        var primeArray = [];
+        var i;
 
-    for (i = primeNumbers.length - 1; i > 0; i--) {
-        if (this.value % primeNumbers[i] === 0) {
-            primeArray.push({
-                value: primeNumbers[i],
-                rgb: colors[i].rgb,
-                ratio: this.value / primeNumbers[i]
-            });
+        for (i = primeNumbers.length - 1; i > 0; i--) {
+            if (this.value % primeNumbers[i] === 0) {
+                primeArray.push({
+                    value: primeNumbers[i],
+                    rgb: colors[i].rgb,
+                    ratio: this.value / primeNumbers[i]
+                });
+            }
         }
+
+        var color;
+
+        if (primeArray.length) {
+            color = util.rgbSum(primeArray);
+        } else {
+            color = colors[0].rgb;
+        }
+
+        colorsCache[this.value] = 'rgb(' + color.join(',') + ')';
     }
 
-    var color;
-
-    if (primeArray.length) {
-        color = util.rgbSum(primeArray);
-    } else {
-        color = colors[0].rgb;
-    }
-
-    this.innerElement.style.backgroundColor = 'rgb(' + color.join(',') + ')';
+    this.innerElement.style.backgroundColor = colorsCache[this.value];
 };
-
-/*Block.prototype._updateColors = function() {
-
-    for (var i = primeNumbers.length - 1; i >=0; i--) {
-        if (this.value % primeNumbers[i] === 0) {
-            this.innerElement.style.backgroundColor = 'rgb(' + colors[i].rgb.join(',') + ')';
-            break;
-        }
-    }
-};*/
 
 Block.prototype.changeValue = function(value) {
     this.value = value;

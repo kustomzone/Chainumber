@@ -18,61 +18,35 @@ Game.prototype._createElement = function() {
     var element = document.createElement('div');
     element.className = 'game';
 
-    var gameHeader = document.createElement('div');
-    gameHeader.className = 'game__header';
-    element.appendChild(gameHeader);
+    var template =
+        '<div class="game__header">' +
+            '<div class="game__score">0</div>' +
+            '<div class="game__chainSum"></div>' +
+            '<div class="game__goal">{{goal}}</div>' +
+        '</div>' +
+        '<div class="game__body"></div>' +
+        '<div class="game__footer">' +
+            '<div class="game__backButton">Menu</div>' +
+            '<div class="game__restartButton">Restart</div>' +
+            '<div class="game__nextButton">Next</div>' +
+        '</div>';
 
-    var score = document.createElement('div');
-    score.className = 'game__score';
-    score.innerHTML = '0';
-    gameHeader.appendChild(score);
-
-    var chainSum = document.createElement('div');
-    chainSum.className = 'game__chainSum';
-    gameHeader.appendChild(chainSum);
-
-    var goal = document.createElement('div');
-    goal.className = 'game__goal';
-    gameHeader.appendChild(goal);
-
-    var gameBody = document.createElement('div');
-    gameBody.className = 'game__body';
-    goal.innerHTML = 'Goal: ' + this.config.goal;
-    element.appendChild(gameBody);
-
-    gameBody.appendChild(this.field.element);
-
-    var gameFooter = document.createElement('div');
-    gameFooter.className = 'game__footer';
-    element.appendChild(gameFooter);
-
-    var backButton = document.createElement('div');
-    backButton.className = 'game__backButton';
-    backButton.innerHTML = 'Menu';
-    gameFooter.appendChild(backButton);
-
-    var restartButton = document.createElement('div');
-    restartButton.className = 'game__restartButton';
-    restartButton.innerHTML = 'Restart';
-    gameFooter.appendChild(restartButton);
-
-    var nextButton = document.createElement('div');
-    nextButton.className = 'game__nextButton';
-    nextButton.innerHTML = 'Next';
-    gameFooter.appendChild(nextButton);
+    element.innerHTML = template.replace('{{goal}}', this.config.goal);
 
     if (this._isWin) {
         util.addClass(element, '_win');
     }
 
-    this.backButton = backButton;
-    this.restartButton = restartButton;
-    this.nextButton = nextButton;
+    this.backButton = element.getElementsByClassName('game__backButton')[0];
+    this.restartButton = element.getElementsByClassName('game__restartButton')[0];
+    this.nextButton = element.getElementsByClassName('game__nextButton')[0];
 
-    this.scoreElement = score;
-    this.chainSumElement = chainSum;
+    this.scoreElement = element.getElementsByClassName('game__score')[0];
+    this.chainSumElement = element.getElementsByClassName('game__chainSum')[0];
 
-    this.bodyElement = gameBody;
+    this.bodyElement = element.getElementsByClassName('game__body')[0];
+    this.bodyElement.appendChild(this.field.element);
+
     this.element = element;
 };
 
