@@ -75,17 +75,25 @@ Game.prototype._backToMenu = function() {
     this.state.backFromLevel();
 };
 
-Game.prototype.updateChainSum = function(value) {
-    if (value) {
-        this.chainSumElement.innerHTML = value;
-        util.addClass(this.chainSumElement, '_showed');
-    } else {
+Game.prototype.updateChainSum = function() {
+    if (!this.field.selectedMode) {
         util.removeClass(this.chainSumElement, '_showed');
+        return;
     }
+
+    var field = this.field;
+
+    var blockValue = field.blocks[field.selectedBlocks[0]].value || 0;
+    this.chainSumElement.innerHTML = blockValue * field.selectedBlocks.length;
+    util.addClass(this.chainSumElement, '_showed');
 };
 
-Game.prototype.updateScore = function(value) {
-    this.score += value;
+Game.prototype.updateScore = function() {
+    var field = this.field;
+
+    var blockValue = field.blocks[field.selectedBlocks[0]].value || 0;
+    var k = 1 + 0.2 * (field.selectedBlocks.length - 3);
+    this.score += Math.round(blockValue * field.selectedBlocks.length * k);
     this.scoreElement.innerHTML = this.score;
 
     this._checkWin();
