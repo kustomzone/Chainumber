@@ -23,6 +23,8 @@ function Block(x, y, field) {
     this.width = 500 / this.config.field.size[0];
     this.height = 500 / this.config.field.size[1];
 
+    this.widthText = null;
+
     this._setRandomValue();
     this._createElement();
     this._bindEvents();
@@ -151,6 +153,16 @@ Block.prototype.changeValue = function(value) {
     this.value = value;
     this.innerElement.innerHTML = value;
 
+    var textLength = this.value.toString().length;
+
+    if (textLength >= 5 && textLength <= 10 && this.widthText !== textLength) {
+        if (this.widthText) {
+            util.removeClass(this.element, '_len_' + textLength);
+        }
+
+        util.addClass(this.element, '_len_' + textLength);
+    }
+
     this._updateColors();
 };
 
@@ -169,7 +181,7 @@ Block.prototype.animateCreate = function() {
 
     setTimeout(function() {
         util.removeClass(self.element, '_blink');
-    }, 0);
+    }, 15);
 };
 
 module.exports = Block;
