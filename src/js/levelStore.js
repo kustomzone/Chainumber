@@ -4,21 +4,42 @@ var gameConfig = require('./gameConfig.js');
 
 var levelConfig = config.levels;
 
-var savedLevel = saves.getLevels();
+var savedLevels = saves.getLevels();
 
 var levelStore = {};
 
 var levels = {};
 
 function initLevels() {
-    gameConfig.levels.forEach(function(name, i) {
+    gameConfig.levels.forEach(function(name) {
         var level = levelConfig[name];
         level.name = name;
-        level.currentGoal = savedLevel.currentGoal || 0;
-        level.maxScore = savedLevel.maxScore || 0;
+
+        if (savedLevels[name]) {
+            level.currentGoal = Number(savedLevels[name].currentGoal) || 0;
+            level.maxScore = Number(savedLevels[name].maxScore) || 0;
+        } else {
+            level.currentGoal = 0;
+            level.maxScore = 0;
+        }
 
         levels[name] = level;
     });
+
+    util.on(window, 'beforeunload', onCloseHandler);
+}
+
+function onCloseHandler() {
+    var dataToSave = {};
+
+    util.forEach(levels, function(level, name) {
+        dataToSave[name] = {
+            maxScore: level.maxScore,
+            currentGoal: level.currentGoal
+        }
+    });
+
+    saves.setLevels(dataToSave);
 }
 
 levelStore.get = function(name) {

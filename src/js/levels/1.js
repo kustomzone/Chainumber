@@ -1,7 +1,7 @@
 var Game = require('../game/game.js');
 
-function Level(name, levelMenu) {
-    Game.call(this, name, levelMenu);
+function Level(name, state, restoreData) {
+    Game.call(this, name, state, restoreData);
 }
 
 Level.prototype = Object.create(Game.prototype);

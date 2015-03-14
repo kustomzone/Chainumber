@@ -1,5 +1,6 @@
 var LevelMenu = require('./levelMenu/levelMenu');
 var MainMenu = require('./mainMenu/mainMenu');
+var saves = require('./saves');
 
 var levelModules = require('./levelModules');
 var util = require('./util');
@@ -12,7 +13,19 @@ function State() {
     this.mainMenu = new MainMenu(this);
 
     this._createElement();
+    this._bindEvents();
+    this._checkActiveLevel();
 }
+
+State.prototype._checkActiveLevel = function() {
+    var activeSavedLevel = saves.getActiveLevel();
+
+    if (Object.keys(activeSavedLevel).length) {
+        this._activeLevel = new levelModules[activeSavedLevel.name](activeSavedLevel.name, this, activeSavedLevel);
+        this.activeLevelElement.appendChild(this._activeLevel.element);
+        this.mainMenu.resumeLevelActive();
+    }
+};
 
 State.prototype._createElement = function() {
     this.element = document.createElement('div');
@@ -29,6 +42,18 @@ State.prototype._createElement = function() {
     this.levelMenuElement.appendChild(this.levelMenu.element);
 
     this.activeLevelElement = this.element.getElementsByClassName('state__activeLevel')[0];
+};
+
+State.prototype._bindEvents = function() {
+    util.on(window, 'beforeunload', this._onCloseHandler.bind(this));
+
+    window.go = this._onCloseHandler.bind(this);
+};
+
+State.prototype._onCloseHandler = function() {
+    if (this._activeLevel) {
+        saves.setActiveLevel(this._activeLevel.getState());
+    }
 };
 
 State.prototype._activate = function(element) {

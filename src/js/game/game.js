@@ -2,13 +2,16 @@ var levelStore = require('../levelStore.js');
 var Field = require('./field.js');
 var util = require('../util');
 
-function Game(name, state) {
+function Game(name, state, restoreData) {
+    restoreData = restoreData || {};
+
     this.name = name;
     this.state = state;
     this.store = levelStore.get(name);
-    this.score = 0;
 
-    this.field = new Field(this);
+    this.score = restoreData.score || 0;
+
+    this.field = new Field(this, restoreData.field);
 
     this._createElement();
     this._bindEvents();
@@ -21,7 +24,7 @@ Game.prototype._createElement = function() {
     var template =
         '<div class="game__header">' +
             '<div class="game__levelName">Level: {{name}}</div>' +
-            '<div class="game__score">0</div>' +
+            '<div class="game__score">{{score}}</div>' +
             '<div class="game__chainSum"></div>' +
             '<div class="game__goal">{{goal}}</div>' +
         '</div>' +
@@ -33,6 +36,7 @@ Game.prototype._createElement = function() {
         '</div>';
 
     element.innerHTML = template
+        .replace('{{score}}', this.score)
         .replace('{{goal}}', this._getGoalText())
         .replace('{{name}}', this.name);
 
@@ -108,6 +112,8 @@ Game.prototype.updateScore = function() {
     this.score += Math.round(blockValue * field.selectedBlocks.length * k);
     this.scoreElement.innerHTML = this.score;
 
+    this.store.maxScore = this.score;
+
     this._checkGoal();
 };
 
@@ -128,6 +134,14 @@ Game.prototype._checkGoal = function() {
 Game.prototype._win = function() {
     util.addClass(this.element, '_win');
     levelStore.checkOpenLevels();
+};
+
+Game.prototype.getState = function() {
+    return {
+        field: this.field.getState(),
+        name: this.name,
+        score: this.score
+    }
 };
 
 module.exports = Game;

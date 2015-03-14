@@ -2,7 +2,9 @@ var Block = require('./block.js');
 var util = require('../util');
 var gameConfig = require('../gameConfig');
 
-function Field(game) {
+function Field(game, restoreData) {
+    restoreData = restoreData || {};
+
     this.game = game;
     this.config = game.store;
 
@@ -18,6 +20,7 @@ function Field(game) {
     this._init();
     this._createElement();
     this._bindEvents();
+    this._restoreData(restoreData);
 }
 
 Field.prototype._init = function() {
@@ -26,6 +29,16 @@ Field.prototype._init = function() {
 
         for (var j = 0; j < this.size[1]; j++) {
             this.createBlock(i, j, true);
+        }
+    }
+};
+
+Field.prototype._restoreData = function(restoreData) {
+    if (restoreData.blocks) {
+        for (var i = 0; i < this.size[0]; i++) {
+            for (var j = 0; j < this.size[1]; j++) {
+                this.blocks[this._blocksXY[i][j]].changeValue(restoreData.blocks[i][j].value);
+            }
         }
     }
 };
@@ -271,6 +284,24 @@ Field.prototype._addNewBlocks = function() {
             }
         }
     }
+};
+
+Field.prototype.getState = function() {
+    var state = {
+        blocks: {}
+    };
+
+    for (var i = 0; i < this.size[0]; i++) {
+        state.blocks[i] = {};
+
+        for (var j = 0; j < this.size[1]; j++) {
+            state.blocks[i][j] = {
+                value: this.blocks[this._blocksXY[i][j]].value
+            };
+        }
+    }
+
+    return state;
 };
 
 module.exports = Field;
