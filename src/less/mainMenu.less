@@ -20,10 +20,10 @@
     padding: 0 5px;
 }
 
-.mainMenu__button(@color) {
+.mainMenu__button(@color, @hoverColor) {
+    border: 10px solid @color;
     user-select: none;
     margin: 0 0 20px;
-    border: 10px solid @color;
     box-sizing: border-box;
     width: 100%;
     height: 100px;
@@ -31,35 +31,37 @@
     font-size: 50px;
     font-weight: 700;
     text-align: center;
-    color: @color;
     cursor: pointer;
+    background: @color;
+    color: #fff;
 
     .no-touch &:hover {
-        background: @color;
-        color: #fff;
+        border: 10px solid @hoverColor;
+        background: @hoverColor;
     }
 }
 
 .mainMenu__newGame {
-    .mainMenu__button(#aa2e1b);
+    .mainMenu__button(#aa2e1b, #c23922);
 }
 
 .mainMenu__resumeGame {
-    .mainMenu__button(#9b9b9b);
+    .mainMenu__button(#9b9b9b, #9b9b9b);
     cursor: default;
 
     .no-touch &:hover {
-        background: #fff;
-        color: #9b9b9b;
+        border: 10px solid #9b9b9b;
+        background: #9b9b9b;
     }
 
     .mainMenu._activeLevel & {
         border: 10px solid #2C89A0;
-        color: #2C89A0;
+        background: #2C89A0;
+        cursor: pointer;
 
         .no-touch &:hover {
-            background: #2C89A0;
-            color: #fff;
+            border: 10px solid #31a2ba;
+            background: #31a2ba;
         }
     }
 }
