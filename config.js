@@ -13,7 +13,7 @@ config = {
             chain: {
                 minLength: 3
             },
-            winConditions: [50, 100, 6000],
+            winConditions: [1000, 3000, 6000],
             goals: [
                 'Goal: 1000',
                 'Goal: 3000',
@@ -35,7 +35,7 @@ config = {
             chain: {
                 minLength: 3
             },
-            winConditions: [50, 100, 150],
+            winConditions: [10000, 25000, 50000],
             goals: [
                 'Goal: 10000',
                 'Goal: 25000',
