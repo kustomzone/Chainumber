@@ -12,7 +12,11 @@ function Level(levelMenu, name, order) {
     this.element.className = 'levelMenu__levelBlock ' +
         '_level_' + order % 2;
 
-    this.element.innerHTML = name;
+    var template =
+        '<div class="levelMenu__levelBlockGoalState"></div>' +
+        '<div class="levelMenu__levelBlockText">{{name}}</div>';
+
+    this.element.innerHTML = template.replace('{{name}}', name);
     this.goal = null;
 
     this.isOpen = false;

@@ -6,6 +6,7 @@
 }
 
 .levelMenu__levelBlock {
+    position: relative;
     display: inline-block;
     margin: 5px;
     width: 90px;
@@ -20,19 +21,51 @@
     &._open {
         color: #000;
         cursor: pointer;
-    }
-
-    &._open._level_0 {
-        background: #dfbb00;
-    }
-
-    &._open._level_1 {
-        background: #007cb4;
+        background: #d7d7d7;
     }
 
     .no-touch &._open:hover {
         opacity: 0.8;
     }
+}
+
+.levelMenu__levelBlockGoalState {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 90px;
+
+    .levelMenu__levelBlock._open._level_0 & {
+        background: #dfbb00;
+    }
+
+    .levelMenu__levelBlock._open._level_1 & {
+        background: #007cb4;
+    }
+
+    .levelMenu__levelBlock._goal_0 & {
+        height: 20px;
+    }
+
+    .levelMenu__levelBlock._goal_1 & {
+        height: 50px;
+    }
+
+    .levelMenu__levelBlock._goal_2 & {
+        height: 70px;
+    }
+
+    .levelMenu__levelBlock._goal_3 & {
+        height: 90px;
+    }
+}
+
+.levelMenu__levelBlockText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90px;
+    height: 90px;
 }
 
 .levelMenu__header {

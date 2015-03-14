@@ -69,11 +69,7 @@ Game.prototype._getGoalText = function() {
 };
 
 Game.prototype._nextLevel = function() {
-    var nextLevel = levelStore.getNext(this.name);
-
-    if (nextLevel && nextLevel.isOpen) {
-        this.state.runLevel(nextLevel.name);
-    }
+    this.state.runLevelMenu();
 };
 
 Game.prototype.restart = function() {

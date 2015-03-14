@@ -52,6 +52,8 @@ State.prototype.runMainMenu = function() {
 };
 
 State.prototype.runLevel = function(name) {
+    if (this._activeLevel && this._activeLevel.name == name) { return this.resumeLevel(); }
+
     this.mainMenu.resumeLevelActive();
 
     var newLevel = new levelModules[name](name, this);

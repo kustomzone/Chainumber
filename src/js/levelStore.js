@@ -25,18 +25,6 @@ levelStore.get = function(name) {
     return levels[name];
 };
 
-levelStore.getNext = function(name) {
-    var nameIndex = gameConfig.levels.indexOf(name);
-
-    if (nameIndex === -1) { return null; }
-
-    var nextLevelName = gameConfig.levels[nameIndex + 1];
-
-    if (!nextLevelName) { return null; }
-
-    return levels[nextLevelName];
-};
-
 levelStore.checkOpenLevels = function() {
     var openLevelsLength = 0;
 
