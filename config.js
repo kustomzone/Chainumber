@@ -43,14 +43,13 @@ config = {
         },
         3: {
             field: {
-                size: [6, 6]
+                size: [4, 4]
             },
             numbers: {
                 possibleValues: [
-                    [1, 1],
-                    [2, 1],
                     [3, 1],
-                    [5, 1]
+                    [5, 1],
+                    [7, 1]
                 ]
             },
             chain: {
@@ -72,7 +71,7 @@ config = {
                     [1, 1],
                     [2, 1],
                     [3, 1],
-                    [4, 1]
+                    [5, 1]
                 ]
             },
             chain: {
@@ -87,13 +86,15 @@ config = {
         },
         5: {
             field: {
-                size: [5, 5]
+                size: [6, 6]
             },
             numbers: {
                 possibleValues: [
                     [1, 1],
+                    [2, 1],
                     [3, 1],
-                    [5, 1]
+                    [5, 1],
+                    [7, 1]
                 ]
             },
             chain: {
@@ -112,6 +113,8 @@ config = {
             },
             numbers: {
                 possibleValues: [
+                    [1, 1],
+                    [2, 1],
                     [3, 1],
                     [5, 1],
                     [7, 1]
@@ -129,11 +132,10 @@ config = {
         },
         7: {
             field: {
-                size: [6, 6]
+                size: [5, 5]
             },
             numbers: {
                 possibleValues: [
-                    [1, 1],
                     [3, 1],
                     [5, 1],
                     [7, 1]
@@ -151,12 +153,14 @@ config = {
         },
         8: {
             field: {
-                size: [5, 5]
+                size: [6, 6]
             },
             numbers: {
                 possibleValues: [
-                    [2, 1],
-                    [4, 1]
+                    [1, 1],
+                    [3, 1],
+                    [13, 1],
+                    [7, 1]
                 ]
             },
             chain: {
