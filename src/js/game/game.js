@@ -1,12 +1,12 @@
+var levelStore = require('../levelStore.js');
 var Field = require('./field.js');
 var util = require('../util');
 
 function Game(name, state) {
     this.name = name;
     this.state = state;
-    this.config = config.levels[name];
+    this.store = levelStore.get(name);
     this.score = 0;
-    this._isWin = Boolean(state.winLevels.indexOf(name) !== -1);
 
     this.field = new Field(this);
 
@@ -33,10 +33,10 @@ Game.prototype._createElement = function() {
         '</div>';
 
     element.innerHTML = template
-        .replace('{{goal}}', this.config.goal)
+        .replace('{{goal}}', this._getGoalText())
         .replace('{{name}}', this.name);
 
-    if (this._isWin) {
+    if (this.store.currentGoal > 0) {
         util.addClass(element, '_win');
     }
 
@@ -44,6 +44,7 @@ Game.prototype._createElement = function() {
     this.restartButton = element.getElementsByClassName('game__restartButton')[0];
     this.nextButton = element.getElementsByClassName('game__nextButton')[0];
 
+    this.goalElement = element.getElementsByClassName('game__goal')[0];
     this.scoreElement = element.getElementsByClassName('game__score')[0];
     this.chainSumElement = element.getElementsByClassName('game__chainSum')[0];
 
@@ -59,8 +60,20 @@ Game.prototype._bindEvents = function() {
     util.on(this.nextButton, 'click', this._nextLevel.bind(this));
 };
 
+Game.prototype._getGoalText = function() {
+    if (this.store.currentGoal < 3) {
+        return this.store.goals[this.store.currentGoal];
+    }
+
+    return '';
+};
+
 Game.prototype._nextLevel = function() {
-    this.state.nextFromLevel();
+    var nextLevel = levelStore.getNext(this.name);
+
+    if (nextLevel && nextLevel.isOpen) {
+        this.state.runLevel(nextLevel.name);
+    }
 };
 
 Game.prototype.restart = function() {
@@ -99,15 +112,26 @@ Game.prototype.updateScore = function() {
     this.score += Math.round(blockValue * field.selectedBlocks.length * k);
     this.scoreElement.innerHTML = this.score;
 
-    this._checkWin();
+    this._checkGoal();
 };
 
-Game.prototype._checkWin = function() {
-    if (!this._isWin && this.score >= this.config.winCondition.score) {
-        this._isWin = true;
-        this.state.levelWin(this.name);
-        util.addClass(this.element, '_win');
+Game.prototype._checkGoal = function() {
+    if (this.store.currentGoal == 3) { return; }
+
+    var store = this.store;
+
+    if (this.score >= store.winConditions[store.currentGoal]) {
+        store.currentGoal = Math.min(store.currentGoal + 1, 3);
+
+        if (store.currentGoal == 1) { this._win(); }
+
+        this.goalElement.innerHTML = this._getGoalText();
     }
+};
+
+Game.prototype._win = function() {
+    util.addClass(this.element, '_win');
+    levelStore.checkOpenLevels();
 };
 
 module.exports = Game;

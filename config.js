@@ -13,10 +13,12 @@ config = {
             chain: {
                 minLength: 3
             },
-            winCondition: {
-                score: 50
-            },
-            goal: 'Goal: 50'
+            winConditions: [50, 100, 150],
+            goals: [
+                'Goal: 50',
+                'Goal: 100',
+                'Goal: 150'
+            ]
         },
         2: {
             field: {
@@ -32,10 +34,12 @@ config = {
             chain: {
                 minLength: 3
             },
-            winCondition: {
-                score: 50
-            },
-            goal: 'Goal: 50'
+            winConditions: [50, 100, 150],
+            goals: [
+                'Goal: 50',
+                'Goal: 100',
+                'Goal: 150'
+            ]
         },
         3: {
             field: {
@@ -52,10 +56,12 @@ config = {
             chain: {
                 minLength: 3
             },
-            winCondition: {
-                score: 50
-            },
-            goal: 'Goal: 50'
+            winConditions: [50, 100, 150],
+            goals: [
+                'Goal: 50',
+                'Goal: 100',
+                'Goal: 150'
+            ]
         },
         4: {
             field: {
@@ -72,10 +78,12 @@ config = {
             chain: {
                 minLength: 3
             },
-            winCondition: {
-                score: 50
-            },
-            goal: 'Goal: 50'
+            winConditions: [50, 100, 150],
+            goals: [
+                'Goal: 50',
+                'Goal: 100',
+                'Goal: 150'
+            ]
         },
         5: {
             field: {
@@ -91,10 +99,12 @@ config = {
             chain: {
                 minLength: 3
             },
-            winCondition: {
-                score: 50
-            },
-            goal: 'Goal: 50'
+            winConditions: [50, 100, 150],
+            goals: [
+                'Goal: 50',
+                'Goal: 100',
+                'Goal: 150'
+            ]
         },
         6: {
             field: {
@@ -110,10 +120,12 @@ config = {
             chain: {
                 minLength: 3
             },
-            winCondition: {
-                score: 50
-            },
-            goal: 'Goal: 50'
+            winConditions: [50, 100, 150],
+            goals: [
+                'Goal: 50',
+                'Goal: 100',
+                'Goal: 150'
+            ]
         },
         7: {
             field: {
@@ -130,10 +142,12 @@ config = {
             chain: {
                 minLength: 3
             },
-            winCondition: {
-                score: 50
-            },
-            goal: 'Goal: 50'
+            winConditions: [50, 100, 150],
+            goals: [
+                'Goal: 50',
+                'Goal: 100',
+                'Goal: 150'
+            ]
         },
         8: {
             field: {
@@ -148,10 +162,12 @@ config = {
             chain: {
                 minLength: 3
             },
-            winCondition: {
-                score: 50
-            },
-            goal: 'Goal: 50'
+            winConditions: [50, 100, 150],
+            goals: [
+                'Goal: 50',
+                'Goal: 100',
+                'Goal: 150'
+            ]
         }
     }
 };

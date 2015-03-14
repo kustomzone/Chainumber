@@ -1,18 +1,54 @@
 var gameConfig = require('../gameConfig.js');
+var levelStore = require('../levelStore.js');
 var util = require('../util.js');
+
+function Level(levelMenu, name, order) {
+    this.levelMenu = levelMenu;
+    this.name = name;
+
+    this.store = levelStore.get(this.name);
+
+    this.element = document.createElement('div');
+    this.element.className = 'levelMenu__levelBlock ' +
+        '_level_' + order % 2;
+
+    this.element.innerHTML = name;
+    this.goal = null;
+
+    this.isOpen = false;
+
+    util.on(this.element, 'click', this._onClick.bind(this));
+}
+
+Level.prototype._onClick = function() {
+    this.levelMenu.runLevel(this.name);
+};
+
+Level.prototype.update = function() {
+    var newGoal = this.store.currentGoal;
+
+    if (this.goal !== newGoal) {
+        util.removeClass(this.element, '_goal_' + this.goal);
+        util.addClass(this.element, '_goal_' + newGoal);
+        this.goal = newGoal;
+    }
+
+    var newIsOpen = this.store.isOpen;
+
+    if (this.isOpen !== newIsOpen) {
+        util.addClass(this.element, '_open');
+    }
+};
 
 function LevelMenu(state) {
     this.state = state;
-
-    this._levelBlocks = {};
+    this.levels = {};
 
     this._createElement();
     this._bindEvents();
 }
 
 LevelMenu.prototype._createElement = function() {
-    var self = this;
-
     var element = document.createElement('div');
     element.className = 'levelMenu';
 
@@ -32,18 +68,12 @@ LevelMenu.prototype._createElement = function() {
     var fragment = document.createDocumentFragment();
 
     gameConfig.levels.forEach(function(name, i) {
-        var levelBlock = document.createElement('div');
-        levelBlock.className = 'levelMenu__levelBlock _level_' + i % 2;
-        levelBlock.innerHTML = name;
+        var level = new Level(this, name, i);
 
-        util.on(levelBlock, 'click', function() {
-            self.state.runLevel(name);
-        });
+        this.levels[name] = level;
 
-        self._levelBlocks[name] = levelBlock;
-
-        fragment.appendChild(levelBlock);
-    });
+        fragment.appendChild(level.element);
+    }, this);
 
     body.appendChild(fragment);
 
@@ -66,10 +96,16 @@ LevelMenu.prototype._bindEvents = function() {
     }.bind(this));
 };
 
-LevelMenu.prototype.updateOpenLevels = function() {
-    this.state.openLevels.forEach(function(name) {
-        util.addClass(this._levelBlocks[name], '_open');
+LevelMenu.prototype.update = function() {
+    util.forEach(this.levels, function(level) {
+        level.update();
     }, this);
+};
+
+LevelMenu.prototype.runLevel = function(name) {
+    if (levelStore.get(name).isOpen) {
+        this.state.runLevel(name);
+    }
 };
 
 module.exports = LevelMenu;

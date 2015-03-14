@@ -4,7 +4,7 @@ var gameConfig = require('../gameConfig');
 
 function Field(game) {
     this.game = game;
-    this.config = game.config;
+    this.config = game.store;
 
     this.blocks = {};
     this._blocksXY = {};

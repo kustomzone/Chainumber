@@ -2,22 +2,16 @@ var LevelMenu = require('./levelMenu/levelMenu');
 var MainMenu = require('./mainMenu/mainMenu');
 
 var levelModules = require('./levelModules');
-var gameConfig = require('./gameConfig.js');
 var util = require('./util');
 
 function State() {
     this._activeElement = null;
     this._activeLevel = null;
-    this.winLevels = [];
-
-    this.openLevels = gameConfig.levels.slice(0, gameConfig.openLevelsLength);
 
     this.levelMenu = new LevelMenu(this);
     this.mainMenu = new MainMenu(this);
 
     this._createElement();
-
-    this.levelMenu.updateOpenLevels();
 }
 
 State.prototype._createElement = function() {
@@ -49,6 +43,7 @@ State.prototype._activate = function(element) {
 };
 
 State.prototype.runLevelMenu = function() {
+    this.levelMenu.update();
     this._activate(this.levelMenuElement);
 };
 
@@ -57,10 +52,6 @@ State.prototype.runMainMenu = function() {
 };
 
 State.prototype.runLevel = function(name) {
-    var isOpen = this.openLevels.indexOf(name) !== -1;
-
-    if (!isOpen) { return; }
-
     this.mainMenu.resumeLevelActive();
 
     var newLevel = new levelModules[name](name, this);
@@ -74,34 +65,6 @@ State.prototype.runLevel = function(name) {
     this._activeLevel = newLevel;
 
     this._activate(this.activeLevelElement);
-};
-
-State.prototype.nextFromLevel = function() {
-    var currentNameIndex = this.openLevels.indexOf(this._activeLevel.name);
-
-    var nextLevelName = this.openLevels[currentNameIndex + 1];
-
-    if (nextLevelName) {
-        this.runLevel(nextLevelName);
-    } else {
-        this.runLevelMenu();
-    }
-};
-
-State.prototype.levelWin = function(name) {
-    this.winLevels.push(name);
-
-    this._openNextLevel();
-};
-
-State.prototype._openNextLevel = function() {
-    var nextLevelName = gameConfig.levels[this.openLevels.length];
-
-    if (nextLevelName) {
-        this.openLevels.push(nextLevelName);
-    }
-
-    this.levelMenu.updateOpenLevels();
 };
 
 State.prototype.backFromLevel = function() {
