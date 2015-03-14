@@ -13,11 +13,11 @@ config = {
             chain: {
                 minLength: 3
             },
-            winConditions: [50, 100, 150],
+            winConditions: [50, 100, 6000],
             goals: [
-                'Goal: 50',
-                'Goal: 100',
-                'Goal: 150',
+                'Goal: 1000',
+                'Goal: 3000',
+                'Goal: 6000',
                 'Achieved!'
             ]
         },
@@ -37,9 +37,9 @@ config = {
             },
             winConditions: [50, 100, 150],
             goals: [
-                'Goal: 50',
-                'Goal: 100',
-                'Goal: 150',
+                'Goal: 10000',
+                'Goal: 25000',
+                'Goal: 50000',
                 'Achieved!'
             ]
         },
@@ -57,11 +57,11 @@ config = {
             chain: {
                 minLength: 3
             },
-            winConditions: [50, 100, 150],
+            winConditions: [500, 1250, 2500],
             goals: [
-                'Goal: 50',
-                'Goal: 100',
-                'Goal: 150',
+                'Goal: 500',
+                'Goal: 1250',
+                'Goal: 2500',
                 'Achieved!'
             ]
         },
