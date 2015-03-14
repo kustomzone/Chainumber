@@ -116,9 +116,10 @@
 
 .block__inner-size(@x, @y) {
     @padding: 10 - @x * 1px;
-    @blockWidth: floor(@width / @x - @padding * 2);
-    @innerWidth: ceil(@blockWidth / 2 + @padding);
+    @innerWidth: ceil((@width / @x - @padding) / 2);
 
+    top: @padding / 2;
+    left: @padding / 2;
     border: @innerWidth solid transparent;
     border-radius: @innerWidth;
 }
@@ -164,8 +165,6 @@
 
 .block__active {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 0;
     height: 0;
 
