@@ -1,3 +1,4 @@
+var gameConfig = require('../gameConfig.js');
 var colors = require('./colors.js');
 var util = require('../util.js');
 
@@ -20,8 +21,10 @@ function Block(x, y, field) {
     this.value = null;
     this.element = null;
 
-    this.width = 500 / this.config.field.size[0];
-    this.height = 500 / this.config.field.size[1];
+    this.fieldHeight = gameConfig.field.height;
+
+    this.width = gameConfig.field.width / this.config.field.size[0];
+    this.height = gameConfig.field.height / this.config.field.size[1];
 
     this.widthText = null;
 
@@ -34,8 +37,12 @@ Block.prototype._createElement = function() {
     var element = document.createElement('div');
     element.className = 'block';
 
-    element.style.left = Math.floor(this.x * this.width) + 'px';
-    element.style.bottom = Math.floor(this.y * this.height) + 'px';
+    element.style.transform = 'translate3d(' +
+        Math.floor(this.x * this.width) + 'px,' +
+        Math.floor(this.fieldHeight - (this.y + 1) * this.height) + 'px,0)';
+
+    //element.style.left = Math.floor(this.x * this.width) + 'px';
+    //element.style.bottom = Math.floor(this.y * this.height) + 'px';
 
     var inner = document.createElement('div');
     inner.className = 'block__inner';
@@ -115,8 +122,9 @@ Block.prototype.changePosition = function(x, y) {
     this.x = x;
     this.y = y;
 
-    this.element.style.left = Math.floor(x * this.width) + 'px';
-    this.element.style.bottom = Math.floor(y * this.height) + 'px';
+    this.element.style.transform = 'translate3d(' +
+        Math.floor(this.x * this.width) + 'px,' +
+        Math.floor(this.fieldHeight - (this.y + 1) * this.height) + 'px,0)';
 };
 
 Block.prototype._updateColors = function() {

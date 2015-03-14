@@ -129,11 +129,13 @@
 
 .block {
     position: absolute;
+    top: 0;
+    left: 0;
     font-weight: 700;
     font-size: 30px;
     text-align: center;
     cursor: pointer;
-    transition: bottom 0.3s ease-out;
+    transition: transform 0.3s ease-out;
 
     .field._width_4._height_4 & {
         .block-size(4, 4);
