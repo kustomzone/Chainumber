@@ -37,19 +37,14 @@ Block.prototype._createElement = function() {
 
     var inner = document.createElement('div');
     inner.className = 'block__inner';
+    inner.innerHTML = this.value;
     element.appendChild(inner);
 
     var active = document.createElement('div');
     active.className = 'block__active';
     element.appendChild(active);
 
-    var text = document.createElement('div');
-    text.className = 'block__text';
-    text.innerHTML = this.value;
-    inner.appendChild(text);
-
     this.innerElement = inner;
-    this.textElement = text;
     this.activeElement = active;
     this.element = element;
 
@@ -154,7 +149,7 @@ Block.prototype._updateColors = function() {
 
 Block.prototype.changeValue = function(value) {
     this.value = value;
-    this.textElement.innerHTML = value;
+    this.innerElement.innerHTML = value;
 
     this._updateColors();
 };

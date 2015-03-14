@@ -16,13 +16,9 @@ LevelMenu.prototype._createElement = function() {
     var element = document.createElement('div');
     element.className = 'levelMenu';
 
-    var container = document.createElement('div');
-    container.className = 'levelMenu__container';
-    element.appendChild(container);
-
     var header = document.createElement('div');
     header.className = 'levelMenu__header';
-    container.appendChild(header);
+    element.appendChild(header);
 
     var levels = document.createElement('div');
     levels.className = 'levelMenu__headerLevels';
@@ -31,7 +27,7 @@ LevelMenu.prototype._createElement = function() {
 
     var body = document.createElement('div');
     body.className = 'levelMenu__body';
-    container.appendChild(body);
+    element.appendChild(body);
 
     var fragment = document.createDocumentFragment();
 
@@ -53,7 +49,7 @@ LevelMenu.prototype._createElement = function() {
 
     var footer = document.createElement('div');
     footer.className = 'levelMenu__footer';
-    container.appendChild(footer);
+    element.appendChild(footer);
 
     var backButton = document.createElement('div');
     backButton.className = 'levelMenu__backButton';

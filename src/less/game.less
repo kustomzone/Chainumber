@@ -2,13 +2,21 @@
 @height: 500px;
 
 .game {
-    user-select: none;
     position: relative;
 }
 
 .game__header {
     position: relative;
     height: 100px;
+}
+
+.game__levelName {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #99b433;
+    font-weight: 700;
+    font-size: 30px;
 }
 
 .game__score {
@@ -23,7 +31,7 @@
 .game__chainSum {
     display: none;
     position: absolute;
-    bottom: 10px;
+    bottom: 0;
     left: 10px;
     color: #99b433;
     font-weight: 700;
@@ -87,6 +95,7 @@
 }
 
 .field {
+    user-select: none;
     position: relative;
     width: @width;
     height: @height;

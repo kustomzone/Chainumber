@@ -20,6 +20,7 @@ Game.prototype._createElement = function() {
 
     var template =
         '<div class="game__header">' +
+            '<div class="game__levelName">Level: {{name}}</div>' +
             '<div class="game__score">0</div>' +
             '<div class="game__chainSum"></div>' +
             '<div class="game__goal">{{goal}}</div>' +
@@ -31,7 +32,9 @@ Game.prototype._createElement = function() {
             '<div class="game__nextButton">Next</div>' +
         '</div>';
 
-    element.innerHTML = template.replace('{{goal}}', this.config.goal);
+    element.innerHTML = template
+        .replace('{{goal}}', this.config.goal)
+        .replace('{{name}}', this.name);
 
     if (this._isWin) {
         util.addClass(element, '_win');
