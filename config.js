@@ -17,7 +17,8 @@ config = {
             goals: [
                 'Goal: 50',
                 'Goal: 100',
-                'Goal: 150'
+                'Goal: 150',
+                'Achieved!'
             ]
         },
         2: {
@@ -38,7 +39,8 @@ config = {
             goals: [
                 'Goal: 50',
                 'Goal: 100',
-                'Goal: 150'
+                'Goal: 150',
+                'Achieved!'
             ]
         },
         3: {
@@ -59,7 +61,8 @@ config = {
             goals: [
                 'Goal: 50',
                 'Goal: 100',
-                'Goal: 150'
+                'Goal: 150',
+                'Achieved!'
             ]
         },
         4: {
@@ -81,7 +84,8 @@ config = {
             goals: [
                 'Goal: 50',
                 'Goal: 100',
-                'Goal: 150'
+                'Goal: 150',
+                'Achieved!'
             ]
         },
         5: {
@@ -104,7 +108,8 @@ config = {
             goals: [
                 'Goal: 50',
                 'Goal: 100',
-                'Goal: 150'
+                'Goal: 150',
+                'Achieved!'
             ]
         },
         6: {
@@ -127,7 +132,8 @@ config = {
             goals: [
                 'Goal: 50',
                 'Goal: 100',
-                'Goal: 150'
+                'Goal: 150',
+                'Achieved!'
             ]
         },
         7: {
@@ -148,7 +154,8 @@ config = {
             goals: [
                 'Goal: 50',
                 'Goal: 100',
-                'Goal: 150'
+                'Goal: 150',
+                'Achieved!'
             ]
         },
         8: {
@@ -170,7 +177,8 @@ config = {
             goals: [
                 'Goal: 50',
                 'Goal: 100',
-                'Goal: 150'
+                'Goal: 150',
+                'Achieved!'
             ]
         }
     }

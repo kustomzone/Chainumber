@@ -12,8 +12,8 @@
 
 .game__levelName {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 0;
+    left: 5px;
     color: #99b433;
     font-weight: 700;
     font-size: 30px;
@@ -22,20 +22,30 @@
 .game__score {
     position: absolute;
     bottom: 10px;
-    right: 10px;
+    right: 5px;
     color: #99b433;
     font-weight: 700;
     font-size: 80px;
+}
+
+.game__maxScore {
+    position: absolute;
+    top: 32px;
+    left: 5px;
+    color: #99b433;
+    font-weight: 700;
+    font-size: 13px;
 }
 
 .game__chainSum {
     display: none;
     position: absolute;
     bottom: 0;
-    left: 10px;
+    left: 5px;
+    height: 60px;
     color: #99b433;
     font-weight: 700;
-    font-size: 50px;
+    font-size: 60px;
 
     &._showed {
         display: block;
@@ -45,7 +55,7 @@
 .game__goal {
     position: absolute;
     bottom: 0;
-    right: 10px;
+    right: 5px;
     color: #99b433;
     font-weight: 700;
     font-size: 15px;

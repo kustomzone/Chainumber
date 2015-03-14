@@ -26,6 +26,7 @@ Game.prototype._createElement = function() {
             '<div class="game__levelName">Level: {{name}}</div>' +
             '<div class="game__score">{{score}}</div>' +
             '<div class="game__chainSum"></div>' +
+            '<div class="game__maxScore">Max score: {{maxScore}}</div>' +
             '<div class="game__goal">{{goal}}</div>' +
         '</div>' +
         '<div class="game__body"></div>' +
@@ -38,7 +39,8 @@ Game.prototype._createElement = function() {
     element.innerHTML = template
         .replace('{{score}}', this.score)
         .replace('{{goal}}', this._getGoalText())
-        .replace('{{name}}', this.name);
+        .replace('{{name}}', this.name)
+        .replace('{{maxScore}}', this.store.maxScore);
 
     if (this.store.currentGoal > 0) {
         util.addClass(element, '_win');
@@ -51,6 +53,7 @@ Game.prototype._createElement = function() {
     this.goalElement = element.getElementsByClassName('game__goal')[0];
     this.scoreElement = element.getElementsByClassName('game__score')[0];
     this.chainSumElement = element.getElementsByClassName('game__chainSum')[0];
+    this.maxScoreElement = element.getElementsByClassName('game__maxScore')[0];
 
     this.bodyElement = element.getElementsByClassName('game__body')[0];
     this.bodyElement.appendChild(this.field.element);
@@ -65,7 +68,7 @@ Game.prototype._bindEvents = function() {
 };
 
 Game.prototype._getGoalText = function() {
-    if (this.store.currentGoal < 3) {
+    if (this.store.currentGoal <= 3) {
         return this.store.goals[this.store.currentGoal];
     }
 
@@ -112,7 +115,10 @@ Game.prototype.updateScore = function() {
     this.score += Math.round(blockValue * field.selectedBlocks.length * k);
     this.scoreElement.innerHTML = this.score;
 
-    this.store.maxScore = this.score;
+    if (this.store.maxScore < this.score) {
+        this.store.maxScore = this.score;
+        this.maxScoreElement.innerHTML = 'Max score: ' + this.score;
+    }
 
     this._checkGoal();
 };
