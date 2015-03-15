@@ -14,14 +14,18 @@ function Hammer(options) {
 
     this._createElement();
     this._bindEvents();
+    this.updateCount();
 }
 
 Hammer.prototype._createElement = function() {
     var element = document.createElement('div');
     element.className = 'ability__' + this.name;
 
-    element.innerHTML = '<div class="ability__border"></div>H';
+    element.innerHTML = '<div class="ability__border"></div>' +
+                        '<div class="ability__count"></div>H';
 
+
+    this.countElement = element.getElementsByClassName('ability__count')[0];
     this.element = element;
 };
 
@@ -32,12 +36,22 @@ Hammer.prototype._bindEvents = function() {
 };
 
 Hammer.prototype._onClickHandler = function() {
-    if (!this.game) { return; }
+    if (!this.game || this.count == 0) { return; }
 
     if (!this.isActive) {
         this.game.runAbility(this.name);
     } else {
         this.game.stopAbility(this.name);
+    }
+};
+
+Hammer.prototype.updateCount = function() {
+    this.countElement.innerHTML = this.count;
+
+    if (this.count == 0) {
+        util.addClass(this.element, '_no-count');
+    } else {
+        util.removeClass(this.element, '_no-count');
     }
 };
 
@@ -162,6 +176,9 @@ Hammer.prototype._beforeRun = function(block) {
 Hammer.prototype._run = function() {
     this.field.blockRemove(this._block.id);
     this.field.checkPositions();
+
+    this.count--;
+    this.updateCount();
 };
 
 Hammer.prototype._afterRun = function() {

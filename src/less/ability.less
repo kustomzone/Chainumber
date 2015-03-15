@@ -19,6 +19,10 @@
     &._active .ability__border {
         display: block;
     }
+
+    &._no-count {
+        display: none;
+    }
 }
 
 .ability__border {
@@ -26,10 +30,19 @@
     position: absolute;
     top: 0;
     left: 0;
-    border: 9px dashed #245cb3;
+    border: 5px dashed #245cb3;
     width: @abilityWidth;
     height: @abilityHeight;
     box-sizing: border-box;
+}
+
+.ability__count {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    height: 12px;
+    line-height: 12px;
+    font-size: 12px;
 }
 
 .ability__hammer {

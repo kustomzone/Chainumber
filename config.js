@@ -19,7 +19,8 @@ config = {
                 'Next goal: 3000',
                 'Last goal: 6000',
                 'Achieved!'
-            ]
+            ],
+            abilityPerScore: 500
         },
         2: {
             field: {
@@ -41,7 +42,8 @@ config = {
                 'Next goal: 25000',
                 'Last goal: 50000',
                 'Achieved!'
-            ]
+            ],
+            abilityPerScore: 5000
         },
         3: {
             field: {
@@ -63,7 +65,8 @@ config = {
                 'Next goal: 1250',
                 'Last goal: 2500',
                 'Achieved!'
-            ]
+            ],
+            abilityPerScore: 250
         },
         4: {
             field: {
@@ -86,7 +89,8 @@ config = {
                 'Next goal: 32000',
                 'Last goal: 150000',
                 'Achieved!'
-            ]
+            ],
+            abilityPerScore: 1000
         },
         5: {
             field: {
@@ -109,7 +113,8 @@ config = {
                 'Next goal: 100',
                 'Last goal: 150',
                 'Achieved!'
-            ]
+            ],
+            abilityPerScore: 500
         },
         6: {
             field: {
@@ -133,7 +138,8 @@ config = {
                 'Next goal: 100',
                 'Last goal: 150',
                 'Achieved!'
-            ]
+            ],
+            abilityPerScore: 500
         },
         7: {
             field: {
@@ -157,7 +163,8 @@ config = {
                 'Next goal: 100',
                 'Last goal: 150',
                 'Achieved!'
-            ]
+            ],
+            abilityPerScore: 500
         },
         8: {
             field: {
@@ -180,7 +187,8 @@ config = {
                 'Next goal: 100',
                 'Last goal: 150',
                 'Achieved!'
-            ]
+            ],
+            abilityPerScore: 500
         }
     }
 };

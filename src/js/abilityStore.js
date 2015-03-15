@@ -19,7 +19,7 @@ function init() {
 
         var opt = {
             name: name,
-            count: savedAbilities[name].count || 0
+            count: savedAbilities[name].count || 3
         };
 
         abilities[name] = new Ability(opt);
@@ -32,6 +32,15 @@ store.get = function() {
     return abilitiesOrder.map(function(name) {
         return abilities[name];
     });
+};
+
+store.upRandomAbility = function() {
+    var keys = Object.keys(abilities);
+    var randomIndex = Math.floor(Math.random() * keys.length);
+    var ability = abilities[keys[randomIndex]];
+
+    ability.count++;
+    ability.updateCount();
 };
 
 module.exports = store;

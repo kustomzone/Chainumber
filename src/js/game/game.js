@@ -14,6 +14,7 @@ function Game(name, state, restoreData) {
 
     this._abilities = {};
     this.currentAbility = null;
+    this._lastUpAbilityScore = 0;
 
     this.field = new Field(this, restoreData.field);
 
@@ -144,6 +145,7 @@ Game.prototype.updateScore = function() {
     }
 
     this._checkGoal();
+    this._checkUpAbility();
 };
 
 Game.prototype._checkGoal = function() {
@@ -157,6 +159,13 @@ Game.prototype._checkGoal = function() {
         if (store.currentGoal == 1) { this._win(); }
 
         this.goalElement.innerHTML = this._getGoalText();
+    }
+};
+
+Game.prototype._checkUpAbility = function() {
+    if (this.score - this._lastUpAbilityScore > this.store.abilityPerScore) {
+        abilityStore.upRandomAbility();
+        this._lastUpAbilityScore = this.score;
     }
 };
 
