@@ -1,0 +1,37 @@
+@abilityWidth: 75px;
+@abilityHeight: 75px;
+
+.ability {
+    position: relative;
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    width: @abilityWidth;
+    height: @abilityHeight;
+    background: #99b433;
+    color: #fff;
+    font-weight: 700;
+    line-height: @abilityHeight;
+    font-size: ceil(@abilityWidth * 3 / 5);
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+
+    &._active .ability__border {
+        display: block;
+    }
+}
+
+.ability__border {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 9px dashed #245cb3;
+    width: @abilityWidth;
+    height: @abilityHeight;
+    box-sizing: border-box;
+}
+
+.ability__hammer {
+    .ability();
+}

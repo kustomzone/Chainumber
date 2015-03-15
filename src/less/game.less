@@ -66,6 +66,14 @@
     padding: 0 0 0 5px;
 }
 
+.game__abilities {
+    margin: 0 0 15px 0;
+}
+
+.game__buttons {
+
+}
+
 .game__button {
     display: inline-block;
     margin: 0 9px 5px 0;
@@ -130,6 +138,16 @@
 }
 
 .block__inner-size(@x, @y) {
+    @padding: 10 - @x * 1px;
+    @innerWidth: ceil((@width / @x - @padding) / 2);
+
+    top: @padding / 2;
+    left: @padding / 2;
+    border: @innerWidth solid transparent;
+    border-radius: @innerWidth;
+}
+
+.block__border-size(@x, @y) {
     @padding: 10 - @x * 1px;
     @innerWidth: ceil((@width / @x - @padding) / 2);
 
@@ -231,6 +249,7 @@
 }
 
 .block__inner {
+    position: relative;
     width: 100%;
     height: 100%;
     transition: opacity 0.3s ease-out 0.15s;
@@ -255,5 +274,20 @@
 
     .field._width_6._height_6 & {
         .block__inner-size(6, 6);
+    }
+}
+
+.block__innerBorder {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 5px dashed #245cb3;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    .block._targetAbility & {
+        display: block;
     }
 }

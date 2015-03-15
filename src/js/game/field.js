@@ -210,7 +210,7 @@ Field.prototype.blockMouseOut = function(id) {
 
 };
 
-Field.prototype._blockRemove = function(id) {
+Field.prototype.blockRemove = function(id) {
     var block = this.blocks[id];
 
     this.element.removeChild(block.element);
@@ -230,12 +230,12 @@ Field.prototype._runSelected = function() {
 
     lastBl.changeValue(value);
 
-    this.selectedBlocks.forEach(this._blockRemove, this);
+    this.selectedBlocks.forEach(this.blockRemove, this);
 
-    this._checkPositions();
+    this.checkPositions();
 };
 
-Field.prototype._checkPositions = function() {
+Field.prototype.checkPositions = function() {
     var self = this;
 
     var blocksXY = this._blocksXY;

@@ -14,6 +14,7 @@ function Block(x, y, field) {
 
     this.field = field;
     this.config = field.config;
+    this.game = field.game;
 
     this.x = x;
     this.y = y;
@@ -41,19 +42,27 @@ Block.prototype._createElement = function() {
         Math.floor(this.x * this.width) + 'px,' +
         Math.floor(this.fieldHeight - (this.y + 1) * this.height) + 'px,0)';
 
-    //element.style.left = Math.floor(this.x * this.width) + 'px';
-    //element.style.bottom = Math.floor(this.y * this.height) + 'px';
+    element.setAttribute('data-id', this.id);
 
     var inner = document.createElement('div');
     inner.className = 'block__inner';
-    inner.innerHTML = this.value;
     element.appendChild(inner);
+
+    var border = document.createElement('div');
+    border.className = 'block__innerBorder';
+    inner.appendChild(border);
+
+    var text = document.createElement('div');
+    text.className = 'block__innerText';
+    text.innerHTML = this.value;
+    inner.appendChild(text);
 
     var active = document.createElement('div');
     active.className = 'block__active';
     element.appendChild(active);
 
     this.innerElement = inner;
+    this.textElement = text;
     this.activeElement = active;
     this.element = element;
 
@@ -104,6 +113,8 @@ Block.prototype._bindEvents = function() {
 
 Block.prototype._mouseDownHandler = function(ev) {
     ev.preventDefault();
+
+    if (this.game.currentAbility) { return; }
 
     this.field.blockMouseDown(this.id);
 };
@@ -159,7 +170,7 @@ Block.prototype._updateColors = function() {
 
 Block.prototype.changeValue = function(value) {
     this.value = value;
-    this.innerElement.innerHTML = value;
+    this.textElement.innerHTML = value;
 
     var textLength = this.value.toString().length;
 

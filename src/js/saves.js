@@ -37,4 +37,12 @@ saves.getActiveLevel = function() {
     return getFromLocalStorage('activeLevel');
 };
 
+saves.setAbilities = function(data) {
+    setToLocalStorage('abilities', data);
+};
+
+saves.getAbilities = function() {
+    return getFromLocalStorage('abilities');
+};
+
 module.exports = saves;

@@ -40,12 +40,12 @@ util.forEach = function(obj, iterator, context) {
     }
 };
 
-util.on = function(node, type, callback) {
-    node.addEventListener(type, callback);
+util.on = function(node, type, callback, useCapture) {
+    node.addEventListener(type, callback, useCapture);
 };
 
-util.off = function(node, type, callback) {
-    node.removeEventListener(type, callback);
+util.off = function(node, type, callback, useCapture) {
+    node.removeEventListener(type, callback, useCapture);
 };
 
 
