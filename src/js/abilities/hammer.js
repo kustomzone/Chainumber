@@ -1,11 +1,12 @@
 var util = require('../util.js');
 
-function Hammer(options) {
-    this.name = options.name;
-    this.count = options.count;
+function Hammer(name, options, abilities) {
+    this.name = name;
+    this.abilities = abilities;
+    this.field = abilities.game.field;
 
-    this.game = null;
-    this.field = null;
+    this.count = options.count || 0;
+
     this.element = null;
     this._block = null;
 
@@ -36,12 +37,12 @@ Hammer.prototype._bindEvents = function() {
 };
 
 Hammer.prototype._onClickHandler = function() {
-    if (!this.game || this.count == 0) { return; }
+    if (this.count == 0) { return; }
 
     if (!this.isActive) {
-        this.game.runAbility(this.name);
+        this.abilities.runAbility(this.name);
     } else {
-        this.game.stopAbility(this.name);
+        this.abilities.stopAbility(this.name);
     }
 };
 
@@ -53,11 +54,6 @@ Hammer.prototype.updateCount = function() {
     } else {
         util.removeClass(this.element, '_no-count');
     }
-};
-
-Hammer.prototype.setGame = function(game) {
-    this.game = game;
-    this.field = game.field;
 };
 
 Hammer.prototype.activate = function() {
@@ -120,7 +116,7 @@ Hammer.prototype._fieldClickHandler = function(ev) {
 
     this._run();
 
-    this.game.stopAbility(this.name);
+    this.abilities.stopAbility(this.name);
 };
 
 Hammer.prototype._bodyEndClick = function() {

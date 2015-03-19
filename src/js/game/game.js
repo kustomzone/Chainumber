@@ -1,5 +1,5 @@
-var abilityStore = require('../abilityStore.js');
 var levelStore = require('../levelStore.js');
+var Abilities = require('./abilities.js');
 var Field = require('./field.js');
 var util = require('../util');
 
@@ -12,15 +12,11 @@ function Game(name, state, restoreData) {
 
     this.score = restoreData.score || 0;
 
-    this._abilities = {};
-    this.currentAbility = null;
-    this._lastUpAbilityScore = 0;
-
     this.field = new Field(this, restoreData.field);
+    this.abilities = new Abilities(this, restoreData.abilities);
 
     this._createElement();
     this._bindEvents();
-    this._initAbilities();
 }
 
 Game.prototype._createElement = function() {
@@ -55,12 +51,13 @@ Game.prototype._createElement = function() {
         util.addClass(element, '_win');
     }
 
-
     this.backButton = element.getElementsByClassName('game__backButton')[0];
     this.restartButton = element.getElementsByClassName('game__restartButton')[0];
     this.nextButton = element.getElementsByClassName('game__nextButton')[0];
 
     this.abilitiesElement = element.getElementsByClassName('game__abilities')[0];
+    this.abilitiesElement.appendChild(this.abilities.element);
+
     this.goalElement = element.getElementsByClassName('game__goal')[0];
     this.scoreElement = element.getElementsByClassName('game__score')[0];
     this.chainSumElement = element.getElementsByClassName('game__chainSum')[0];
@@ -78,19 +75,6 @@ Game.prototype._bindEvents = function() {
     util.on(this.nextButton, 'click', this._nextLevel.bind(this));
 };
 
-Game.prototype._initAbilities = function() {
-    var availableAbilities = abilityStore.get();
-
-    availableAbilities.forEach(function(ability) {
-        ability.setGame(this);
-
-        this.abilitiesElement.appendChild(ability.element);
-        this._abilities[ability.name] = ability;
-    }, this);
-
-
-};
-
 Game.prototype._getGoalText = function() {
     if (this.store.currentGoal <= 3) {
         return this.store.goals[this.store.currentGoal];
@@ -104,14 +88,16 @@ Game.prototype._nextLevel = function() {
 };
 
 Game.prototype.restart = function() {
-    var newField = new Field(this);
-
-    this.bodyElement.replaceChild(newField.element, this.field.element);
-
     this.score = 0;
     this.scoreElement.innerHTML = 0;
 
+    var newField = new Field(this);
+    this.bodyElement.replaceChild(newField.element, this.field.element);
     this.field = newField;
+
+    var newAbilities = new Abilities(this);
+    this.abilitiesElement.replaceChild(newAbilities.element, this.abilities.element);
+    this.abilities = newAbilities;
 };
 
 Game.prototype._backToMenu = function() {
@@ -145,7 +131,8 @@ Game.prototype.updateScore = function() {
     }
 
     this._checkGoal();
-    this._checkUpAbility();
+
+    this.abilities.checkUp();
 };
 
 Game.prototype._checkGoal = function() {
@@ -162,13 +149,6 @@ Game.prototype._checkGoal = function() {
     }
 };
 
-Game.prototype._checkUpAbility = function() {
-    if (this.score - this._lastUpAbilityScore > this.store.abilityPerScore) {
-        abilityStore.upRandomAbility();
-        this._lastUpAbilityScore = this.score;
-    }
-};
-
 Game.prototype._win = function() {
     util.addClass(this.element, '_win');
     levelStore.checkOpenLevels();
@@ -177,23 +157,10 @@ Game.prototype._win = function() {
 Game.prototype.getState = function() {
     return {
         field: this.field.getState(),
+        abilities: this.abilities.getState(),
         name: this.name,
         score: this.score
-    }
-};
-
-Game.prototype.runAbility = function(name) {
-    if (this.currentAbility === null) {
-        this._abilities[name].activate();
-        this.currentAbility = name;
-    }
-};
-
-Game.prototype.stopAbility = function(name) {
-    if (this.currentAbility == name) {
-        this._abilities[name].deactivate();
-        this.currentAbility = null;
-    }
+    };
 };
 
 module.exports = Game;

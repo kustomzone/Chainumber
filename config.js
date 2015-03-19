@@ -20,7 +20,12 @@ config = {
                 'Last goal: 6000',
                 'Achieved!'
             ],
-            abilityPerScore: 500
+            ability: {
+                hammer: {
+                    count: 1
+                }
+            },
+            abilityPerScore: 1000
         },
         2: {
             field: {
@@ -43,6 +48,11 @@ config = {
                 'Last goal: 50000',
                 'Achieved!'
             ],
+            ability: {
+                hammer: {
+                    count: 1
+                }
+            },
             abilityPerScore: 5000
         },
         3: {
@@ -66,6 +76,11 @@ config = {
                 'Last goal: 2500',
                 'Achieved!'
             ],
+            ability: {
+                hammer: {
+                    count: 1
+                }
+            },
             abilityPerScore: 250
         },
         4: {
@@ -90,6 +105,11 @@ config = {
                 'Last goal: 150000',
                 'Achieved!'
             ],
+            ability: {
+                hammer: {
+                    count: 1
+                }
+            },
             abilityPerScore: 1000
         },
         5: {
@@ -114,6 +134,11 @@ config = {
                 'Last goal: 150',
                 'Achieved!'
             ],
+            ability: {
+                hammer: {
+                    count: 1
+                }
+            },
             abilityPerScore: 500
         },
         6: {
@@ -139,6 +164,11 @@ config = {
                 'Last goal: 150',
                 'Achieved!'
             ],
+            ability: {
+                hammer: {
+                    count: 1
+                }
+            },
             abilityPerScore: 500
         },
         7: {
@@ -164,6 +194,11 @@ config = {
                 'Last goal: 150',
                 'Achieved!'
             ],
+            ability: {
+                hammer: {
+                    count: 1
+                }
+            },
             abilityPerScore: 500
         },
         8: {
@@ -188,6 +223,11 @@ config = {
                 'Last goal: 150',
                 'Achieved!'
             ],
+            ability: {
+                hammer: {
+                    count: 1
+                }
+            },
             abilityPerScore: 500
         }
     }
