@@ -176,7 +176,7 @@ config = {
                 }
             },
             abilityPerScore: 300
-        },
+        }/*,
         7: {
             field: {
                 size: [6, 6]
@@ -274,6 +274,6 @@ config = {
                 }
             },
             abilityPerScore: 500
-        }
+        }*/
     }
 };
