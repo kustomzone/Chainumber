@@ -39,7 +39,7 @@ Abilities.prototype._initElements = function() {
 Abilities.prototype._restoreData = function(data) {
     if (data.list) {
         util.forEach(data.list, function(abilityData, name) {
-            this._abilities[name].count = abilityData.count || this.config.ability[name].count || 0;
+            this._abilities[name].count = abilityData.count || 0;
             this._abilities[name].updateCount();
         }, this);
     }
