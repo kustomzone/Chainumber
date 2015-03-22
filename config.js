@@ -142,6 +142,10 @@ config = {
                 bomb: {
                     count: 1,
                     ratio: 1
+                },
+                lightning: {
+                    count: 1,
+                    ratio: 1
                 }
             },
             abilityPerScore: 20
@@ -172,9 +176,13 @@ config = {
             ability: {
                 hammer: {
                     count: 3,
-                    ratio: 1
+                    ratio: 5
                 },
                 bomb: {
+                    count: 1,
+                    ratio: 3
+                },
+                lightning: {
                     count: 1,
                     ratio: 3
                 }
