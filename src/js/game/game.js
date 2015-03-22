@@ -165,4 +165,8 @@ Game.prototype.getState = function() {
     };
 };
 
+Game.prototype.saveState = function() {
+    this.state.saveActiveLevel();
+};
+
 module.exports = Game;

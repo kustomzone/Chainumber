@@ -58,6 +58,8 @@ Abilities.prototype.checkUp = function() {
     randomAbility.updateCount();
 
     this._lastUpAbilityScore = this.game.score;
+
+    this.game.saveState();
 };
 
 Abilities.prototype.runAbility = function(name) {

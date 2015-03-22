@@ -176,7 +176,7 @@ Hammer.prototype._run = function() {
     this.count--;
     this.updateCount();
 
-    this.abilities.game.state.saveActiveLevel();
+    this.abilities.game.saveState();
 };
 
 Hammer.prototype._afterRun = function() {

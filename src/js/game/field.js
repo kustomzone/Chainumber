@@ -234,7 +234,7 @@ Field.prototype._runSelected = function() {
 
     this.checkPositions();
 
-    this.game.state.saveActiveLevel();
+    this.abilities.game.saveState();
 };
 
 Field.prototype.checkPositions = function() {
