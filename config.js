@@ -136,10 +136,12 @@ config = {
             ],
             ability: {
                 hammer: {
-                    count: 2
+                    count: 2,
+                    ratio: 5
                 },
                 bomb: {
-                    count: 1
+                    count: 1,
+                    ratio: 1
                 }
             },
             abilityPerScore: 20
@@ -169,111 +171,15 @@ config = {
             ],
             ability: {
                 hammer: {
-                    count: 3
+                    count: 3,
+                    ratio: 1
                 },
                 bomb: {
-                    count: 3
+                    count: 1,
+                    ratio: 3
                 }
             },
-            abilityPerScore: 300
-        }/*,
-        7: {
-            field: {
-                size: [6, 6]
-            },
-            numbers: {
-                possibleValues: [
-                    [1, 1],
-                    [2, 1],
-                    [3, 1],
-                    [5, 1],
-                    [7, 1]
-                ]
-            },
-            chain: {
-                minLength: 3
-            },
-            winConditions: [50, 100, 150],
-            goals: [
-                'Goal: 50',
-                'Next goal: 100',
-                'Last goal: 150',
-                'Achieved!'
-            ],
-            ability: {
-                hammer: {
-                    count: 2
-                },
-                bomb: {
-                    count: 1
-                }
-            },
-            abilityPerScore: 500
-        },
-        8: {
-            field: {
-                size: [5, 5]
-            },
-            numbers: {
-                possibleValues: [
-                    [1, 1],
-                    [2, 1],
-                    [3, 1],
-                    [5, 1],
-                    [7, 1]
-                ]
-            },
-            chain: {
-                minLength: 3
-            },
-            winConditions: [50, 100, 150],
-            goals: [
-                'Goal: 50',
-                'Next goal: 100',
-                'Last goal: 150',
-                'Achieved!'
-            ],
-            ability: {
-                hammer: {
-                    count: 2
-                },
-                bomb: {
-                    count: 1
-                }
-            },
-            abilityPerScore: 500
-        },
-        9: {
-            field: {
-                size: [6, 6]
-            },
-            numbers: {
-                possibleValues: [
-                    [1, 1],
-                    [3, 1],
-                    [13, 1],
-                    [7, 1]
-                ]
-            },
-            chain: {
-                minLength: 3
-            },
-            winConditions: [50, 100, 150],
-            goals: [
-                'Goal: 50',
-                'Next goal: 100',
-                'Last goal: 150',
-                'Achieved!'
-            ],
-            ability: {
-                hammer: {
-                    count: 2
-                },
-                bomb: {
-                    count: 1
-                }
-            },
-            abilityPerScore: 500
-        }*/
+            abilityPerScore: 200
+        }
     }
 };

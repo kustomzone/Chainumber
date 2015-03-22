@@ -84,4 +84,38 @@ util.rgbSum = function(arr) {
 
 util.nullFn = function() {};
 
+
+// get random value from array with relations
+// [ [value, ratio], ... ]
+util.random = function(array) {
+    var sumRation = 0;
+
+    array.forEach(function(el) {
+        sumRation += el[1];
+    });
+
+    var sum = 0;
+
+    var chanceArray = array.map(function(el) {
+        var val = el[1] / sumRation + sum;
+
+        sum = val;
+
+        return val;
+    });
+
+    var roll = Math.random();
+
+    var value = 0;
+
+    for (var i = 0; i < chanceArray.length; i++) {
+        if (roll <= chanceArray[i]) {
+            value = array[i][0];
+            break;
+        }
+    }
+
+    return value;
+};
+
 module.exports = util;

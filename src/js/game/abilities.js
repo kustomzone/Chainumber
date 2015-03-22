@@ -52,14 +52,17 @@ Abilities.prototype.checkUp = function() {
 
     var numberUp = Math.floor((this.game.score - this._lastUpAbilityScore) / this.config.abilityPerScore);
 
-    var keys = Object.keys(this._abilities);
+    var randomAbilityName, randomAbility;
 
-    var randomIndex, randomAbility;
+    var randomArray = [];
+
+    util.forEach(this.config.ability, function(el, name) {
+        randomArray.push([name, el.ratio]);
+    });
 
     for (var i = 0; i < numberUp; i++) {
-        randomIndex = Math.floor(Math.random() * keys.length);
-        randomAbility = this._abilities[keys[randomIndex]];
-
+        randomAbilityName = util.random(randomArray);
+        randomAbility = this._abilities[randomAbilityName];
         randomAbility.count++;
         randomAbility.updateCount();
     }

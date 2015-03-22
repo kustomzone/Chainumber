@@ -70,35 +70,7 @@ Block.prototype._createElement = function() {
 };
 
 Block.prototype._setRandomValue = function() {
-    var summRation = 0;
-    var possibleValues = this.config.numbers.possibleValues;
-
-    possibleValues.forEach(function(el) {
-        summRation += el[1];
-    });
-
-    var summ = 0;
-
-    var chanceArray = possibleValues.map(function(el) {
-        var val = el[1] / summRation + summ;
-
-        summ = val;
-
-        return val;
-    });
-
-    var roll = Math.random();
-
-    var value = 0;
-
-    for (var i = 0; i < chanceArray.length; i++) {
-        if (roll <= chanceArray[i]) {
-            value = possibleValues[i][0];
-            break;
-        }
-    }
-
-    this.value = value;
+    this.value = util.random(this.config.numbers.possibleValues);
 };
 
 Block.prototype._bindEvents = function() {
