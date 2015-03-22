@@ -1,8 +1,48 @@
 .levelMenu {
 }
 
+.levelMenu__header {
+    position: relative;
+    height: 100px;
+}
+
+.levelMenu__headerLevels {
+    position: absolute;
+    bottom: 0;
+    left: 17px;
+    color: #99b433;
+    font-weight: 700;
+    font-size: 65px;
+}
+
 .levelMenu__body {
     user-select: none;
+}
+
+.levelMenu__progress {
+    position: relative;
+    margin: 0 5px 5px 5px;
+    width: 490px;
+    height: 25px;
+    background: #d7d7d7;
+}
+
+.levelMenu__progressBar {
+    background: #99b433;
+    width: 0;
+    height: 100%;
+}
+
+.levelMenu__progressText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 25px;
+    line-height: 25px;
+    text-align: center;
+    font-weight: 700;
 }
 
 .levelMenu__levelBlock {
@@ -66,20 +106,6 @@
     left: 0;
     width: 90px;
     height: 90px;
-}
-
-.levelMenu__header {
-    position: relative;
-    height: 100px;
-}
-
-.levelMenu__headerLevels {
-    position: absolute;
-    bottom: 0;
-    left: 17px;
-    color: #99b433;
-    font-weight: 700;
-    font-size: 65px;
 }
 
 .levelMenu__footer {

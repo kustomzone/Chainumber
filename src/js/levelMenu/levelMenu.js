@@ -50,6 +50,7 @@ function LevelMenu(state) {
 
     this._createElement();
     this._bindEvents();
+    this._updateProgress();
 }
 
 LevelMenu.prototype._createElement = function() {
@@ -59,12 +60,18 @@ LevelMenu.prototype._createElement = function() {
         '<div class="levelMenu__header">' +
             '<div class="levelMenu__headerLevels">Levels:</div>' +
         '</div>' +
-        '<div class="levelMenu__body"></div>' +
+        '<div class="levelMenu__body">' +
+            '<div class="levelMenu__progress">' +
+                '<div class="levelMenu__progressBar"></div>' +
+                '<div class="levelMenu__progressText"></div>' +
+            '</div>' +
+            '<div class="levelMenu__levelList"></div>' +
+        '</div>' +
         '<div class="levelMenu__footer">' +
             '<div class="levelMenu__backButton">Back</div>' +
         '</div>';
 
-    var body = element.getElementsByClassName('levelMenu__body')[0];
+    var list = element.getElementsByClassName('levelMenu__levelList')[0];
     var fragment = document.createDocumentFragment();
 
     gameConfig.levels.forEach(function(name, i) {
@@ -75,9 +82,11 @@ LevelMenu.prototype._createElement = function() {
         fragment.appendChild(level.element);
     }, this);
 
-    body.appendChild(fragment);
+    list.appendChild(fragment);
 
     this.backButton = element.getElementsByClassName('levelMenu__backButton')[0];
+    this.progressBarElement = element.getElementsByClassName('levelMenu__progressBar')[0];
+    this.progressTextElement = element.getElementsByClassName('levelMenu__progressText')[0];
     this.element = element;
 };
 
@@ -91,12 +100,29 @@ LevelMenu.prototype.update = function() {
     util.forEach(this.levels, function(level) {
         level.update();
     }, this);
+
+    this._updateProgress();
 };
 
 LevelMenu.prototype.runLevel = function(name) {
     if (levelStore.get(name).isOpen) {
         this.state.runLevel(name);
     }
+};
+
+LevelMenu.prototype._updateProgress = function() {
+    var length = Object.keys(this.levels).length;
+    var goalsCount = 3;
+    var sum = 0;
+
+    util.forEach(this.levels, function(level) {
+        sum += level.store.currentGoal;
+    });
+
+    var progressValue = sum / (length * goalsCount);
+
+    this.progressBarElement.style.width = Math.floor(progressValue * gameConfig.progressBar.width) + 'px';
+    this.progressTextElement.innerHTML = Math.floor(progressValue * 100) + '%';
 };
 
 module.exports = LevelMenu;
