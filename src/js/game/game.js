@@ -133,6 +133,8 @@ Game.prototype.updateScore = function() {
     this._checkGoal();
 
     this.abilities.checkUp();
+
+    levelStore.saveLevels();
 };
 
 Game.prototype._checkGoal = function() {

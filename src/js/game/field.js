@@ -233,6 +233,8 @@ Field.prototype._runSelected = function() {
     this.selectedBlocks.forEach(this.blockRemove, this);
 
     this.checkPositions();
+
+    this.game.state.saveActiveLevel();
 };
 
 Field.prototype.checkPositions = function() {

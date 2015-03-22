@@ -1,6 +1,6 @@
-var util = require('./util.js');
-var saves = require('./saves.js');
 var gameConfig = require('./gameConfig.js');
+var saves = require('./saves.js');
+var util = require('./util.js');
 
 var levelConfig = config.levels;
 
@@ -23,22 +23,7 @@ function initLevels() {
         levels[name] = level;
     });
 
-    util.on(window, 'beforeunload', onCloseHandler);
-
     levelStore.checkOpenLevels();
-}
-
-function onCloseHandler() {
-    var dataToSave = {};
-
-    util.forEach(levels, function(level, name) {
-        dataToSave[name] = {
-            maxScore: level.maxScore,
-            currentGoal: level.currentGoal
-        }
-    });
-
-    saves.setLevels(dataToSave);
 }
 
 levelStore.get = function(name) {
@@ -57,6 +42,19 @@ levelStore.checkOpenLevels = function() {
 
         level.isOpen = i < openLevelsLength + gameConfig.minOpenLevels;
     });
+};
+
+levelStore.saveLevels = function() {
+    var dataToSave = {};
+
+    util.forEach(levels, function(level, name) {
+        dataToSave[name] = {
+            maxScore: level.maxScore,
+            currentGoal: level.currentGoal
+        }
+    });
+
+    saves.setLevels(dataToSave);
 };
 
 initLevels();
