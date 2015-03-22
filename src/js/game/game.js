@@ -98,6 +98,8 @@ Game.prototype.restart = function() {
     var newAbilities = new Abilities(this);
     this.abilitiesElement.replaceChild(newAbilities.element, this.abilities.element);
     this.abilities = newAbilities;
+
+    this.saveState();
 };
 
 Game.prototype._backToMenu = function() {

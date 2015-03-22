@@ -114,7 +114,7 @@ Block.prototype._bindEvents = function() {
 Block.prototype._mouseDownHandler = function(ev) {
     ev.preventDefault();
 
-    if (this.game.currentAbility) { return; }
+    if (this.game.abilities.currentAbility) { return; }
 
     this.field.blockMouseDown(this.id);
 };

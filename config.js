@@ -136,6 +136,9 @@ config = {
             ],
             ability: {
                 hammer: {
+                    count: 2
+                },
+                bomb: {
                     count: 1
                 }
             },

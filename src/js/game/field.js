@@ -234,7 +234,7 @@ Field.prototype._runSelected = function() {
 
     this.checkPositions();
 
-    this.abilities.game.saveState();
+    this.game.saveState();
 };
 
 Field.prototype.checkPositions = function() {
@@ -304,6 +304,18 @@ Field.prototype.getState = function() {
     }
 
     return state;
+};
+
+Field.prototype.getBlock = function(x, y) {
+    var rowY = this._blocksXY[x];
+
+    if (!rowY) { return null; }
+
+    var id = rowY[y];
+
+    if (!id) { return null; }
+
+    return this.blocks[id];
 };
 
 module.exports = Field;

@@ -23,7 +23,7 @@ Hammer.prototype._createElement = function() {
     element.className = 'ability__' + this.name;
 
     element.innerHTML = '<div class="ability__border"></div>' +
-                        '<div class="ability__count"></div>H';
+                        '<div class="ability__count"></div>';
 
 
     this.countElement = element.getElementsByClassName('ability__count')[0];
@@ -101,20 +101,22 @@ Hammer.prototype._fieldMouseDownHandler = function(ev) {
 
     if (!block) { return; }
 
-    this._beforeRun(block);
+    this._block = block;
+
+    this._beforeRun();
 };
 
-Hammer.prototype._fieldClickHandler = function(ev) {
-    if (!ev.target || ev.target.className !== 'block__active') { return; }
-
-    var blockId = ev.target.parentNode.getAttribute('data-id');
-    var block = this.field.blocks[blockId];
-
-    if (!block) { return; }
+Hammer.prototype._fieldClickHandler = function() {
+    if (!this._block) { return; }
 
     this._isMouseDown = false;
 
     this._run();
+
+    this.count--;
+    this.updateCount();
+
+    this.abilities.game.saveState();
 
     this.abilities.stopAbility(this.name);
 };
@@ -160,23 +162,19 @@ Hammer.prototype._fieldMouseMoveHandler = function(ev) {
     if (!block) { return; }
 
     this._afterRun();
-    this._beforeRun(block);
-};
-
-Hammer.prototype._beforeRun = function(block) {
-    util.addClass(block.element, '_targetAbility');
 
     this._block = block;
+
+    this._beforeRun();
+};
+
+Hammer.prototype._beforeRun = function() {
+    util.addClass(this._block.element, '_targetAbility');
 };
 
 Hammer.prototype._run = function() {
     this.field.blockRemove(this._block.id);
     this.field.checkPositions();
-
-    this.count--;
-    this.updateCount();
-
-    this.abilities.game.saveState();
 };
 
 Hammer.prototype._afterRun = function() {

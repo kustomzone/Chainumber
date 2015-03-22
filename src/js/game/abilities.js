@@ -63,10 +63,12 @@ Abilities.prototype.checkUp = function() {
 };
 
 Abilities.prototype.runAbility = function(name) {
-    if (this.currentAbility === null) {
-        this._abilities[name].activate();
-        this.currentAbility = name;
+    if (this.currentAbility) {
+        this._abilities[this.currentAbility].deactivate();
     }
+
+    this._abilities[name].activate();
+    this.currentAbility = name;
 };
 
 Abilities.prototype.stopAbility = function(name) {
