@@ -55,20 +55,16 @@ function LevelMenu(state) {
 LevelMenu.prototype._createElement = function() {
     var element = document.createElement('div');
     element.className = 'levelMenu';
+    element.innerHTML =
+        '<div class="levelMenu__header">' +
+            '<div class="levelMenu__headerLevels">Levels:</div>' +
+        '</div>' +
+        '<div class="levelMenu__body"></div>' +
+        '<div class="levelMenu__footer">' +
+            '<div class="levelMenu__backButton">Back</div>' +
+        '</div>';
 
-    var header = document.createElement('div');
-    header.className = 'levelMenu__header';
-    element.appendChild(header);
-
-    var levels = document.createElement('div');
-    levels.className = 'levelMenu__headerLevels';
-    levels.innerHTML = 'Levels:';
-    header.appendChild(levels);
-
-    var body = document.createElement('div');
-    body.className = 'levelMenu__body';
-    element.appendChild(body);
-
+    var body = element.getElementsByClassName('levelMenu__body')[0];
     var fragment = document.createDocumentFragment();
 
     gameConfig.levels.forEach(function(name, i) {
@@ -81,16 +77,7 @@ LevelMenu.prototype._createElement = function() {
 
     body.appendChild(fragment);
 
-    var footer = document.createElement('div');
-    footer.className = 'levelMenu__footer';
-    element.appendChild(footer);
-
-    var backButton = document.createElement('div');
-    backButton.className = 'levelMenu__backButton';
-    backButton.innerHTML = 'Back';
-    footer.appendChild(backButton);
-
-    this.backButton = backButton;
+    this.backButton = element.getElementsByClassName('levelMenu__backButton')[0];
     this.element = element;
 };
 
