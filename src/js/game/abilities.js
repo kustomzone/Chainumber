@@ -50,12 +50,19 @@ Abilities.prototype.checkUp = function() {
 
     if (this.game.score - this._lastUpAbilityScore < this.config.abilityPerScore) { return; }
 
-    var keys = Object.keys(this._abilities);
-    var randomIndex = Math.floor(Math.random() * keys.length);
-    var randomAbility = this._abilities[keys[randomIndex]];
+    var numberUp = Math.floor((this.game.score - this._lastUpAbilityScore) / this.config.abilityPerScore);
 
-    randomAbility.count++;
-    randomAbility.updateCount();
+    var keys = Object.keys(this._abilities);
+
+    var randomIndex, randomAbility;
+
+    for (var i = 0; i < numberUp; i++) {
+        randomIndex = Math.floor(Math.random() * keys.length);
+        randomAbility = this._abilities[keys[randomIndex]];
+
+        randomAbility.count++;
+        randomAbility.updateCount();
+    }
 
     this._lastUpAbilityScore = this.game.score;
 

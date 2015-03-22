@@ -6,5 +6,6 @@ module.exports = {
     5: require('./levels/2'),
     6: require('./levels/2'),
     7: require('./levels/2'),
-    8: require('./levels/2')
+    8: require('./levels/2'),
+    9: require('./levels/2'),
 };

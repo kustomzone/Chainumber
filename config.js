@@ -142,9 +142,42 @@ config = {
                     count: 1
                 }
             },
-            abilityPerScore: 500
+            abilityPerScore: 20
         },
         6: {
+            field: {
+                size: [4, 4]
+            },
+            numbers: {
+                possibleValues: [
+                    [3, 1],
+                    [5, 1],
+                    [7, 1],
+                    [105, 1],
+                    [135, 1]
+                ]
+            },
+            chain: {
+                minLength: 3
+            },
+            winConditions: [50, 100, 150],
+            goals: [
+                'Goal: 50',
+                'Next goal: 100',
+                'Last goal: 150',
+                'Achieved!'
+            ],
+            ability: {
+                hammer: {
+                    count: 3
+                },
+                bomb: {
+                    count: 3
+                }
+            },
+            abilityPerScore: 300
+        },
+        7: {
             field: {
                 size: [6, 6]
             },
@@ -169,12 +202,15 @@ config = {
             ],
             ability: {
                 hammer: {
+                    count: 2
+                },
+                bomb: {
                     count: 1
                 }
             },
             abilityPerScore: 500
         },
-        7: {
+        8: {
             field: {
                 size: [5, 5]
             },
@@ -199,12 +235,15 @@ config = {
             ],
             ability: {
                 hammer: {
+                    count: 2
+                },
+                bomb: {
                     count: 1
                 }
             },
             abilityPerScore: 500
         },
-        8: {
+        9: {
             field: {
                 size: [6, 6]
             },
@@ -228,6 +267,9 @@ config = {
             ],
             ability: {
                 hammer: {
+                    count: 2
+                },
+                bomb: {
                     count: 1
                 }
             },
