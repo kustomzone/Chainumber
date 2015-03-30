@@ -25,7 +25,7 @@ config = {
                     count: 1
                 }
             },
-            abilityPerScore: 1000
+            abilityPerScore: 10
         },
         2: {
             field: {

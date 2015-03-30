@@ -37,12 +37,16 @@ Abilities.prototype._initElements = function() {
 };
 
 Abilities.prototype._restoreData = function(data) {
+    if (!data) { return; }
+
     if (data.list) {
         util.forEach(data.list, function(abilityData, name) {
             this._abilities[name].count = abilityData.count || 0;
             this._abilities[name].updateCount();
         }, this);
     }
+
+    this._lastUpAbilityScore = data.lastUpAbilityScore || 0;
 };
 
 Abilities.prototype.checkUp = function() {
@@ -63,7 +67,7 @@ Abilities.prototype.checkUp = function() {
     for (var i = 0; i < numberUp; i++) {
         randomAbilityName = util.random(randomArray);
 
-        if (randomAbilityName) { continue; }
+        if (!randomAbilityName) { continue; }
 
         randomAbility = this._abilities[randomAbilityName];
         randomAbility.count++;
@@ -100,6 +104,8 @@ Abilities.prototype.getState = function() {
             count: ability.count
         };
     });
+
+    state.lastUpAbilityScore = this._lastUpAbilityScore;
 
     return state;
 };
