@@ -154,6 +154,7 @@ Game.prototype.updateScore = function() {
     if (this.store.maxScore < this.score) {
         this.store.maxScore = this.score;
         this.maxScoreElement.innerHTML = 'Max score: ' + this.score;
+        analytics.maxScoreUp(this.score);
     }
 
     this._checkGoal();

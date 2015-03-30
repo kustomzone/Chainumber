@@ -13,5 +13,8 @@ module.exports = {
     },
     levelRestart: function(levelName) {
         ga('send', 'event', 'game', 'level restart', String(levelName));
+    },
+    maxScoreUp: function(score) {
+        ga('send', 'event', 'game', 'max score up', String(score));
     }
 };
