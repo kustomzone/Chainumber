@@ -52,7 +52,7 @@ module.exports = {
                 count: 1
             }
         },
-        abilityPerScore: 5000
+        abilityPerScore: 3000
     },
     3: {
         field: {
