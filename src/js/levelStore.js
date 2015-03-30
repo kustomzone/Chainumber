@@ -1,8 +1,8 @@
+var levelConfig = require('./levelConfig.js');
 var gameConfig = require('./gameConfig.js');
 var saves = require('./saves.js');
 var util = require('./util.js');
 
-var levelConfig = config.levels;
 
 var levelStore = {};
 
