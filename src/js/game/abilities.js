@@ -57,11 +57,14 @@ Abilities.prototype.checkUp = function() {
     var randomArray = [];
 
     util.forEach(this.config.ability, function(el, name) {
-        randomArray.push([name, el.ratio]);
+        randomArray.push([name, el.ratio || 1]);
     });
 
     for (var i = 0; i < numberUp; i++) {
         randomAbilityName = util.random(randomArray);
+
+        if (randomAbilityName) { continue; }
+
         randomAbility = this._abilities[randomAbilityName];
         randomAbility.count++;
         randomAbility.updateCount();
