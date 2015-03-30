@@ -1,3 +1,4 @@
+var analytics = require('../analytics.js');
 var util = require('../util.js');
 
 function Hammer(name, options, abilities) {
@@ -110,6 +111,8 @@ Hammer.prototype._fieldClickHandler = function() {
     if (!this._block) { return; }
 
     this._isMouseDown = false;
+
+    analytics.abilityUsed(this.name, this._block.value);
 
     this._run();
 

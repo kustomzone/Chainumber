@@ -1,5 +1,6 @@
 var levelStore = require('../levelStore.js');
 var Abilities = require('./abilities.js');
+var analytics = require('../analytics.js');
 var Field = require('./field.js');
 var util = require('../util');
 
@@ -171,6 +172,8 @@ Game.prototype._checkGoal = function() {
         if (store.currentGoal == 1) { this._win(); }
 
         this.goalElement.innerHTML = this._getGoalText();
+
+        analytics.goalAchived(store.currentGoal);
     }
 };
 

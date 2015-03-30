@@ -1,6 +1,7 @@
 var LevelMenu = require('./levelMenu/levelMenu');
 var MainMenu = require('./mainMenu/mainMenu');
 var levelModules = require('./levelModules');
+var analytics = require('./analytics.js');
 
 var saves = require('./saves');
 var util = require('./util');
@@ -85,6 +86,8 @@ State.prototype.runLevel = function(name) {
     this._activeLevel = newLevel;
 
     this._activate(this.activeLevelElement);
+
+    analytics.levelStarted(this._activeLevel.name);
 };
 
 State.prototype.backFromLevel = function() {
@@ -94,6 +97,8 @@ State.prototype.backFromLevel = function() {
 State.prototype.resumeLevel = function() {
     if (this._activeLevel) {
         this._activate(this.activeLevelElement);
+
+        analytics.levelResumed(this._activeLevel.name);
     }
 };
 
