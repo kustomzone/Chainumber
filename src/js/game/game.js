@@ -31,7 +31,21 @@ Game.prototype._createElement = function() {
             '<div class="game__maxScore">Max score: {{maxScore}}</div>' +
             '<div class="game__goal">{{goal}}</div>' +
         '</div>' +
-        '<div class="game__body"></div>' +
+        '<div class="game__body">' +
+            '<div class="game__win">' +
+                '<div class="game__winInner">' +
+                    '<div class="game__winText">Congratulations!<br />' +
+                        'You achived first goal of this level. ' +
+                        'Return and get more scores or start the&nbsp;next level?' +
+                    '</div>' +
+                    '<div class="game__winButtons">' +
+                        '<div class="game__winReturn">Return</div>' +
+                        '<div class="game__winNext">Next</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="game__field"></div>' +
+        '</div>' +
         '<div class="game__footer">' +
             '<div class="game__abilities"></div>' +
             '<div class="game__buttons">' +
@@ -63,8 +77,11 @@ Game.prototype._createElement = function() {
     this.chainSumElement = element.getElementsByClassName('game__chainSum')[0];
     this.maxScoreElement = element.getElementsByClassName('game__maxScore')[0];
 
-    this.bodyElement = element.getElementsByClassName('game__body')[0];
-    this.bodyElement.appendChild(this.field.element);
+    this.winReturnButton = element.getElementsByClassName('game__winReturn')[0];
+    this.winNextButton = element.getElementsByClassName('game__winNext')[0];
+
+    this.fieldElement = element.getElementsByClassName('game__field')[0];
+    this.fieldElement.appendChild(this.field.element);
 
     this.element = element;
 };
@@ -73,6 +90,9 @@ Game.prototype._bindEvents = function() {
     util.on(this.restartButton, 'click', this.restart.bind(this));
     util.on(this.backButton, 'click', this._backToMenu.bind(this));
     util.on(this.nextButton, 'click', this._nextLevel.bind(this));
+
+    util.on(this.winReturnButton, 'click', this._hideWinField.bind(this));
+    util.on(this.winNextButton, 'click', this._nextLevel.bind(this));
 };
 
 Game.prototype._getGoalText = function() {
@@ -85,6 +105,7 @@ Game.prototype._getGoalText = function() {
 
 Game.prototype._nextLevel = function() {
     this.state.runLevelMenu();
+    this._hideWinField();
 };
 
 Game.prototype.restart = function() {
@@ -92,7 +113,7 @@ Game.prototype.restart = function() {
     this.scoreElement.innerHTML = 0;
 
     var newField = new Field(this);
-    this.bodyElement.replaceChild(newField.element, this.field.element);
+    this.fieldElement.replaceChild(newField.element, this.field.element);
     this.field = newField;
 
     var newAbilities = new Abilities(this);
@@ -156,6 +177,8 @@ Game.prototype._checkGoal = function() {
 Game.prototype._win = function() {
     util.addClass(this.element, '_win');
     levelStore.checkOpenLevels();
+
+    this._showWinField();
 };
 
 Game.prototype.getState = function() {
@@ -169,6 +192,14 @@ Game.prototype.getState = function() {
 
 Game.prototype.saveState = function() {
     this.state.saveActiveLevel();
+};
+
+Game.prototype._showWinField = function() {
+    util.addClass(this.element, '_showWinField');
+};
+
+Game.prototype._hideWinField = function() {
+    util.removeClass(this.element, '_showWinField');
 };
 
 module.exports = Game;

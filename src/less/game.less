@@ -61,6 +61,10 @@
     font-size: 15px;
 }
 
+.game__body {
+    position: relative;
+}
+
 .game__footer {
     margin: 15px 0 0 0;
     padding: 0 0 0 5px;
@@ -106,6 +110,79 @@
 .game__nextButton {
     .game__button();
     margin-right: 0;
+}
+
+.game__win {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: @width;
+    height: @height;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 5;
+    transition: opacity 0.3s ease-out;
+    opacity: 0;
+    visibility: hidden;
+
+    .game._showWinField & {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.game__winInner {
+    @innerWidth: 400px;
+    @innerHeight: 200px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: ceil(-@innerHeight / 2) 0 0 ceil(-@innerWidth / 2);
+    width: @innerWidth;
+    height: @innerHeight;
+    text-align: center;
+}
+
+.game__winText {
+    margin: 0 0 20px;
+    color: #000;
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 31px;
+}
+
+.game__winButtons {
+    display: inline-block;
+}
+
+.game_winButton {
+    display: inline-block;
+    margin: 0 0 5px 0;
+    user-select: none;
+    border: 4px solid #99b433;
+    background: #99b433;
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+
+    .no-touch &:hover {
+        background: #a9c534;
+        border: 4px solid #a9c534;
+    }
+}
+
+.game__winReturn {
+    .game_winButton();
+    margin-right: 10px;
+}
+
+.game__winNext {
+    .game_winButton();
 }
 
 .field {
