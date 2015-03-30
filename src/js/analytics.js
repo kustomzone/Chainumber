@@ -10,5 +10,8 @@ module.exports = {
     },
     levelResumed: function(levelName) {
         ga('send', 'event', 'game', 'level resume', String(levelName));
+    },
+    levelRestart: function(levelName) {
+        ga('send', 'event', 'game', 'level restart', String(levelName));
     }
 };

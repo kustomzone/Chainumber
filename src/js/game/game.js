@@ -122,6 +122,8 @@ Game.prototype.restart = function() {
     this.abilities = newAbilities;
 
     this.saveState();
+
+    analytics.levelRestart(this.name);
 };
 
 Game.prototype._backToMenu = function() {
