@@ -37,11 +37,11 @@ Game.prototype._createElement = function() {
                 '<div class="game__winInner">' +
                     '<div class="game__winText">Congratulations!<br />' +
                         'You achived first goal of this level. ' +
-                        'Return and get more scores or start the&nbsp;next level?' +
+                        'Continue and get more scores or return to level menu?' +
                     '</div>' +
                     '<div class="game__winButtons">' +
-                        '<div class="game__winReturn">Return</div>' +
-                        '<div class="game__winNext">Next</div>' +
+                        '<div class="game__winNext">Menu</div>' +
+                        '<div class="game__winReturn">Continue</div>' +
                     '</div>' +
                 '</div>' +
             '</div>' +
