@@ -45,4 +45,12 @@ saves.getAbilities = function() {
     return getFromLocalStorage('abilities');
 };
 
+saves.setUnitID = function(id) {
+    localStorage.setItem('unitID', id);
+};
+
+saves.getUnitID = function(id) {
+    return localStorage.getItem('unitID', id);
+};
+
 module.exports = saves;

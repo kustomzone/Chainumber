@@ -1,9 +1,12 @@
+var analytics = require('./analytics.js');
 var State = require('./state.js');
 var util = require('./util.js');
 
 if (!util.isMobile) {
     util.addClass(document.body, 'no-touch');
 }
+
+analytics.init();
 
 var html = document.getElementById('game');
 
