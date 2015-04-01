@@ -3,7 +3,7 @@ var saves = require('./saves');
 var unitID;
 
 function genUnitID() {
-    return Math.round(Math.random() * Math.pow(10, 16));
+    return Math.round(Math.random() * 1e17);
 }
 
 function initUnitID() {
@@ -22,6 +22,7 @@ module.exports = {
 
         ga('create', 'UA-61340943-1', 'auto');
         ga('set', '&uid', unitID);
+        ga('set', 'dimension1', unitID);
         ga('send', 'pageview');
     },
 
