@@ -1,3 +1,5 @@
+@size: 115px;
+
 .levelMenu {
 }
 
@@ -49,9 +51,9 @@
     position: relative;
     display: inline-block;
     margin: 5px;
-    width: 90px;
-    height: 90px;
-    line-height: 90px;
+    width: @size;
+    height: @size;
+    line-height: @size;
     font-size: 30px;
     text-align: center;
     font-weight: 700;
@@ -73,7 +75,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 90px;
+    width: @size;
 
     .levelMenu__levelBlock._open._level_0 & {
         background: #dfbb00;
@@ -84,19 +86,19 @@
     }
 
     .levelMenu__levelBlock._goal_0 & {
-        height: 20px;
+        height: ceil(@size / 9 * 2);
     }
 
     .levelMenu__levelBlock._goal_1 & {
-        height: 50px;
+        height: ceil(@size / 9 * 5);
     }
 
     .levelMenu__levelBlock._goal_2 & {
-        height: 70px;
+        height: ceil(@size / 9 * 7);
     }
 
     .levelMenu__levelBlock._goal_3 & {
-        height: 90px;
+        height: @size;
     }
 }
 
@@ -104,8 +106,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 90px;
-    height: 90px;
+    width: @size;
+    height: @size;
 }
 
 .levelMenu__footer {
