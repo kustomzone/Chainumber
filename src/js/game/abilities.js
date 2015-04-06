@@ -9,7 +9,7 @@ function Abilities(game, restoreData) {
 
     this.element = null;
     this.isEnable = false;
-    this._lastUpAbilityScore = 0;
+    this._lastUpAbilityIndex = 1;
     this._abilities = {};
     this.currentAbility = null;
 
@@ -46,15 +46,15 @@ Abilities.prototype._restoreData = function(data) {
         }, this);
     }
 
-    this._lastUpAbilityScore = data.lastUpAbilityScore || 0;
+    this._lastUpAbilityIndex = data.lastUpAbilityIndex || 1;
 };
 
 Abilities.prototype.checkUp = function() {
     if (!this.isEnable) { return; }
 
-    if (this.game.score - this._lastUpAbilityScore < this.config.abilityPerScore) { return; }
+    if (this.game.score < this.config.abilityPerScore * this._lastUpAbilityIndex) { return; }
 
-    var numberUp = Math.floor((this.game.score - this._lastUpAbilityScore) / this.config.abilityPerScore);
+    var numberUp = Math.floor(this.game.score / this.config.abilityPerScore - this._lastUpAbilityIndex + 1);
 
     var randomAbilityName, randomAbility;
 
@@ -74,7 +74,7 @@ Abilities.prototype.checkUp = function() {
         randomAbility.updateCount();
     }
 
-    this._lastUpAbilityScore = this.game.score;
+    this._lastUpAbilityIndex++;
 
     this.game.saveState();
 };
@@ -105,7 +105,7 @@ Abilities.prototype.getState = function() {
         };
     });
 
-    state.lastUpAbilityScore = this._lastUpAbilityScore;
+    state.lastUpAbilityIndex = this._lastUpAbilityIndex;
 
     return state;
 };
