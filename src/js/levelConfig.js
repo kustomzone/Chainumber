@@ -200,9 +200,9 @@ module.exports = {
         },
         winConditions: [1000, 3000, 6000],
         goals: [
-            'Goal: 11000',
-            'Next goal: 3000',
-            'Last goal: 6000',
+            'Goal: 5000',
+            'Next goal: 10000',
+            'Last goal: 20000',
             'Achieved!'
         ],
         ability: {
