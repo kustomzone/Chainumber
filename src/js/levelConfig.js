@@ -191,7 +191,7 @@ module.exports = {
         },
         numbers: {
             possibleValues: [
-                [1, 1],
+                [7, 1],
                 [5, 1]
             ]
         },
@@ -200,7 +200,7 @@ module.exports = {
         },
         winConditions: [1000, 3000, 6000],
         goals: [
-            'Goal: 1000',
+            'Goal: 11000',
             'Next goal: 3000',
             'Last goal: 6000',
             'Achieved!'
@@ -219,6 +219,6 @@ module.exports = {
                 ratio: 1
             }
         },
-        abilityPerScore: 500
+        abilityPerScore: 1000
     }
 };

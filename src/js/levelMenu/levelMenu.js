@@ -10,7 +10,7 @@ function Level(levelMenu, name, order) {
 
     this.element = document.createElement('div');
     this.element.className = 'levelMenu__levelBlock ' +
-        '_level_' + order % 2;
+        '_level_' + order % 3;
 
     var template =
         '<div class="levelMenu__levelBlockGoalState"></div>' +
