@@ -21,10 +21,19 @@ module.exports = {
         ],
         ability: {
             hammer: {
-                count: 1
+                count: 1,
+                ratio: 10
+            },
+            bomb: {
+                count: 0,
+                ratio: 1
+            },
+            lightning: {
+                count: 0,
+                ratio: 1
             }
         },
-        abilityPerScore: 1000
+        abilityPerScore: 700
     },
     2: {
         field: {
@@ -49,7 +58,16 @@ module.exports = {
         ],
         ability: {
             hammer: {
-                count: 1
+                count: 1,
+                ratio: 10
+            },
+            bomb: {
+                count: 0,
+                ratio: 1
+            },
+            lightning: {
+                count: 0,
+                ratio: 1
             }
         },
         abilityPerScore: 3000
@@ -77,10 +95,19 @@ module.exports = {
         ],
         ability: {
             hammer: {
-                count: 1
+                count: 1,
+                ratio: 5
+            },
+            bomb: {
+                count: 0,
+                ratio: 1
+            },
+            lightning: {
+                count: 0,
+                ratio: 3
             }
         },
-        abilityPerScore: 250
+        abilityPerScore: 150
     },
     4: {
         field: {
@@ -106,7 +133,16 @@ module.exports = {
         ],
         ability: {
             hammer: {
-                count: 1
+                count: 1,
+                ratio: 5
+            },
+            bomb: {
+                count: 0,
+                ratio: 1
+            },
+            lightning: {
+                count: 0,
+                ratio: 1
             }
         },
         abilityPerScore: 1000
@@ -155,37 +191,34 @@ module.exports = {
         },
         numbers: {
             possibleValues: [
-                [3, 1],
-                [5, 1],
-                [7, 1],
-                [105, 1],
-                [135, 1]
+                [1, 1],
+                [5, 1]
             ]
         },
         chain: {
             minLength: 3
         },
-        winConditions: [50, 100, 150],
+        winConditions: [1000, 3000, 6000],
         goals: [
-            'Goal: 50',
-            'Next goal: 100',
-            'Last goal: 150',
+            'Goal: 1000',
+            'Next goal: 3000',
+            'Last goal: 6000',
             'Achieved!'
         ],
         ability: {
             hammer: {
-                count: 3,
+                count: 1,
                 ratio: 5
             },
             bomb: {
-                count: 1,
-                ratio: 3
+                count: 0,
+                ratio: 1
             },
             lightning: {
-                count: 1,
-                ratio: 3
+                count: 0,
+                ratio: 1
             }
         },
-        abilityPerScore: 200
+        abilityPerScore: 500
     }
 };
