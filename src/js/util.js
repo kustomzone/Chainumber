@@ -1,30 +1,42 @@
 var util = {};
 
 util.addClass = function(el, name) {
-    var classNames = el.className.split(' ');
-    var index = classNames.indexOf(name);
+    if (el.classList !== undefined) {
+            el.classList.add(name);
+    } else {
+        var classNames = el.className.split(' ');
+        var index = classNames.indexOf(name);
 
-    if (index === -1) {
-        classNames.push(name);
-        el.className = classNames.join(' ');
+        if (index === -1) {
+            classNames.push(name);
+            el.className = classNames.join(' ');
+        }
     }
 
-    return el;
+    return this;
 };
 
 util.removeClass = function(el, name) {
-    var classNames = el.className.split(' ');
-    var index = classNames.indexOf(name);
+    if (el.classList !== undefined) {
+        el.classList.remove(name);
+    } else {
+        var classNames = el.className.split(' ');
+        var index = classNames.indexOf(name);
 
-    if (index !== -1) {
-        classNames.splice(index, 1);
-        el.className = classNames.join(' ');
+        if (index !== -1) {
+            classNames.splice(index, 1);
+            el.className = classNames.join(' ');
+        }
     }
 
-    return el;
+    return this;
 };
 
 util.hasClass = function(el, name) {
+    if (el.classList !== undefined) {
+        return el.classList.contains(name);
+    }
+
     var classNames = el.className.split(' ');
 
     return classNames.indexOf(name) != -1;
