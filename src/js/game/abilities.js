@@ -71,7 +71,7 @@ Abilities.prototype.checkUp = function() {
 
         randomAbility = this._abilities[randomAbilityName];
         randomAbility.count++;
-        randomAbility.updateCount();
+        randomAbility.updateCount(true);
     }
 
     this._lastUpAbilityIndex++;

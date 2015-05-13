@@ -23,8 +23,9 @@ Hammer.prototype._createElement = function() {
     var element = document.createElement('div');
     element.className = 'ability__' + this.name;
 
-    element.innerHTML = '<div class="ability__border"></div>' +
-                        '<div class="ability__count"></div>';
+    element.innerHTML =
+        '<div class="ability__border"></div>' +
+        '<div class="ability__count"></div>';
 
 
     this.countElement = element.getElementsByClassName('ability__count')[0];
@@ -47,14 +48,28 @@ Hammer.prototype._onClickHandler = function() {
     }
 };
 
-Hammer.prototype.updateCount = function() {
+Hammer.prototype.updateCount = function(isAnimate) {
     this.countElement.innerHTML = this.count;
 
     if (this.count == 0) {
         util.addClass(this.element, '_no-count');
     } else {
         util.removeClass(this.element, '_no-count');
+
+        if (isAnimate) {
+            this._blink();
+        }
     }
+};
+
+Hammer.prototype._blink = function() {
+    var self = this;
+
+    util.addClass(this.element, '_blink');
+
+    setTimeout(function() {
+        util.removeClass(self.element, '_blink');
+    }, 350);
 };
 
 Hammer.prototype.activate = function() {
