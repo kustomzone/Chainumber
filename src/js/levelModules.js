@@ -3,6 +3,5 @@ module.exports = {
     2: require('./levels/1'),
     3: require('./levels/1'),
     4: require('./levels/1'),
-    5: require('./levels/1'),
-    6: require('./levels/6')
+    5: require('./levels/1')
 };

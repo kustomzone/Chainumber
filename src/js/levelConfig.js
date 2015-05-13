@@ -184,41 +184,5 @@ module.exports = {
             }
         },
         abilityPerScore: 20
-    },
-    6: {
-        field: {
-            size: [4, 4]
-        },
-        numbers: {
-            possibleValues: [
-                [7, 1],
-                [5, 1]
-            ]
-        },
-        chain: {
-            minLength: 3
-        },
-        winConditions: [1000, 3000, 6000],
-        goals: [
-            'Goal: 5000',
-            'Next goal: 10000',
-            'Last goal: 20000',
-            'Achieved!'
-        ],
-        ability: {
-            hammer: {
-                count: 1,
-                ratio: 5
-            },
-            bomb: {
-                count: 0,
-                ratio: 1
-            },
-            lightning: {
-                count: 0,
-                ratio: 1
-            }
-        },
-        abilityPerScore: 1000
     }
 };

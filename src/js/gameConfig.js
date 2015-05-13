@@ -10,6 +10,6 @@ module.exports = {
     progressBar: {
         width: 490
     },
-    levels: [1, 2, 3, 4, 5, 6],
+    levels: [1, 2, 3, 4, 5],
     minOpenLevels: 5
 };
