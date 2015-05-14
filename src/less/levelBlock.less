@@ -1,0 +1,61 @@
+@size: 115px;
+
+.levelBlock {
+    position: relative;
+    display: inline-block;
+    margin: 5px;
+    width: @size;
+    height: @size;
+    text-align: center;
+    font-weight: 700;
+    background: #a0a0a0;
+    color: #585858;
+
+    &._open {
+        color: #000;
+        cursor: pointer;
+        background: #d7d7d7;
+    }
+
+    .no-touch &._open:hover {
+        opacity: 0.8;
+    }
+
+    &._open._level_0 {
+        background: #dfbb00;
+    }
+
+    &._open._level_1 {
+        background: #007cb4;
+    }
+
+    &._open._level_2 {
+        background: #3da339;
+    }
+}
+
+.levelBlock__goal {
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    width: @size;
+    font-size: 13px;
+}
+
+.levelBlock__score {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: @size;
+    font-size: 13px;
+}
+
+.levelBlock__text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: @size;
+    height: @size - 10;
+    font-size: 45px;
+    line-height: @size - 10;
+}

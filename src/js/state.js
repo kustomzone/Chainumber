@@ -1,4 +1,3 @@
-var LevelMenu = require('./levelMenu/levelMenu');
 var MainMenu = require('./mainMenu/mainMenu');
 var levelModules = require('./levelModules');
 var analytics = require('./analytics.js');
@@ -10,7 +9,6 @@ function State() {
     this._activeElement = null;
     this._activeLevel = null;
 
-    this.levelMenu = new LevelMenu(this);
     this.mainMenu = new MainMenu(this);
 
     this._createElement();
@@ -32,14 +30,10 @@ State.prototype._createElement = function() {
     this.element.className = 'state';
     this.element.innerHTML =
         '<div class="state__mainMenu"></div>' +
-        '<div class="state__levelMenu"></div>' +
         '<div class="state__activeLevel"></div>';
 
     this.mainMenuElement = this.element.getElementsByClassName('state__mainMenu')[0];
     this.mainMenuElement.appendChild(this.mainMenu.element);
-
-    this.levelMenuElement = this.element.getElementsByClassName('state__levelMenu')[0];
-    this.levelMenuElement.appendChild(this.levelMenu.element);
 
     this.activeLevelElement = this.element.getElementsByClassName('state__activeLevel')[0];
 };
@@ -59,12 +53,12 @@ State.prototype._activate = function(element) {
 
     util.addClass(element, '_showed');
     this._activeElement = element;
-};
+};/*
 
 State.prototype.runLevelMenu = function() {
     this.levelMenu.update();
     this._activate(this.levelMenuElement);
-};
+};*/
 
 State.prototype.runMainMenu = function() {
     this._activate(this.mainMenuElement);

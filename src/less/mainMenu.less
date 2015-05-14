@@ -1,6 +1,4 @@
-.mainMenu {
-
-}
+.mainMenu {}
 
 .mainMenu__header {
     position: relative;
@@ -10,70 +8,76 @@
 .mainMenu__title {
     position: absolute;
     bottom: 0;
-    left: 17px;
+    left: 15px;
     color: #99b433;
     font-weight: 700;
-    font-size: 65px;
+    font-size: 70px;
 }
 
-.mainMenu__body {
-    padding: 0 5px;
-}
-
-.mainMenu__button(@color, @hoverColor) {
-    border: 10px solid @color;
-    user-select: none;
-    margin: 0 0 20px;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100px;
-    line-height: 80px;
-    font-size: 50px;
+.mainMenu__version {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
     font-weight: 700;
+    color: #99b433;
+}
+
+.mainMenu__body {}
+
+.mainMenu__progress {
+    position: relative;
+    margin: 0 5px 5px 5px;
+    width: 490px;
+    height: 25px;
+    background: #d7d7d7;
+}
+
+.mainMenu__progressBar {
+    background: #DA532C;
+    width: 0;
+    height: 100%;
+}
+
+.mainMenu__progressText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    line-height: 25px;
     text-align: center;
-    cursor: pointer;
-    background: @color;
-    color: #fff;
-
-    .no-touch &:hover {
-        border: 10px solid @hoverColor;
-        background: @hoverColor;
-    }
-}
-
-.mainMenu__newGame {
-    .mainMenu__button(#DA532C, #d96b52);
-}
-
-.mainMenu__resumeGame {
-    .mainMenu__button(#9b9b9b, #9b9b9b);
-    cursor: default;
-
-    .no-touch &:hover {
-        border: 10px solid #9b9b9b;
-        background: #9b9b9b;
-    }
-
-    .mainMenu._activeLevel & {
-        border: 10px solid #2C89A0;
-        background: #2C89A0;
-        cursor: pointer;
-
-        .no-touch &:hover {
-            border: 10px solid #31a2ba;
-            background: #31a2ba;
-        }
-    }
+    font-weight: 700;
 }
 
 .mainMenu__footer {
     position: relative;
     margin: 15px 0 0 0;
+    text-align: right;
 }
 
-.mainMenu__version {
-    position: absolute;
-    top: 0;
-    right: 5px;
+.mainMenu__resumeGame {
+    display: none;
+    margin: 0 5px 5px 5px;
+    user-select: none;
+    border: 4px solid #99b433;
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 30px;
+    text-align: center;
     font-weight: 700;
+    color: #fff;
+    background: #99b433;
+    cursor: pointer;
+
+    .no-touch &:hover {
+        background: #a9c534;
+        border: 4px solid #a9c534;
+    }
+
+    .mainMenu._activeLevel & {
+        display: inline-block;
+
+    }
 }

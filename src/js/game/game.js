@@ -40,7 +40,6 @@ Game.prototype._createElement = function() {
                         'Continue and get more scores or return to level menu?' +
                     '</div>' +
                     '<div class="game__winButtons">' +
-                        '<div class="game__winNext">Menu</div>' +
                         '<div class="game__winReturn">Continue</div>' +
                     '</div>' +
                 '</div>' +
@@ -50,9 +49,8 @@ Game.prototype._createElement = function() {
         '<div class="game__footer">' +
             '<div class="game__abilities"></div>' +
             '<div class="game__buttons">' +
-                '<div class="game__backButton">Menu</div>' +
+                '<div class="game__backButton">Back</div>' +
                 '<div class="game__restartButton">Restart</div>' +
-                '<div class="game__nextButton">Next</div>' +
             '</div>' +
         '</div>';
 
@@ -68,7 +66,6 @@ Game.prototype._createElement = function() {
 
     this.backButton = element.getElementsByClassName('game__backButton')[0];
     this.restartButton = element.getElementsByClassName('game__restartButton')[0];
-    this.nextButton = element.getElementsByClassName('game__nextButton')[0];
 
     this.abilitiesElement = element.getElementsByClassName('game__abilities')[0];
     this.abilitiesElement.appendChild(this.abilities.element);
@@ -79,7 +76,6 @@ Game.prototype._createElement = function() {
     this.maxScoreElement = element.getElementsByClassName('game__maxScore')[0];
 
     this.winReturnButton = element.getElementsByClassName('game__winReturn')[0];
-    this.winNextButton = element.getElementsByClassName('game__winNext')[0];
 
     this.fieldElement = element.getElementsByClassName('game__field')[0];
     this.fieldElement.appendChild(this.field.element);
@@ -90,10 +86,8 @@ Game.prototype._createElement = function() {
 Game.prototype._bindEvents = function() {
     util.on(this.restartButton, 'click', this.restart.bind(this));
     util.on(this.backButton, 'click', this._backToMenu.bind(this));
-    util.on(this.nextButton, 'click', this._nextLevel.bind(this));
 
     util.on(this.winReturnButton, 'click', this._hideWinField.bind(this));
-    util.on(this.winNextButton, 'click', this._nextLevel.bind(this));
 };
 
 Game.prototype._getGoalText = function() {
@@ -102,11 +96,6 @@ Game.prototype._getGoalText = function() {
     }
 
     return '';
-};
-
-Game.prototype._nextLevel = function() {
-    this.state.runLevelMenu();
-    this._hideWinField();
 };
 
 Game.prototype.restart = function() {
