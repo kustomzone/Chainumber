@@ -49,8 +49,17 @@ saves.setUnitID = function(id) {
     localStorage.setItem('unitID', id);
 };
 
-saves.getUnitID = function(id) {
-    return localStorage.getItem('unitID', id);
+saves.getUnitID = function() {
+    return localStorage.getItem('unitID');
+};
+
+saves.isFirstGame = function() {
+    if (localStorage.getItem('isFirstGame') == null) {
+        localStorage.setItem('isFirstGame', '1');
+        return true;
+    }
+
+    return false;
 };
 
 module.exports = saves;

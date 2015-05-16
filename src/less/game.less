@@ -109,7 +109,7 @@
     .game__button();
 }
 
-.game__win {
+.game__message {
     position: absolute;
     top: 0;
     left: 0;
@@ -120,27 +120,24 @@
     transition: opacity 0.3s ease-out;
     opacity: 0;
     visibility: hidden;
+    line-height: @height;
+    text-align: center;
 
-    .game._showWinField & {
+    &._active {
         opacity: 1;
         visibility: visible;
     }
 }
 
-.game__winInner {
-    @innerWidth: 400px;
-    @innerHeight: 200px;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: ceil(-@innerHeight / 2) 0 0 ceil(-@innerWidth / 2);
-    width: @innerWidth;
-    height: @innerHeight;
+.game__messageInner {
+    display: inline-block;
+    width: @width - 100;
     text-align: center;
+    line-height: normal;
+    vertical-align: middle;
 }
 
-.game__winText {
+.game__messageText {
     margin: 0 0 20px;
     color: #000;
     font-weight: 700;
@@ -148,11 +145,11 @@
     line-height: 31px;
 }
 
-.game__winButtons {
+.game__messageButtons {
     display: inline-block;
 }
 
-.game_winButton {
+.game_messageButton {
     display: inline-block;
     margin: 0 0 5px 0;
     user-select: none;
@@ -173,8 +170,8 @@
     }
 }
 
-.game__winReturn {
-    .game_winButton();
+.game__messageReturn {
+    .game_messageButton();
 }
 
 .field {

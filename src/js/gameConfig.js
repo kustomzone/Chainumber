@@ -11,5 +11,9 @@ module.exports = {
         width: 490
     },
     levels: [1, 2, 3, 4, 5],
-    minOpenLevels: 5
+    minOpenLevels: 5,
+
+    message: {
+        first: 'Join three or more blocks with equal numbers to get points'
+    }
 };

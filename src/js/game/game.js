@@ -1,7 +1,9 @@
 var levelStore = require('../levelStore');
-var Abilities = require('./abilities');
+var gameConfig = require('../gameConfig');
 var analytics = require('../analytics');
+var Abilities = require('./abilities');
 var Field = require('./field');
+var saves = require('../saves');
 var util = require('../util');
 
 function Game(name, state, restoreData) {
@@ -18,6 +20,7 @@ function Game(name, state, restoreData) {
 
     this._createElement();
     this._bindEvents();
+    this._checkFirst();
 }
 
 Game.prototype._createElement = function() {
@@ -33,14 +36,11 @@ Game.prototype._createElement = function() {
             '<div class="game__goal">{{goal}}</div>' +
         '</div>' +
         '<div class="game__body">' +
-            '<div class="game__win">' +
-                '<div class="game__winInner">' +
-                    '<div class="game__winText">Congratulations!<br />' +
-                        'You achived first goal of this level. ' +
-                        'Continue and get more scores or return to level menu?' +
-                    '</div>' +
-                    '<div class="game__winButtons">' +
-                        '<div class="game__winReturn">Continue</div>' +
+            '<div class="game__message">' +
+                '<div class="game__messageInner">' +
+                    '<div class="game__messageText"></div>' +
+                    '<div class="game__messageButtons">' +
+                        '<div class="game__messageReturn">Continue</div>' +
                     '</div>' +
                 '</div>' +
             '</div>' +
@@ -60,10 +60,6 @@ Game.prototype._createElement = function() {
         .replace('{{name}}', this.name)
         .replace('{{maxScore}}', this.store.maxScore);
 
-    if (this.store.currentGoal > 0) {
-        util.addClass(element, '_win');
-    }
-
     this.backButton = element.getElementsByClassName('game__backButton')[0];
     this.restartButton = element.getElementsByClassName('game__restartButton')[0];
 
@@ -75,7 +71,9 @@ Game.prototype._createElement = function() {
     this.chainSumElement = element.getElementsByClassName('game__chainSum')[0];
     this.maxScoreElement = element.getElementsByClassName('game__maxScore')[0];
 
-    this.winReturnButton = element.getElementsByClassName('game__winReturn')[0];
+    this.messageElement = element.getElementsByClassName('game__message')[0];
+    this.messageTextElement = element.getElementsByClassName('game__messageText')[0];
+    this.messageReturnButton = element.getElementsByClassName('game__messageReturn')[0];
 
     this.fieldElement = element.getElementsByClassName('game__field')[0];
     this.fieldElement.appendChild(this.field.element);
@@ -86,8 +84,13 @@ Game.prototype._createElement = function() {
 Game.prototype._bindEvents = function() {
     util.on(this.restartButton, 'click', this.restart.bind(this));
     util.on(this.backButton, 'click', this._backToMenu.bind(this));
+    util.on(this.messageReturnButton, 'click', this._hideMessage.bind(this));
+};
 
-    util.on(this.winReturnButton, 'click', this._hideWinField.bind(this));
+Game.prototype._checkFirst = function() {
+    if (saves.isFirstGame()) {
+        this.showMessage(gameConfig.message.first);
+    }
 };
 
 Game.prototype._getGoalText = function() {
@@ -170,11 +173,7 @@ Game.prototype._checkGoal = function() {
 };
 
 Game.prototype._win = function() {
-    util.addClass(this.element, '_win');
-
     levelStore.checkOpenLevels();
-
-    this._showWinField();
 };
 
 Game.prototype.getState = function() {
@@ -190,12 +189,13 @@ Game.prototype.saveState = function() {
     this.state.saveActiveLevel();
 };
 
-Game.prototype._showWinField = function() {
-    util.addClass(this.element, '_showWinField');
+Game.prototype.showMessage = function(text) {
+    this.messageTextElement.innerHTML = text;
+    util.addClass(this.messageElement, '_active');
 };
 
-Game.prototype._hideWinField = function() {
-    util.removeClass(this.element, '_showWinField');
+Game.prototype._hideMessage = function() {
+    util.removeClass(this.messageElement, '_active');
 };
 
 module.exports = Game;
