@@ -171,6 +171,7 @@ Game.prototype._checkGoal = function() {
 
 Game.prototype._win = function() {
     util.addClass(this.element, '_win');
+
     levelStore.checkOpenLevels();
 
     this._showWinField();

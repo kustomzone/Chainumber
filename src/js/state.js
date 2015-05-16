@@ -53,14 +53,9 @@ State.prototype._activate = function(element) {
 
     util.addClass(element, '_showed');
     this._activeElement = element;
-};/*
-
-State.prototype.runLevelMenu = function() {
-    this.levelMenu.update();
-    this._activate(this.levelMenuElement);
-};*/
-
+};
 State.prototype.runMainMenu = function() {
+    this.mainMenu.update();
     this._activate(this.mainMenuElement);
 };
 
