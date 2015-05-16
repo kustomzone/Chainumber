@@ -122,4 +122,39 @@ util.random = function(array) {
     return value;
 };
 
+var ua = navigator.userAgent.toLowerCase(),
+    docEl = document.documentElement,
+
+    ie = 'ActiveXObject' in window,
+    android23 = ua.search('android [23]') !== -1,
+
+    ie3d = ie && ('transition' in docEl.style),
+    webkit3d = ('WebKitCSSMatrix' in window) && ('m11' in new window.WebKitCSSMatrix()) && !android23,
+    gecko3d = 'MozPerspective' in docEl.style,
+
+    supportsTransition3d = ie3d || webkit3d || gecko3d;
+
+function testProps(props) {
+    var style = document.documentElement.style;
+
+    for (var i = 0; i < props.length; i++) {
+        if (props[i] in style) {
+            return props[i];
+        }
+    }
+
+    return false;
+}
+
+var TRANSFORM = testProps(['transform', 'WebkitTransform', 'OTransform', 'MozTransform', 'msTransform']);
+
+util.setPosition = function(el, point) {
+    if (supportsTransition3d) {
+        el.style[TRANSFORM] = 'translate3d(' + point[0] + 'px,' + point[1] + 'px' + ',0)';
+    } else {
+        el.style.left = point[0] + 'px';
+        el.style.top = point[1] + 'px';
+    }
+};
+
 module.exports = util;

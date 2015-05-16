@@ -38,9 +38,10 @@ Block.prototype._createElement = function() {
     var element = document.createElement('div');
     element.className = 'block';
 
-    element.style.transform = 'translate3d(' +
-        Math.floor(this.x * this.width) + 'px,' +
-        Math.floor(this.fieldHeight - (this.y + 1) * this.height) + 'px,0)';
+    util.setPosition(element, [
+        Math.floor(this.x * this.width),
+        Math.floor(this.fieldHeight - (this.y + 1) * this.height)
+    ]);
 
     element.setAttribute('data-id', this.id);
 
@@ -105,9 +106,10 @@ Block.prototype.changePosition = function(x, y) {
     this.x = x;
     this.y = y;
 
-    this.element.style.transform = 'translate3d(' +
-        Math.floor(this.x * this.width) + 'px,' +
-        Math.floor(this.fieldHeight - (this.y + 1) * this.height) + 'px,0)';
+    util.setPosition(this.element, [
+        this.x * this.width,
+        this.fieldHeight - (this.y + 1) * this.height
+    ]);
 };
 
 Block.prototype._updateColors = function() {
