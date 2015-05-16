@@ -1,4 +1,5 @@
 @size: 115px;
+@sizePoints: 13px;
 
 .levelBlock {
     position: relative;
@@ -22,11 +23,11 @@
     }
 
     &._open._level_0 {
-        background: #dfbb00;
+        background: #dec02c;
     }
 
     &._open._level_1 {
-        background: #007cb4;
+        background: #2488b3;
     }
 
     &._open._level_2 {
@@ -36,18 +37,40 @@
 
 .levelBlock__goal {
     position: absolute;
-    bottom: 1px;
+    bottom: 10px;
     left: 0;
     width: @size;
-    font-size: 13px;
+    height: @sizePoints;
+    text-align: center;
+}
+.levelBlock__goalPoint {
+    display: inline-block;
+    margin: 0 6px;
+    width: @sizePoints;
+    height: @sizePoints;
+    background: rgba(255, 255, 255, 0.4);
+
+    .levelBlock._open._level_0 &._active {
+        background: #af7f00;
+    }
+
+    .levelBlock._open._level_1 &._active {
+        background: #005a91;
+    }
+
+    .levelBlock._open._level_2 &._active {
+        background: #1d7a16;
+    }
 }
 
 .levelBlock__score {
+    display: none;
     position: absolute;
-    bottom: 15px;
+    top: 10px;
     left: 0;
     width: @size;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .levelBlock__text {
@@ -55,7 +78,7 @@
     top: 0;
     left: 0;
     width: @size;
-    height: @size - 10;
-    font-size: 45px;
-    line-height: @size - 10;
+    height: @size;
+    font-size: 40px;
+    line-height: @size;
 }

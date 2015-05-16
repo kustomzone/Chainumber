@@ -22,11 +22,11 @@ Menu.prototype._createElement = function() {
             '<div class="mainMenu__version">v0.0.1</div>' +
         '</div>' +
         '<div class="mainMenu__body">' +
+            '<div class="mainMenu__levelList"></div>' +
             '<div class="mainMenu__progress">' +
                 '<div class="mainMenu__progressBar"></div>' +
                 '<div class="mainMenu__progressText"></div>' +
             '</div>' +
-            '<div class="mainMenu__levelList"></div>' +
         '</div>' +
         '<div class="mainMenu__footer">' +
         '<div class="mainMenu__resumeGame">Resume</div>' +

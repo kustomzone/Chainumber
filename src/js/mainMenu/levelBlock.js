@@ -13,12 +13,16 @@ function LevelBlock(levelMenu, name, order) {
     var template =
         '<div class="levelBlock__score"></div>' +
         '<div class="levelBlock__text">{{name}}</div>' +
-        '<div class="levelBlock__goal"></div>';
+        '<div class="levelBlock__goal">' +
+            '<div class="levelBlock__goalPoint"></div>' +
+            '<div class="levelBlock__goalPoint"></div>' +
+            '<div class="levelBlock__goalPoint"></div>' +
+        '</div>';
 
     this.element.innerHTML = template.replace('{{name}}', name);
 
     this.scoreElement = this.element.getElementsByClassName('levelBlock__score')[0];
-    this.goalElement = this.element.getElementsByClassName('levelBlock__goal')[0];
+    this.goalElements = this.element.getElementsByClassName('levelBlock__goalPoint');
 
     this.isOpen = false;
 
@@ -30,7 +34,14 @@ LevelBlock.prototype._onClick = function() {
 };
 
 LevelBlock.prototype.update = function() {
-    this.goalElement.innerHTML = 'Goals: ' + this.store.currentGoal + ' / 3';
+    for (var i = 0; i < this.goalElements.length; i++) {
+        if (i + 1 <= this.store.currentGoal) {
+            util.addClass(this.goalElements[i], '_active');
+        } else {
+            util.removeClass(this.goalElements[i], '_active');
+        }
+    }
+
     this.scoreElement.innerHTML = 'Score: ' + this.store.maxScore;
 
     var newIsOpen = this.store.isOpen;
