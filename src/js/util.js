@@ -60,15 +60,7 @@ util.off = function(node, type, callback, useCapture) {
     node.removeEventListener(type, callback, useCapture);
 };
 
-
-// Seem legit
-var isMobile = ('DeviceOrientationEvent' in window || 'orientation' in window);
-// But with my Chrome on windows, DeviceOrientationEvent == fct()
-if (/Windows NT|Macintosh|Mac OS X|Linux/i.test(navigator.userAgent)) isMobile = false;
-// My android have "linux" too
-if (/Mobile/i.test(navigator.userAgent)) isMobile = true;
-
-util.isMobile = isMobile;
+util.isMobile = 'ontouchstart' in window || (window.DocumentTouch && document instanceof window.DocumentTouch);
 
 util.rgbSum = function(arr) {
     //[{rgb, ratio}, ...]

@@ -1,11 +1,9 @@
-var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 var watchify = require('watchify');
 var util = require('gulp-util');
-var pipe = require('multipipe');
 var gulpif = require('gulp-if');
 var gulp = require('gulp');
 
@@ -23,13 +21,7 @@ gulp.task('js', function() {
             .on('error', util.log.bind(util, 'Browserify Error'))
             .pipe(source(config.js.name))
             .pipe(buffer())
-            .pipe(gulpif(env.debug,
-                pipe(
-                    sourcemaps.init({loadMaps: true}),
-                    sourcemaps.write()
-                ),
-                uglify())
-            )
+            .pipe(gulpif(!env.debug, uglify()))
             .pipe(gulp.dest(config.js.dist));
     }
 
