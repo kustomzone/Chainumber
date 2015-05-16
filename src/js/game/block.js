@@ -1,6 +1,6 @@
-var gameConfig = require('../gameConfig.js');
-var colors = require('./colors.js');
-var util = require('../util.js');
+var gameConfig = require('../gameConfig');
+var colors = require('./colors');
+var util = require('../util');
 
 var primeNumbers = [1, 2, 3, 5, 7, 11, 13];
 

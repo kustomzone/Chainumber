@@ -1,5 +1,5 @@
-var Hammer = require('./hammer.js');
-var util = require('../util.js');
+var Hammer = require('./hammer');
+var util = require('../util');
 
 function Bomb(name, options, abilities) {
     this._targets = [];

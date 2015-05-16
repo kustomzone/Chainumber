@@ -1,6 +1,6 @@
 var MainMenu = require('./mainMenu/mainMenu');
 var levelModules = require('./levelModules');
-var analytics = require('./analytics.js');
+var analytics = require('./analytics');
 
 var saves = require('./saves');
 var util = require('./util');

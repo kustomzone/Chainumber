@@ -1,7 +1,7 @@
-var gameConfig = require('../gameConfig.js');
-var levelStore = require('../levelStore.js');
+var gameConfig = require('../gameConfig');
+var levelStore = require('../levelStore');
 var LevelBlock = require('./levelBlock');
-var util = require('../util.js');
+var util = require('../util');
 
 function Menu(state) {
     this.state = state;

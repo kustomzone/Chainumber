@@ -1,7 +1,7 @@
-var levelStore = require('../levelStore.js');
-var Abilities = require('./abilities.js');
-var analytics = require('../analytics.js');
-var Field = require('./field.js');
+var levelStore = require('../levelStore');
+var Abilities = require('./abilities');
+var analytics = require('../analytics');
+var Field = require('./field');
 var util = require('../util');
 
 function Game(name, state, restoreData) {

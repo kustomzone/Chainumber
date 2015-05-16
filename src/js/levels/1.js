@@ -1,1 +1,1 @@
-module.exports = require('../game/game.js');
+module.exports = require('../game/game');

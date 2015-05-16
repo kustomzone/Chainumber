@@ -1,5 +1,5 @@
-var analytics = require('../analytics.js');
-var util = require('../util.js');
+var analytics = require('../analytics');
+var util = require('../util');
 
 function Hammer(name, options, abilities) {
     this.name = name;

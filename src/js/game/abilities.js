@@ -1,5 +1,5 @@
-var abilityModules = require('../abilityModules.js');
-var util = require('../util.js');
+var abilityModules = require('../abilityModules');
+var util = require('../util');
 
 function Abilities(game, restoreData) {
     restoreData = restoreData || {};

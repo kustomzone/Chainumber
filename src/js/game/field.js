@@ -1,4 +1,4 @@
-var Block = require('./block.js');
+var Block = require('./block');
 var util = require('../util');
 var gameConfig = require('../gameConfig');
 

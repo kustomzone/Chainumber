@@ -1,5 +1,5 @@
 module.exports = {
-    hammer: require('./abilities/hammer.js'),
-    bomb: require('./abilities/bomb.js'),
-    lightning: require('./abilities/lightning.js')
+    hammer: require('./abilities/hammer'),
+    bomb: require('./abilities/bomb'),
+    lightning: require('./abilities/lightning')
 };

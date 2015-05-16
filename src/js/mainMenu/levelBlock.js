@@ -1,5 +1,5 @@
-var levelStore = require('../levelStore.js');
-var util = require('../util.js');
+var levelStore = require('../levelStore');
+var util = require('../util');
 
 function LevelBlock(levelMenu, name, order) {
     this.levelMenu = levelMenu;
