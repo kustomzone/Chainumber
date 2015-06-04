@@ -188,17 +188,22 @@ Hammer.prototype._fieldMouseMoveHandler = function(ev) {
 
 Hammer.prototype._beforeRun = function() {
     util.addClass(this._block.element, '_targetAbility');
+    this.abilities.game.updateChainSum(this._block.value);
 };
 
 Hammer.prototype._run = function() {
     this.field.blockRemove(this._block.id);
     this.field.checkPositions();
+
+    this.abilities.game.upScore(this._block.value);
+    this.abilities.game.updateChainSum();
 };
 
 Hammer.prototype._afterRun = function() {
     if (this._block) {
         util.removeClass(this._block.element, '_targetAbility');
     }
+    this.abilities.game.updateChainSum();
 };
 
 module.exports = Hammer;

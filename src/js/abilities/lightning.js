@@ -12,13 +12,17 @@ Lightning.prototype.constructor = Lightning;
 
 Lightning.prototype._beforeRun = function() {
     var value = this._block.value;
+    var sum = 0;
 
     util.forEach(this.field.blocks, function(bl) {
         if (bl.value === value) {
             this._targets.push(bl);
             util.addClass(bl.element, '_targetAbility');
+            sum += value;
         }
     }, this);
+
+    this.abilities.game.updateChainSum(sum);
 };
 
 Lightning.prototype._run = function() {
@@ -27,6 +31,8 @@ Lightning.prototype._run = function() {
     }, this);
 
     this.field.checkPositions();
+    this.abilities.game.upScore(this._targets[0].value * this._targets.length);
+    this.abilities.game.updateChainSum();
 };
 
 Lightning.prototype._afterRun = function() {
@@ -37,6 +43,7 @@ Lightning.prototype._afterRun = function() {
     });
 
     this._targets = [];
+    this.abilities.game.updateChainSum();
 };
 
 module.exports = Lightning;

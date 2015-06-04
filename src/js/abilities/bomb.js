@@ -44,20 +44,37 @@ Bomb.prototype._beforeRun = function() {
 
     // right
     this._addTarget(x + 1, y);
+
+    var sum = 0;
+
+    this._targets.forEach(function(block) {
+        sum += block.value;
+    }, this);
+
+    this.abilities.game.updateChainSum(sum);
 };
 
 Bomb.prototype._run = function() {
+    var score = 0;
+
     this._targets.forEach(function(block) {
         this.field.blockRemove(block.id);
+        score += block.value;
     }, this);
 
     this.field.checkPositions();
+
+    this.abilities.game.upScore(score);
+
+    this.abilities.game.updateChainSum();
 };
 
 Bomb.prototype._afterRun = function() {
     if (!this._block) { return; }
 
     this._removeTargets();
+
+    this.abilities.game.updateChainSum();
 };
 
 module.exports = Bomb;

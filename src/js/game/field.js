@@ -118,6 +118,16 @@ Field.prototype._touchMoveHandler = function(ev) {
     }
 };
 
+Field.prototype._updateGameChainSum = function() {
+    if (!this.selectedMode) {
+        this.game.updateChainSum();
+        return;
+    }
+
+    var blockValue = this.blocks[this.selectedBlocks[0]].value || 0;
+    this.game.updateChainSum(blockValue * this.selectedBlocks.length);
+};
+
 Field.prototype._mouseUpHandler = function() {
     if (!this.selectedMode) { return; }
 
@@ -129,7 +139,7 @@ Field.prototype._mouseUpHandler = function() {
         block.unselect();
     });
 
-    this.game.updateChainSum();
+    this._updateGameChainSum();
 
     this._clearPath();
 };
@@ -140,7 +150,7 @@ Field.prototype.blockMouseDown = function(id) {
 
     this.blocks[id].select();
 
-    this.game.updateChainSum();
+    this._updateGameChainSum();
 };
 
 Field.prototype._checkWithLast = function(id) {
@@ -162,7 +172,7 @@ Field.prototype.blockMouseOver = function(id) {
             selBlocks.push(id);
             this.blocks[id].select();
 
-            this.game.updateChainSum();
+            this._updateGameChainSum();
             this._updatePath();
         }
     } else {
@@ -170,7 +180,7 @@ Field.prototype.blockMouseOver = function(id) {
             var lastBlId = selBlocks.pop();
             this.blocks[lastBlId].unselect();
 
-            this.game.updateChainSum();
+            this._updateGameChainSum();
             this._updatePath();
         }
     }
@@ -222,7 +232,9 @@ Field.prototype.blockRemove = function(id) {
 Field.prototype._runSelected = function() {
     if (this.selectedBlocks.length < this.config.chain.minLength) { return; }
 
-    this.game.updateScore();
+    var blockValue = this.blocks[this.selectedBlocks[0]].value || 0;
+    var k = 1 + 0.2 * (this.selectedBlocks.length - 3);
+    this.game.upScore(blockValue * this.selectedBlocks.length * k);
 
     var lastBlId = this.selectedBlocks.pop();
     var lastBl = this.blocks[lastBlId];
