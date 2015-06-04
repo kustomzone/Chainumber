@@ -122,7 +122,7 @@ Block.prototype._updateColors = function() {
             if (this.value % primeNumbers[i] === 0) {
                 primeArray.push({
                     value: primeNumbers[i],
-                    rgb: colors[i].rgb,
+                    hsl: colors[i].hsl,
                     ratio: this.value / primeNumbers[i]
                 });
             }
@@ -131,12 +131,12 @@ Block.prototype._updateColors = function() {
         var color;
 
         if (primeArray.length) {
-            color = util.rgbSum(primeArray);
+            color = util.hslSum(primeArray);
         } else {
-            color = colors[0].rgb;
+            color = colors[0].hsl;
         }
 
-        colorsCache[this.value] = 'rgb(' + color.join(',') + ')';
+        colorsCache[this.value] = 'hsl(' + color[0] + ',' + color[1] * 100 + '%,' + color[2] * 100 + '%)';
     }
 
     this.innerElement.style.backgroundColor = colorsCache[this.value];

@@ -62,32 +62,28 @@ util.off = function(node, type, callback, useCapture) {
 
 util.isMobile = 'ontouchstart' in window || (window.DocumentTouch && document instanceof window.DocumentTouch);
 
-util.rgbSum = function(arr) {
-    //[{rgb, ratio}, ...]
-
-    var sum = [0, 0, 0];
+util.hslSum = function(arr) {
+    //[{hsl, ratio}, ...]
+    var hsl = [0, 0, 0];
     var n = 0;
-    var el, i, j;
+    var i, j;
 
     for (i = 0; i < arr.length; i++) {
-        el = arr[i];
-
         for (j = 0; j < 3; j++) {
-            sum[j] += el.rgb[j] * el.ratio;
+            hsl[j] += arr[i].hsl[j] * arr[i].ratio;
         }
 
-        n += el.ratio;
+        n += arr[i].ratio;
     }
 
-    for (j = 0; j < 3; j++) {
-        sum[j] = Math.floor(sum[j] / n);
-    }
+    hsl[0] %= 360;
+    hsl[1] = Math.max(Math.min(hsl[1] / n, 0.7), 0.2);
+    hsl[2] = Math.max(Math.min(hsl[2] / n, 0.9), 0.1);
 
-    return sum;
+    return hsl;
 };
 
 util.nullFn = function() {};
-
 
 // get random value from array with relations
 // [ [value, ratio], ... ]
