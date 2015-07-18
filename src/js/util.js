@@ -69,7 +69,8 @@ util.hslSum = function(arr) {
     var i, j;
 
     for (i = 0; i < arr.length; i++) {
-        for (j = 0; j < 3; j++) {
+        hsl[0] += arr[i].hsl[0] + 12 * arr[i].ratio;
+        for (j = 1; j < 3; j++) {
             hsl[j] += arr[i].hsl[j] * arr[i].ratio;
         }
 

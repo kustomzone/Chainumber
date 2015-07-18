@@ -10,7 +10,7 @@
             display: inline-block;
             width: 350px;
 
-            vertical-align: middle;
+            vertical-align: top;
         }
 
         .prime {
@@ -34,8 +34,11 @@
             margin: 0 0 0 10px;
         }
 
-        .allComplex {
+        .numers {
             display: inline-block;
+        }
+
+        .allComplex {
             width: 500px;
         }
 
@@ -51,82 +54,215 @@
             line-height: 50px;
         }
 
+        .allPowers {
+            width: 500px;
+        }
+
+        .powersRow {
+            display: block;
+            height: 60px;
+        }
+
+        .powers {
+            margin: 0 10px 10px 0;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+            font-size: 10px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 50px;
+        }
+
         #saveText {
             margin: 10px 0 0 0;
             width: 500px;
             height: 150px;
+        }
+
+        #script {
+            margin: 10px 0 0 0;
+            width: 500px;
+            height: 550px;
         }
     </style>
 </head>
 <body>
     <div id="colors">
         <div id="prime" class="allPrime"></div>
-        <div id="complex" class="allComplex"></div>
+        <div class="numers">
+            <div id="complex" class="allComplex"></div>
+            <div id="powers" class="allPowers"></div>
+        </div>
     </div>
+    <script>
+        /*
+            //[{hsl, ratio}, ...]
+    var hsl = [0, 0, 0];
+    var n = 0;
+    var i, j;
+
+    var rgbs = [];
+
+    for (i = 0; i < arr.length; i++) {
+        var h = arr[i].hsl[0] + 10 * arr[i].ratio;
+        h %= 360;
+
+        rgbs.push(hslToRgb([h, arr[i].hsl[1], arr[i].hsl[2]]));
+    }
+
+    var sum = [0, 0, 0];
+
+    for (i = 0; i < rgbs.length; i++) {
+        for (j = 0; j < 3; j++) {
+            sum[j] += rgbs[i][j];
+        }
+
+        n += 1;
+    }
+
+    for (j = 0; j < 3; j++) {
+        sum[j] = Math.floor(sum[j] / n);
+    }
+
+    return sum;
+        */
+    </script>
+    <textarea id="script">
+function(arr) {
+    //[{hsl, ratio}, ...]
+    var hsl = [0, 0, 0];
+    var n = 0;
+    var i, j;
+
+    for (i = 0; i < arr.length; i++) {
+        var h = arr[i].hsl[0] + 12 * arr[i].ratio;
+
+        h += distHue(
+
+        for (j = 1; j < 3; j++) {
+            hsl[j] += arr[i].hsl[j] * arr[i].ratio;
+        }
+
+        n += arr[i].ratio;
+    }
+
+    hsl[0] %= 360;
+    hsl[1] = Math.max(Math.min(hsl[1] / n, 0.7), 0.2);
+    hsl[2] = Math.max(Math.min(hsl[2] / n, 0.9), 0.1);
+
+    return hsl;
+}
+    </textarea>
     <textarea id="saveText"></textarea>
     <script>
         var colors = [
             {
                 web: '#99b433',
-                rgb: [154, 180, 51]
+                rgb: [154, 180, 51],
+                hsl: [72.09302, 0.55844, 0.45294]
             }, {
                 web: '#DA532C',
-                rgb: [218, 83, 44]
+                rgb: [218, 83, 44],
+                hsl: [13.44827, 0.70161, 0.51372]
             }, {
                 web: '#1e7145',
-                rgb: [30, 113, 69]
+                rgb: [30, 113, 69],
+                hsl: [148.19277, 0.58041, 0.28039]
             }, {
                 web: '#2C89A0',
-                rgb: [44, 137, 160]
+                rgb: [44, 137, 160],
+                hsl: [191.89655, 0.56862, 0.4]
             }, {
                 web: '#00AA88',
-                rgb: [0, 170, 136]
+                rgb: [0, 170, 136],
+                hsl: [168, 1, 0.33333]
             }, {
                 web: '#00d455',
-                rgb: [0, 212, 85]
+                rgb: [0, 212, 85],
+                hsl: [144.05660, 1, 0.41568]
             }, {
                 web: '#ff2a2a',
-                rgb: [255, 42, 42]
+                rgb: [255, 42, 42],
+                hsl: [1, 1, 0.58235]
             }, {
                 web: '#CB5000',
-                rgb: [203, 80, 0]
+                rgb: [203, 80, 0],
+                hsl: [23.64532, 1, 0.39803]
             }
         ];
 
-        var util = {};
-
-        util.rgbSum = function(arr) {
-            //[{rgb, ratio}, ...]
-
-            var sum = [0, 0, 0];
-            var n = 0;
-            var el, i, j;
-
-            for (i = 0; i < arr.length; i++) {
-                el = arr[i];
-
-                for (j = 0; j < 3; j++) {
-                    sum[j] += el.rgb[j] * el.ratio;
-                }
-
-                n += el.ratio;
+        function distHue(a, b) {
+            if (a > b) {
+                var t = a;
+                a = b;
+                b = t;
             }
 
-            for (j = 0; j < 3; j++) {
-                sum[j] = Math.floor(sum[j] / n);
+            return Math.min(b - a, a + 360 - b);
+        }
+
+        function hslToRgb(hsl) {
+            var h = hsl[0];
+            var s = hsl[1];
+            var l = hsl[2];
+            var m1,
+                    m2;
+
+            /* Some simple corrections for h, s and l. */
+            h = isNaN(h) ? 0 : (h %= 360) < 0 ? h + 360 : h;
+            s = isNaN(s) ? 0 : s < 0 ? 0 : s > 1 ? 1 : s;
+            l = l < 0 ? 0 : l > 1 ? 1 : l;
+
+            /* From FvD 13.37, CSS Color Module Level 3 */
+            m2 = l <= .5 ? l * (1 + s) : l + s - l * s;
+            m1 = 2 * l - m2;
+
+            function v(h) {
+                if (h > 360) { h -= 360; }
+                else if (h < 0) { h += 360; }
+                if (h < 60) { return m1 + (m2 - m1) * h / 60; }
+                if (h < 180) { return m2; }
+                if (h < 240) { return m1 + (m2 - m1) * (240 - h) / 60; }
+                return m1;
             }
 
-            return sum;
-        };
+            function vv(h) {
+                return Math.round(v(h) * 255);
+            }
+
+            return [vv(h + 120), vv(h), vv(h - 120)];
+        }
 
         var colorsHtml = document.getElementById('colors');
         var complexHtml = document.getElementById('complex');
         var primeHtml = document.getElementById('prime');
+        var powersHtml = document.getElementById('powers');
 
         var saveText = document.getElementById('saveText');
+        var script = document.getElementById('script');
 
         var primeNumbers = [1, 2, 3, 5, 7, 11, 13];
         var primeElements = {};
+
+        script.onchange = function() {
+            updateColors();
+        };
+
+        function getScript(arr) {
+            var convert = eval('(function() { return ' + script.value + '})()');
+
+            return convert(arr);
+        }
+
+        function getBgColor(color) {
+            return 'hsl(' + color[0] + ',' + color[1] * 100 + '%,' + color[2] * 100 + '%)';
+        }
+
+        function getRBgColor(color) {
+            return 'rgb(' + color.join(',') + ')';
+        }
 
         function createAllPrime() {
             primeNumbers.forEach(function(number, i) {
@@ -135,19 +271,19 @@
 
                 var block = document.createElement('div');
                 block.className = 'prime__block';
-                block.style.backgroundColor = 'rgb(' + colors[i].rgb.join(',') + ')';
+                block.style.backgroundColor = getBgColor(colors[i].hsl);
                 block.innerHTML = number;
                 element.appendChild(block);
 
                 var input = document.createElement('input');
                 input.className = 'prime__input';
                 input.setAttribute('type', 'text');
-                input.value = colors[i].rgb.join(',');
+                input.value = colors[i].hsl.join(',');
                 input.onchange = function() {
                     var value = input.value.replace(' ', '').trim();
 
-                    colors[i].rgb = value.split(',');
-                    block.style.backgroundColor = 'rgb(' + colors[i].rgb.join(',') + ')';
+                    colors[i].hsl = value.split(',');
+                    block.style.backgroundColor = getBgColor(colors[i].hsl);
 
                     updateColors();
                 };
@@ -186,24 +322,66 @@
         }
 
         createAllComplex();
+
+        var powersNumbers = [];
+
+        function createAllPowerPrime() {
+            for (var k = 0; k < drawPrime.length; k++) {
+                var element = document.createElement('div');
+                element.className = 'powersRow';
+                powersHtml.appendChild(element);
+
+                for (var i = 1; i < 6; i++) {
+                    createPowerPrime(k, i, element);
+                }
+            }
+        }
+
+        function createPowerPrime(k, power, container) {
+            var element = document.createElement('div');
+            element.className = 'powers';
+            element.innerHTML = Math.pow(drawPrime[k], power);
+
+            container.appendChild(element);
+
+            powersNumbers.push({
+                k: k,
+                power: power,
+                element: element
+            });
+        }
+
+        createAllPowerPrime();
+
         updateColors();
 
 
         function updateColors() {
             complexNubmers.forEach(function(el) {
                 var a = {
-                    rgb: colors[el.a + 1].rgb,
+                    hsl: colors[el.a + 1].hsl,
                     ratio: 1
                 };
 
                 var b = {
-                    rgb: colors[el.b + 1].rgb,
+                    hsl: colors[el.b + 1].hsl,
                     ratio: 1
                 };
 
-                var color = util.rgbSum([a, b]);
+                var color = getScript([a, b]);
 
-                el.element.style.backgroundColor = 'rgb(' + color.join(',') + ')';
+                el.element.style.backgroundColor = getBgColor(color);
+            });
+
+            powersNumbers.forEach(function(el) {
+                var a = {
+                    hsl: colors[el.k + 1].hsl,
+                    ratio: el.power
+                };
+
+                var color = getScript([a]);
+
+                el.element.style.backgroundColor = getBgColor(color);
             });
 
             saveText.innerHTML = JSON.stringify(colors);
